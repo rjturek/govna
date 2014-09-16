@@ -8,5 +8,6 @@ repositories {
 dependencies {
     compile 'com.gmongo:gmongo:1.0'
     compile 'org.slf4j:slf4j-api:1.7.5'
+    compile 'org.jboss.resteasy:resteasy-jaxrs-all:3.0.8.Final'
     testCompile "junit:junit:4.11"
 }
