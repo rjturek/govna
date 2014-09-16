@@ -1,9 +1,9 @@
 
 //@Grab(group='com.gmongo', module='gmongo', version='1.0')
 
-package com.rjturek.amp.guvna.main
+package com.rjturek.amp.govna.main
 
-import com.rjturek.amp.guvna.db.MongoData
+import com.rjturek.amp.govna.db.MongoData
 
 class Main {
 

@@ -1,6 +1,6 @@
 //http://blog.paulopoiati.com/2010/06/20/gmongo-0-5-released/
 
-package com.rjturek.amp.guvna.db
+package com.rjturek.amp.govna.db
 
 import com.gmongo.GMongo
 
@@ -12,7 +12,7 @@ class MongoData {
     // ctor
     def MongoData() {
         mongo = new GMongo("fedora", 27017)
-        db = mongo.getDB("guvna")
+        db = mongo.getDB("govna")
     }
 
 
