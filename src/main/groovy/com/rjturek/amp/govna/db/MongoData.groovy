@@ -1,4 +1,4 @@
-//http://blog.paulopoiati.com/2010/06/20/gmongo-0-5-released/
+// see http://blog.paulopoiati.com/2010/06/20/gmongo-0-5-released/
 
 package com.rjturek.amp.govna.db
 
@@ -15,7 +15,6 @@ class MongoData {
         db = mongo.getDB("govna")
     }
 
-
     def Object getMne(String mne) {
 
         // Collections can be accessed as a db property (like the javascript API)
@@ -29,7 +28,4 @@ class MongoData {
         // Finding the first document
         return db.mnemonic.find([_id: mne])
     }
-
-
-
 }

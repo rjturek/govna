@@ -5,10 +5,21 @@ repositories {
     mavenCentral()
 }
 
+def v = [
+        jetty: '9.2.2.v20140723',
+        spock: '0.6-groovy-1.8'
+    ]
+
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.3.6'
+    compile 'org.eclipse.jetty:jetty-parent:23'
     compile 'com.gmongo:gmongo:1.0'
     compile 'org.slf4j:slf4j-api:1.7.5'
     compile 'org.jboss.resteasy:resteasy-jaxrs-all:3.0.8.Final'
-    testCompile "junit:junit:4.11"
+    compile 'org.jboss.resteasy:resteasy-jackson-provider:3.0.3.Final'
+    compile group: 'org.eclipse.jetty', name: 'jetty-webapp',version: v.jetty
+    compile group: 'org.eclipse.jetty', name: 'jetty-plus', version: v.jetty
+    runtime group: 'org.eclipse.jetty', name: 'jetty-jsp', version: v.jetty
+    compile group: 'org.eclipse.jetty', name: 'jetty-annotations', version: v.jetty
+    testCompile group: 'org.spockframework', name: 'spock-core', version: v.spock
 }
