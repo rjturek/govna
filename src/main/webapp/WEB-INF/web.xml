@@ -2,15 +2,15 @@
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
-    <display-name>jetty-rest-demo</display-name>
+    <display-name>Govna</display-name>
     <context-param>
         <param-name>log4jConfigLocation</param-name>
         <param-value>classpath:log4j.properties</param-value>
     </context-param>
     <listener>
-        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+        <listener-class>com.rjturek.amp.govna.jettyserver.AppListener</listener-class>
     </listener>
-    <servlet>
+    <!--servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
@@ -18,5 +18,5 @@
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/*</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping-->
 </web-app>
