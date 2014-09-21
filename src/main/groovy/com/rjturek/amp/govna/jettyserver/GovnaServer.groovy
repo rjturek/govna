@@ -9,17 +9,18 @@ class GovnaServer {
 
         println "..... Starting Govna Server"
 
-        Server server = new Server(8080);
+        Server server = new Server(8080)
 
-        WebAppContext context = new WebAppContext();
-//        context.setDescriptor("../WEB-INF/web.xml");
-//        context.setResourceBase("../src/webapp");
-//        context.setContextPath("/");
-//        context.setParentLoaderPriority(true);
+        WebAppContext context = new WebAppContext()
+        context.setDescriptor("src/main/webapp/WEB-INF/web.xml")
+        context.setResourceBase("src/main/webapp")
+        context.setContextPath("/")
+        context.setParentLoaderPriority(true)
 
+        server.setHandler(context)
 
-
-        server.setHandler(context);
+        println new File(context.descriptor).getAbsolutePath()
+        println new File(".").getAbsolutePath()
 
         server.start();
         server.join();
