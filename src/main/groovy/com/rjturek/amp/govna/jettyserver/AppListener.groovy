@@ -7,6 +7,7 @@ class AppListener implements ServletContextListener{
 
     void contextInitialized(ServletContextEvent sce) {
         println "Initialized ${sce.dump()}"
+        println AppListener.classLoader.dump()
     }
 
     void contextDestroyed(ServletContextEvent sce) {

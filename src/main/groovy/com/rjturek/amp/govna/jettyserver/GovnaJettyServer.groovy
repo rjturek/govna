@@ -3,7 +3,7 @@ package com.rjturek.amp.govna.jettyserver
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.webapp.WebAppContext
 
-class GovnaServer {
+class GovnaJettyServer {
 
     public static void main(String[] args) throws Exception {
 

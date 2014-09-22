@@ -13,14 +13,21 @@ def v = [
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.3.6'
-    compile 'org.eclipse.jetty:jetty-parent:23'
+
+    compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
+
     compile 'com.gmongo:gmongo:1.0'
+
     compile 'org.slf4j:slf4j-api:1.7.5'
+    compile 'org.slf4j:slf4j-simple:1.7.5'
+
     compile 'org.jboss.resteasy:resteasy-jaxrs-all:3.0.8.Final'
     compile 'org.jboss.resteasy:resteasy-jackson-provider:3.0.3.Final'
+
     compile group: 'org.eclipse.jetty', name: 'jetty-webapp',version: v.jetty
     compile group: 'org.eclipse.jetty', name: 'jetty-plus', version: v.jetty
     runtime group: 'org.eclipse.jetty', name: 'jetty-jsp', version: v.jetty
     compile group: 'org.eclipse.jetty', name: 'jetty-annotations', version: v.jetty
+
     testCompile group: 'org.spockframework', name: 'spock-core', version: v.spock
 }

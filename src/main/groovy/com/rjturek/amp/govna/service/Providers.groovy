@@ -5,22 +5,22 @@ import javax.ws.rs.Path
 import javax.ws.rs.PathParam
 
 @Path("/*")
-class Consumers {
+class Providers {
 
     @GET
     public String hello() {
-        return "hello"
+        return "wah"
     }
 
     @GET
-    @Path("/consumer")
-    public String getConsumers() {
-        return "here are some consumers"
+    @Path("/provider")
+    public String getProviders() {
+        return "here are some providers"
     }
 
     @GET
-    @Path("/consumer/group/{groupId}")
+    @Path("/providers/group/{groupId}")
     public String getGroup(@PathParam("group") String id) {
-        return "here is goupd $id stuff"
+        return "here is goupd $id stuff - provider"
     }
 }
