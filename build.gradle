@@ -21,8 +21,7 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.5'
     compile 'org.slf4j:slf4j-simple:1.7.5'
 
-    compile 'org.jboss.resteasy:resteasy-jaxrs-all:3.0.8.Final'
-    compile 'org.jboss.resteasy:resteasy-jackson-provider:3.0.3.Final'
+    compile fileTree(dir:'/Users/rjt/Downloads/resteasy-jaxrs-3.0.9.Final/lib', include:'*.jar')
 
     compile group: 'org.eclipse.jetty', name: 'jetty-webapp',version: v.jetty
     compile group: 'org.eclipse.jetty', name: 'jetty-plus', version: v.jetty
