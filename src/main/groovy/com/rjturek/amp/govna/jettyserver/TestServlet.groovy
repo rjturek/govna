@@ -6,6 +6,10 @@ import javax.servlet.http.HttpServletResponse
 
 class TestServlet extends HttpServlet{
     public void doGet(HttpServletRequest req, HttpServletResponse resp){
-        resp.outputStream << "hey"
+        def ver = "version " +
+                    req.session.servletContext.effectiveMajorVersion +
+                    " " +
+                    req.session.servletContext.effectiveMinorVersion
+        resp.outputStream << ver
     }
 }
