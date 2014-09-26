@@ -1,5 +1,6 @@
 package com.rjturek.amp.govna.jettyserver
 
+
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -7,13 +8,13 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
-class GovnaJettyServer {
+class AnuthaMain {
 
     private static final int DEFAULT_PORT = 8080;
 
     private int serverPort;
 
-    public GovnaJettyServer(int serverPort) throws Exception {
+    public AnuthaMain(int serverPort) throws Exception {
         this.serverPort = serverPort;
 
         Server server = configureServer();
@@ -52,6 +53,6 @@ class GovnaJettyServer {
             }
         }
 
-        new GovnaJettyServer(serverPort);
+        new AnuthaMain(serverPort);
     }
 }

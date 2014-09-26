@@ -31,6 +31,7 @@ dependencies {
     //compile fileTree(dir:'/Users/rjt/Downloads/resteasy-jaxrs-3.0.9.Final/lib', include:'*.jar')
 
     compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.12'
+    compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.12'
 
     testCompile group: 'org.spockframework', name: 'spock-core', version: v.spock
 }

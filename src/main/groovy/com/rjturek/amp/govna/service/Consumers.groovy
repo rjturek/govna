@@ -4,7 +4,7 @@ import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.PathParam
 
-@Path("/*")
+@Path("/api")
 class Consumers {
 
     @GET
@@ -20,7 +20,7 @@ class Consumers {
 
     @GET
     @Path("/consumer/group/{groupId}")
-    public String getGroup(@PathParam("group") String id) {
-        return "here is goupd $id stuff"
+    public String getGroup(@PathParam("groupId") String id) {
+        return "here is group $id stuff"
     }
 }
