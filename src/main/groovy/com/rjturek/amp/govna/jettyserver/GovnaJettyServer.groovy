@@ -28,14 +28,13 @@ class GovnaJettyServer {
         resourceConfig.register(JacksonFeature.class);
 
         ServletContainer servletContainer = new ServletContainer(resourceConfig);
+
         ServletHolder sh = new ServletHolder(servletContainer);
+        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        context.setContextPath("/");
+        context.addServlet(sh, "/*");
 
         Server server = new Server(serverPort);
-        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-
-        context.setContextPath("/");
-
-        context.addServlet(sh, "/*");
         server.setHandler(context);
 
         return server;
