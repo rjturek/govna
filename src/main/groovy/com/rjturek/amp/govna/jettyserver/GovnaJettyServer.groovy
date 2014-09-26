@@ -34,6 +34,7 @@ class GovnaJettyServer {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
         context.setContextPath("/");
+
         context.addServlet(sh, "/*");
         server.setHandler(context);
 
