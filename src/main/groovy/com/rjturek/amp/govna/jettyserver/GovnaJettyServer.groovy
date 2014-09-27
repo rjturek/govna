@@ -52,8 +52,6 @@ class GovnaJettyServer {
         def handlers = [servletContext, webAppContext] as Handler[]
         contexts.setHandlers(handlers)
 
-//      server.setHandler(servletContext);
-//      server.setHandler(webAppContext);
         server.setHandler(contexts);
 
         return server;

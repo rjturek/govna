@@ -11,21 +11,16 @@ class MongoData {
 
     // ctor
     def MongoData() {
-        mongo = new GMongo("fedora", 27017)
+        mongo = new GMongo("localhost", 27017)
         db = mongo.getDB("govna")
     }
 
-    def Object getMne(String mne) {
-
-        // Collections can be accessed as a db property (like the javascript API)
-        // assert db.mmnemonic instanceof com.mongodb.DBCollection
-        // They also can be accessed with array notation 
-        // assert db['mnemonic'] instanceof com.mongodb.DBCollection
+    def Object getGroups() {
 
         // Insert a document
         //db.mnemonic.insert([_id: 'nne'])
 
         // Finding the first document
-        return db.mnemonic.find([_id: mne])
+        return db.groups.find(_id: 'com.trp.amp.app')
     }
 }

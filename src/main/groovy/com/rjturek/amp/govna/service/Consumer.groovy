@@ -20,8 +20,8 @@ class Consumer {
     @GET
     @Path("group")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getConsumers() {
-        return "here are some consumers"
+    public Map getConsumers() {
+        return ["message": "here are some consumers"]
     }
 
     @GET
