@@ -8,8 +8,8 @@ import javax.ws.rs.PathParam
 import javax.ws.rs.Produces
 import javax.ws.rs.core.MediaType
 
-@Path("/api")
-class Consumers {
+@Path("/consumer")
+class Consumer {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -18,14 +18,14 @@ class Consumers {
     }
 
     @GET
-    @Path("/consumer")
+    @Path("group")
     @Produces(MediaType.APPLICATION_JSON)
     public String getConsumers() {
         return "here are some consumers"
     }
 
     @GET
-    @Path("/consumer/group/{groupId}")
+    @Path("group/{groupId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Group getGroup(@PathParam("groupId") String id) {
         Group group = new Group()

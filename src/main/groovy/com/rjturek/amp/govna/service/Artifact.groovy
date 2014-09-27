@@ -4,8 +4,8 @@ import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.PathParam
 
-@Path("/goo")
-class Providers {
+@Path("/artifact")
+class Artifact {
 
     @GET
     public String hello() {
@@ -13,14 +13,14 @@ class Providers {
     }
 
     @GET
-    @Path("/provider")
+    @Path("")
     public String getProviders() {
         return "here are some providers"
     }
 
     @GET
-    @Path("/providers/group/{groupId}")
-    public String getGroup(@PathParam("group") String id) {
+    @Path("group:{groupId}")
+    public String getGroup(@PathParam("groupId") String id) {
         return "here is goupd $id stuff - provider"
     }
 }
