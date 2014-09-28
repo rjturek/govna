@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Hey There</title>
+<html ng-app="govna">
+
+<head>
+    <meta charset="utf-8" />
+    <title>'Ello Govna</title>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <link rel="stylesheet" href="app.css" />
+    <script data-require="angular.js@1.2.x" src="https://code.angularjs.org/1.2.25/angular.js" data-semver="1.2.25"></script>
+    <script data-require="angular-ui@*" data-semver="0.4.0" src="http://rawgithub.com/angular-ui/angular-ui/master/build/angular-ui.js"></script>
+    <script src="app.js"></script>
 </head>
-<body>
-Hey Now
+
+<body ng-controller="MainCtrl">
+<p>Hello {{name}}!</p>
 </body>
+
 </html>

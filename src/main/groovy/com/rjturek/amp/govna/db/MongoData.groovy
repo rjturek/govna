@@ -16,11 +16,24 @@ class MongoData {
     }
 
     def Object getGroups() {
+        def groups = db.groups.find()
+        List groupArr = []
+        groups.each {
+            groupArr.add(it)
+        }
+        groupArr
+    }
 
-        // Insert a document
-        //db.mnemonic.insert([_id: 'nne'])
+    def Object getGroup(groupId) {
+        def groupCursor = db.groups.find(_id: groupId)
+        if (!groupCursor.hasNext()) {
+            return null
+        }
+        def group = groupCursor.next()
 
-        // Finding the first document
-        return db.groups.find(_id: 'com.trp.amp.app')
+        // group is the unique key, there should never be more than one found.
+        assert !groupCursor.hasNext()
+
+        return group
     }
 }
