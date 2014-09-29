@@ -14,7 +14,7 @@ class Consumer {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String hello() {
-        return "hello stinkypuss"
+        return "hello stizzle gronk"
     }
 
     @GET
