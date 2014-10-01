@@ -1,5 +1,6 @@
 package com.rjturek.amp.govna.jettyserver
 
+import com.rjturek.amp.govna.filter.CorsResponseFilter
 import com.rjturek.amp.govna.service.Consumer
 import org.eclipse.jetty.server.Handler
 import org.eclipse.jetty.server.Server
@@ -30,6 +31,7 @@ class GovnaJettyServer {
         ResourceConfig resourceConfig = new ResourceConfig()
         resourceConfig.packages(Consumer.class.getPackage().getName())
         resourceConfig.register(JacksonFeature.class)
+        resourceConfig.register(CorsResponseFilter.class)
 
         ServletContainer servletContainer = new ServletContainer(resourceConfig)
 

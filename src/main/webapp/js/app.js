@@ -1,3 +1,4 @@
+//var app = angular.module('govna', ['ui.bootstrap']);
 var app = angular.module('govna', []);
 
 app.controller('MainCtrl', function($scope, $http) {
@@ -13,7 +14,7 @@ app.controller('MainCtrl', function($scope, $http) {
 
 //    console.log("somedidlything")
 
-    $http.get("api/consumer")
+    $http.get("http://localhost:8080/api/consumer")
         .then(function(response){
         $scope.resp = response.data;
     })

@@ -26,7 +26,7 @@ body {
     font-size:14px;
     line-height: 1.88889;
     color: #555753;
-    background: #F2F2F2 url(images/mustmono.png) no-repeat top right;
+    background: #F2F2F2 url(../images/mustmono.png) no-repeat top right;
     margin: 50;
     padding: 0;
 }
@@ -76,8 +76,9 @@ abbr {
 }
 
 header h1 {
-    background: transparent url(h1.gif) no-repeat top left;
     margin-top: 10px;
+    background-color: rgba(209, 100, 62, 0.37);
+    text-align: center;
     display: block;
     width: 219px;
     height: 87px;
