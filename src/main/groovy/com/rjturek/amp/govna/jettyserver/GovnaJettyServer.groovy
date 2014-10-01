@@ -27,18 +27,20 @@ class GovnaJettyServer {
     }
 
     private Server configureServer() {
-
         ResourceConfig resourceConfig = new ResourceConfig()
+        // Tell where components to be scanned live.  Consumer class will yield the package containing all the
+        // service classes
         resourceConfig.packages(Consumer.class.getPackage().getName())
-        resourceConfig.register(JacksonFeature.class)
-        resourceConfig.register(CorsResponseFilter.class)
+        // Register components
+        resourceConfig.register(JacksonFeature.class)  // For JSON rendering
+        resourceConfig.register(CorsResponseFilter.class) // Response Filter to set cross-origin header
 
         ServletContainer servletContainer = new ServletContainer(resourceConfig)
 
         ServletHolder sh = new ServletHolder(servletContainer)
 
         ServletContextHandler servletContext = new ServletContextHandler(ServletContextHandler.SESSIONS)
-        servletContext.setContextPath("/api")
+        servletContext.setContextPath("/api")  // All services are under /api
         servletContext.addServlet(sh, "/*")
 
         // Web App Context using web.xml
