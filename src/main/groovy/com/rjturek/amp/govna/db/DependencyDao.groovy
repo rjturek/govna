@@ -4,24 +4,24 @@ package com.rjturek.amp.govna.db
 
 import com.gmongo.GMongo
 
-class MongoData {
+class DependencyDao {
 
     GMongo mongo 
     def db
 
     // ctor
-    def MongoData() {
+    def DependencyDao() {
         mongo = new GMongo("localhost", 27017)
         db = mongo.getDB("govna")
     }
 
     def Object getGroups() {
         def groups = db.groups.find()
-        List groupArr = []
+        List groupList = []
         groups.each {
-            groupArr.add(it)
+            groupList.add(it)
         }
-        groupArr
+        groupList
     }
 
     def Object getGroup(groupId) {
@@ -35,5 +35,9 @@ class MongoData {
         assert !groupCursor.hasNext()
 
         return group
+    }
+
+    def Object insertGroup(group) {
+        db.groups.insert(group)
     }
 }

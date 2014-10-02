@@ -1,6 +1,6 @@
 package com.rjturek.amp.govna.service
 
-import com.rjturek.amp.govna.dataobj.Group
+import com.rjturek.amp.govna.dataobj.DependencyGroup
 
 import javax.ws.rs.GET
 import javax.ws.rs.Path
@@ -8,8 +8,8 @@ import javax.ws.rs.PathParam
 import javax.ws.rs.Produces
 import javax.ws.rs.core.MediaType
 
-@Path("/consumer")
-class Consumer {
+@Path("/dependency")
+class DependencyGroup {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -27,9 +27,20 @@ class Consumer {
     @GET
     @Path("group/{groupId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Group getGroup(@PathParam("groupId") String id) {
-        Group group = new Group()
+    public DependencyGroup getGroup(@PathParam("groupId") String id) {
+        DependencyGroup group = new com.rjturek.amp.govna.dataobj.DependencyGroup()
         group.groupName = id
         return group
     }
+
+    @POST
+    @Path("group/{groupId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public DependencyGroup insertGroup(@PathParam("groupId") String id) {
+        DependencyGroup group = new com.rjturek.amp.govna.dataobj.DependencyGroup()
+        group.groupName = id
+        return group
+    }
+
+
 }
