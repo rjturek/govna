@@ -1,8 +1,13 @@
 package com.rjturek.amp.govna.service
 
-import com.rjturek.amp.govna.dataobj.GroupRestrictions
+/*
+ * Built in jetty server for govna application
+ */
+
+import com.rjturek.amp.govna.dataobj.DependencyGroup
 import com.rjturek.amp.govna.dataobj.Restriction
 import com.rjturek.amp.govna.db.DependencyDao
+import groovy.json.JsonBuilder
 
 import javax.ws.rs.GET
 import javax.ws.rs.PUT
@@ -26,7 +31,7 @@ class DependencyService {
     @GET
     @Path("group/{groupName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public GroupRestrictions getGroup(@PathParam("groupName") String groupName) {
+    public DependencyGroup getGroup(@PathParam("groupName") String groupName) {
         return groupName
     }
 
@@ -35,7 +40,7 @@ class DependencyService {
     @Produces(MediaType.APPLICATION_JSON)
     public Object insertGroup(@PathParam("groupName") String groupName) {
 
-        GroupRestrictions group = new GroupRestrictions()
+        DependencyGroup group = new DependencyGroup()
         group.groupName = groupName
         Restriction restriction = new Restriction()
         restriction.isDeprecated = false
