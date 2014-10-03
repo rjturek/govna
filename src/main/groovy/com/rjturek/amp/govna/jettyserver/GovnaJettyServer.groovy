@@ -1,5 +1,8 @@
 package com.rjturek.amp.govna.jettyserver
 
+/**
+ * Comment in Govna Jetty Server
+ */
 import com.rjturek.amp.govna.filter.CorsResponseFilter
 import com.rjturek.amp.govna.service.DependencyService
 import org.eclipse.jetty.server.Handler

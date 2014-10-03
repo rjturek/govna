@@ -1,9 +1,5 @@
 package com.rjturek.amp.govna.service
 
-/*
- * Built in jetty server for govna application
- */
-
 import com.rjturek.amp.govna.dataobj.DependencyGroup
 import com.rjturek.amp.govna.dataobj.Restriction
 import com.rjturek.amp.govna.db.DependencyDao
