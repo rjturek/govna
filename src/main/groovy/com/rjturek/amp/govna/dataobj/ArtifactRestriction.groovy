@@ -1,6 +1,6 @@
 package com.rjturek.amp.govna.dataobj
 
-class Artifact {
+class ArtifactRestriction {
     String artifactId
     Restriction restriction
 }

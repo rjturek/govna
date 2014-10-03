@@ -1,6 +1,6 @@
 package com.rjturek.amp.govna.dataobj
 
-class Version {
+class VersionRestriction {
     String versionLow
     String versionHigh
     Restriction restriction
