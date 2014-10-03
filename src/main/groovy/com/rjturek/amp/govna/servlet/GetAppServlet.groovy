@@ -12,6 +12,7 @@ public class GetAppServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
         response.outputStream << "Here, we will set up the user session and serve up the UI"
     }
 

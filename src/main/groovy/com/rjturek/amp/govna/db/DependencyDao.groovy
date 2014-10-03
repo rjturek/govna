@@ -24,8 +24,8 @@ class DependencyDao {
         groupList
     }
 
-    def Object getGroup(groupId) {
-        def groupCursor = db.groups.find(_id: groupId)
+    def Object getGroup(groupName) {
+        def groupCursor = db.groups.find(_id: groupName)
         if (!groupCursor.hasNext()) {
             return null
         }

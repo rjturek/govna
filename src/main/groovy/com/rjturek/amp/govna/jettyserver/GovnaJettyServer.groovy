@@ -1,7 +1,7 @@
 package com.rjturek.amp.govna.jettyserver
 
 import com.rjturek.amp.govna.filter.CorsResponseFilter
-import com.rjturek.amp.govna.service.DependencyGroup
+import com.rjturek.amp.govna.service.DependencyService
 import org.eclipse.jetty.server.Handler
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
@@ -30,7 +30,7 @@ class GovnaJettyServer {
         ResourceConfig resourceConfig = new ResourceConfig()
         // Tell where components to be scanned live.  DependencyGroup class will yield the package containing all the
         // service classes
-        resourceConfig.packages(DependencyGroup.class.getPackage().getName())
+        resourceConfig.packages(DependencyService.class.getPackage().getName())
         // Register components
         resourceConfig.register(JacksonFeature.class)  // For JSON rendering
         resourceConfig.register(CorsResponseFilter.class) // Response Filter to set cross-origin header
