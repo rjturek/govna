@@ -8,15 +8,17 @@ class DependencyDao {
 
     GMongo mongo 
     def db
+    def rColl
 
     // ctor
     def DependencyDao() {
         mongo = new GMongo("localhost", 27017)
         db = mongo.getDB("govna")
+        rColl = db.getCollection("restrictions")
     }
 
-    def Object getGroups() {
-        def groups = db.groups.find()
+    def Object getGroupRestrictionsList() {
+        def groups = rColl.find()
         List groupList = []
         groups.each {
             groupList.add(it)
@@ -24,8 +26,8 @@ class DependencyDao {
         groupList
     }
 
-    def Object getGroup(groupName) {
-        def groupCursor = db.groups.find(_id: groupName)
+    def Object getGroupRestrictions(groupName) {
+        def groupCursor = rColl.find(groupName: groupName)
         if (!groupCursor.hasNext()) {
             return null
         }
@@ -37,7 +39,8 @@ class DependencyDao {
         return group
     }
 
-    def Object insertGroup(group) {
-        db.groups.insert(group)
+    def Object insertGroupRestrictions(group) {
+        println group
+        rColl.insert(group)
     }
 }

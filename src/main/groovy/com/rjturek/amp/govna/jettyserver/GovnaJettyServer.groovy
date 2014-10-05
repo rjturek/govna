@@ -4,7 +4,7 @@ package com.rjturek.amp.govna.jettyserver
  * Comment in Govna Jetty Server.  Comment 3
  */
 import com.rjturek.amp.govna.filter.CorsResponseFilter
-import com.rjturek.amp.govna.service.DependencyService
+import com.rjturek.amp.govna.service.RestrictionService
 import org.eclipse.jetty.server.Handler
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
@@ -33,7 +33,7 @@ class GovnaJettyServer {
         ResourceConfig resourceConfig = new ResourceConfig()
         // Tell where components to be scanned live.  DependencyGroup class will yield the package containing all the
         // service classes
-        resourceConfig.packages(DependencyService.class.getPackage().getName())
+        resourceConfig.packages(RestrictionService.class.getPackage().getName())
         // Register components
         resourceConfig.register(JacksonFeature.class)  // For JSON rendering
         resourceConfig.register(CorsResponseFilter.class) // Response Filter to set cross-origin header
@@ -66,6 +66,8 @@ class GovnaJettyServer {
 
     public static void main(String[] args) throws Exception {
 
+        printClassPath GovnaJettyServer.classLoader
+
         int serverPort = DEFAULT_PORT
 
         if(args.length >= 1) {
@@ -77,5 +79,15 @@ class GovnaJettyServer {
         }
 
         new GovnaJettyServer(serverPort);
+    }
+
+    static def printClassPath(classLoader) {
+        println "CLASSLOADER: $classLoader"
+        classLoader.getURLs().each {url->
+            println "- ${url.toString()}"
+        }
+        if (classLoader.parent) {
+            printClassPath(classLoader.parent)
+        }
     }
 }
