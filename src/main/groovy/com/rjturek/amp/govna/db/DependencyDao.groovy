@@ -2,6 +2,8 @@
 
 package com.rjturek.amp.govna.db
 import com.gmongo.GMongo
+import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
 
 import java.util.logging.Level
 import java.util.logging.Logger
@@ -52,18 +54,30 @@ class DependencyDao {
     boolean groupRestrictionsExist(groupName) {
         log("groupRestrictionsExist")
         int count = rstrColl.count(groupName: groupName)
-        assert (! count == 1) {
-            return count
+        log("the count is: $count")
+        if (count > 1) {
+            throw new Exception(
+                 "Invariant violated: groupName found in the restrictions collection more than once. groupName: $groupName")
         }
+        return count
     }
 
-    def Object insertGroupRestrictions(group) {
-        log("insertGroupRestrictionsExist")
-//        rstrColl.insert(group)
-    }
+// Probably not needed due to upsert capability - below
+//    def Object insertGroupRestrictions(group) {
+//        log("insertGroupRestrictions")
+//        JsonBuilder jsonBuilder = new JsonBuilder(group)
+//        def theJson = jsonBuilder.toPrettyString()
+//        log(theJson)
+//        rstrColl.insert(new JsonSlurper().parseText(theJson))
+//    }
 
-    def Object updateGroupRestrictions(group)  {
-        log("insertGroupRestrictionsExist")
-        //rstrColl.update(group)
+    def Object upsertGroupRestrictions(group)  {
+        log("updateGroupRestrictions")
+        JsonBuilder jsonBuilder = new JsonBuilder(group)
+        def theJson = jsonBuilder.toPrettyString()
+        log(theJson)
+        def genericStructure = new JsonSlurper().parseText(theJson)
+        log(genericStructure.toString())
+        rstrColl.update([groupName: group.groupName], [$set: new JsonSlurper().parseText(theJson)], true)
     }
 }
