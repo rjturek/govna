@@ -7,6 +7,8 @@ import javax.ws.rs.container.ContainerResponseContext
 import javax.ws.rs.container.ContainerResponseFilter
 import javax.ws.rs.core.MultivaluedMap
 
+// Allows cross origin resource sharing.
+// http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
 class CorsResponseFilter implements ContainerResponseFilter {
 
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext)

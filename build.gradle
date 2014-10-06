@@ -1,5 +1,4 @@
 apply plugin: 'groovy'
-apply plugin: 'jetty'
 apply plugin: 'idea'
 
 repositories {
@@ -15,23 +14,19 @@ dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.3.6'
 
     compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
+    compile 'javax.servlet:javax.servlet-api:3.0.1'
 
     compile 'com.gmongo:gmongo:1.0'
 
     compile 'org.slf4j:slf4j-api:1.7.5'
     compile 'org.slf4j:slf4j-simple:1.7.5'
 
+    compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.13'
+    compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.13'
 
-    compile group: 'org.eclipse.jetty', name: 'jetty-webapp',version: v.jetty
-    compile group: 'org.eclipse.jetty', name: 'jetty-plus', version: v.jetty
-    runtime group: 'org.eclipse.jetty', name: 'jetty-jsp', version: v.jetty
-    compile group: 'org.eclipse.jetty', name: 'jetty-annotations', version: v.jetty
+    compile 'org.glassfish.jersey.containers:jersey-container-grizzly2-http:2.13'
 
-    // Give up on resteasy for now. try jersey instead
-    //compile fileTree(dir:'/Users/rjt/Downloads/resteasy-jaxrs-3.0.9.Final/lib', include:'*.jar')
-
-    compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.12'
-    compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.12'
+//    compile 'org.glassfish.grizzly:grizzly-http-servlet-server:2.3.16'
 
     testCompile group: 'org.spockframework', name: 'spock-core', version: v.spock
 }

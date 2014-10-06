@@ -37,7 +37,7 @@
 
     <!-- My LISTENER >
     <listener>
-        <listener-class>com.rjturek.amp.govna.jettyserver.AppListener</listener-class>
+        <listener-class>com.rjturek.amp.govna.httpserverAppListener</listener-class>
     </listener-->
 
 

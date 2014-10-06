@@ -10,6 +10,8 @@ import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Request
 
 @Path("/restrictions")
+@Produces(MediaType.APPLICATION_JSON)
+
 class RestrictionService {
 
     @Context Request request
@@ -18,29 +20,41 @@ class RestrictionService {
 
     @GET
     @Path("groups")
-    @Produces(MediaType.APPLICATION_JSON)
     public String getDependencyGroups() {
         return dao.getGroupRestrictionsList()
+        println "HHHHHHHHHEEEYYYYYY"
     }
 
     @GET
     @Path("group/{groupName}")
-    @Produces(MediaType.APPLICATION_JSON)
     public GroupRestrictions getGroup(@PathParam("groupName") String groupName) {
         return dao.getGroupRestrictions(groupName)
     }
 
-    @PUT
-    @Path("group/")
-    @Produces(MediaType.APPLICATION_JSON)
+    @POST
+    @Path("group/*")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Object insertGroup(GroupRestrictions group) {
+    public Object insertGroupPost(GroupRestrictions group) {
         if (! group) {
-            println "Thing is null"
+            println "Post Thing is null"
         }
         else {
             println group.dump()
         }
+        return "hey Post"
+    }
+
+    @PUT
+    @Path("group/*")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Object insertGroupPut(GroupRestrictions group) {
+        if (! group) {
+            println "Put Thing is null"
+        }
+        else {
+            println group.dump()
+        }
+        return "hey Put"
     }
 }
 
