@@ -42,11 +42,14 @@ class RestrictionService {
     public Object insertOrUpdateGroup(@PathParam("groupName") String groupName, GroupRestrictions group) {
         logger.log(Level.FINE, "PUT group... groupName: $groupName")
 
-        if (! group) {
-            logger.log(Level.FINE, "It's null")
+        if (!group) {
+
+        }
+        if (dao.groupRestrictionsExist(groupName)) {
+            dao.update(group)
         }
         else {
-            logger.log(Level.FINE, group.dump())
+            dao.insertGroupRestrictions(group)
         }
     }
 }
