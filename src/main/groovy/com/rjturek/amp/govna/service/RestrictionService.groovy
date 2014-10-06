@@ -36,24 +36,12 @@ class RestrictionService {
         return dao.getGroupRestrictions(groupName)
     }
 
-    @POST
-    @Path("groupx")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Object insertGroupPost(GroupRestrictions group) {
-        logger.log(Level.FINE, 'POST group')
-        if (! group) {
-            logger.log(Level.FINE, "It's null")
-        }
-        else {
-            logger.log(Level.FINE, group.dump())
-        }
-    }
-
     @PUT
-    @Path("groupy")
+    @Path("group/{groupName}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Object insertGroupPut(GroupRestrictions group) {
-        logger.log(Level.FINE, 'PUT group')
+    public Object insertOrUpdateGroup(@PathParam("groupName") String groupName, GroupRestrictions group) {
+        logger.log(Level.FINE, "PUT group... groupName: $groupName")
+
         if (! group) {
             logger.log(Level.FINE, "It's null")
         }
