@@ -1,11 +1,9 @@
 package com.rjturek.amp.govna.httpserver
 
-import com.rjturek.amp.govna.service.GovernanceService
 import com.rjturek.amp.govna.service.RestrictionService
+import com.rjturek.amp.govna.service.ValidationService
 import org.glassfish.jersey.jackson.JacksonFeature
 
-import java.io.IOException;
-import java.net.URI
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,7 +34,7 @@ class GovnaGrizzlyServer {
 
         def resourceConfig = new ResourceConfig(
              RestrictionService.class,
-             GovernanceService.class,
+             ValidationService.class,
              JacksonFeature.class
         )
 
