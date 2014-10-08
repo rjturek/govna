@@ -1,5 +1,6 @@
 package com.rjturek.amp.govna.httpserver
 
+import com.rjturek.amp.govna.service.GovernanceService
 import com.rjturek.amp.govna.service.RestrictionService
 import org.glassfish.jersey.jackson.JacksonFeature
 
@@ -10,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.ResourceConfig
 
 import org.glassfish.grizzly.http.server.HttpServer
 
@@ -35,8 +36,10 @@ class GovnaGrizzlyServer {
 
         def resourceConfig = new ResourceConfig(
              RestrictionService.class,
+             GovernanceService.class,
              JacksonFeature.class
         )
+
         resourceConfig.addProperties(["com.sun.jersey.api.json.POJOMappingFeature": "true"])
 
         final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(uri, resourceConfig)
