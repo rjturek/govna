@@ -11,9 +11,23 @@ import org.eclipse.jetty.servlet.ServletHolder
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.servlet.ServletContainer;
+import org.glassfish.jersey.servlet.ServletContainer
+
+import java.util.logging.ConsoleHandler
+import java.util.logging.Level
+import java.util.logging.Logger;
 
 class GovnaJettyServer {
+
+    // The logger named "sharedLogger will have a ConsoleHandler added to it.
+    // So for now, for simplicity, every class should getLogger("sharedLogger")
+    static Logger logger = Logger.getLogger("sharedLogger")
+    static {
+        logger.setLevel(Level.ALL)
+        ConsoleHandler consoleHandler = new ConsoleHandler();
+        consoleHandler.setLevel(Level.ALL);
+        logger.addHandler(consoleHandler);
+    }
 
     private static final int DEFAULT_PORT = 8080;
 
@@ -31,10 +45,7 @@ class GovnaJettyServer {
 
         ResourceConfig resourceConfig = new ResourceConfig()
 
-        // Tell where components to be scanned live.  DependencyGroup class will yield the package containing all the
-        // service classes
-        resourceConfig.packages(RestrictionService.class.getPackage().getName())
-//        resourceConfig.packages(RestrictionService.class.getPackage().getName(), "com.fasterxml.jackson.jaxrs.base")
+        resourceConfig.packages("com.rjturek.amp.govna.service")
 
         // Register components
         resourceConfig.register(CorsResponseFilter.class) // Response Filter to set cross-origin header
