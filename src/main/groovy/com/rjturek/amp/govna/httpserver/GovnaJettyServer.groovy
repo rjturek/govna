@@ -24,21 +24,25 @@ class GovnaJettyServer {
     static Logger logger = Logger.getLogger("sharedLogger")
     static {
         logger.setLevel(Level.ALL)
-        ConsoleHandler consoleHandler = new ConsoleHandler();
-        consoleHandler.setLevel(Level.ALL);
-        logger.addHandler(consoleHandler);
+        ConsoleHandler consoleHandler = new ConsoleHandler()
+        consoleHandler.setLevel(Level.ALL)
+        logger.addHandler(consoleHandler)
     }
 
-    private static final int DEFAULT_PORT = 8080;
+    private int serverPort = 8080
 
-    private int serverPort;
+    Server server = null
 
-    public GovnaJettyServer(int serverPort) throws Exception {
-        this.serverPort = serverPort;
+    public GovnaJettyServer() throws Exception {
 
-        Server server = configureServer();
+        server = configureServer();
         server.start();
         server.join();
+    }
+
+    private killServer() {
+        logger.log(Level.FINE, "shut down server")
+        server.stop();
     }
 
     private Server configureServer() {
@@ -82,19 +86,12 @@ class GovnaJettyServer {
 
     public static void main(String[] args) throws Exception {
 
-        printClassPath GovnaJettyServer.classLoader
+ //       printClassPath GovnaJettyServer.classLoader
 
-        int serverPort = DEFAULT_PORT
-
-        if(args.length >= 1) {
-            try {
-                serverPort = Integer.parseInt(args[0])
-            } catch (NumberFormatException e) {
-                e.printStackTrace()
-            }
-        }
-
-        new GovnaJettyServer(serverPort);
+        GovnaJettyServer jettyServerClass = new GovnaJettyServer();
+        System.in.read()
+        logger.log(Level.FINE, "Stopping server")
+        jettyServerClass.killServer();
     }
 
     static def printClassPath(classLoader) {
