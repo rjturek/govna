@@ -4,7 +4,7 @@
   </option>
   <option name="httpMethod" value="POST" />
   <option name="urlBase" value="http://localhost:8080" />
-  <option name="urlPath" value="api/governance/validate" />
+  <option name="urlPath" value="api/validation/consumerGroup" />
   <option name="headers">
     <list>
       <KeyValuePair>
