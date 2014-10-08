@@ -11,14 +11,14 @@
         <param-value>classpath:log4j.properties</param-value>
     </context-param-->
 
-    <servlet>
+    <!--servlet>
         <servlet-name>GetAppServlet</servlet-name>
         <servlet-class>com.rjturek.amp.govna.servlet.GetAppServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetAppServlet</servlet-name>
         <url-pattern>/getApp</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping-->
 
     <!-- Jersey -->
 

@@ -23,10 +23,15 @@ dependencies {
 
     compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.13'
     compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.13'
-
     compile 'org.glassfish.jersey.containers:jersey-container-grizzly2-http:2.13'
 
-//    compile 'org.glassfish.grizzly:grizzly-http-servlet-server:2.3.16'
+    compile 'org.glassfish.grizzly:grizzly-http-servlet:2.3.16'
+
+    // We won't use both Jetty and Grizzly, but I want to mess with both now.
+    compile group: 'org.eclipse.jetty', name: 'jetty-webapp',version: v.jetty
+    compile group: 'org.eclipse.jetty', name: 'jetty-plus', version: v.jetty
+    runtime group: 'org.eclipse.jetty', name: 'jetty-jsp', version: v.jetty
+    compile group: 'org.eclipse.jetty', name: 'jetty-annotations', version: v.jetty
 
     testCompile group: 'org.spockframework', name: 'spock-core', version: v.spock
 }
