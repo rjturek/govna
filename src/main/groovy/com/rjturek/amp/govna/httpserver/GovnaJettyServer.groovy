@@ -94,6 +94,7 @@ class GovnaJettyServer {
         jettyServerClass.killServer();
     }
 
+    // Just for debugging
     static def printClassPath(classLoader) {
         println "CLASSLOADER: $classLoader"
         classLoader.getURLs().each {url->
