@@ -7,6 +7,7 @@
     <title>'Ello Govna</title>
     <script>document.write('<base href="' + document.location + '" />');</script>
     <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/bootstrap-glyphicons.css" />
     <link rel="stylesheet" href="css/app.css" />
 
     <script type="text/javascript" src="js/angular-1.2.9.js" ></script>
@@ -19,15 +20,24 @@
 
 <h1>'Ello Govna</h1>
 
+
+
 <img src="images/mustmono.png"/>
 
 <p>Hello {{name}}! </p>
 <p>Call resp: {{resp}} </p>
 
 <button ng-click="buttonClicked()">Click me</button>
+<p></p>
 
 <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+<p></p>
 <button class='btn btn-default' ng-click="addAlert()">Add Alert</button>
+<p></p>
+<button class="btn btn-success" ng-disabled="error || incomplete">
+    <span class="glyphicon glyphicon-save"></span> Save Changes
+</button>
+
 
 </body>
 
