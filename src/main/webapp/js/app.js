@@ -8,16 +8,13 @@ app.controller('MainCtrl', function ($scope, $http) {
     var part2 = 'rld';
     $scope.name = part1 + part2;
 
-//    console.log("Calling api/consumer")
-//    $http.get("http://localhost:8080/api/consumer")
-//        .then(function (response) {
-//            $scope.resp = response.data;
-//        });
 
-    //alert("hey");
-
-    $scope.buttonClicked = function () {
-        alert("you clicked me");
+    $scope.fetchGroup = function () {
+        console.log("Calling for groups");
+        $http.get("http://localhost:8080/api/restrictions/groups")
+            .then(function (response) {
+                $scope.resp = response.data;
+            });
     };
 
     $scope.alerts = [

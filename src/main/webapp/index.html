@@ -15,29 +15,24 @@
     <script type="text/javascript" src="js/app.js"></script>
 </head>
 
+<body ng-controller="MainCtrl" >
 
-<body ng-controller="MainCtrl">
+<div class="container">
 
-<h1>'Ello Govna</h1>
+    <!-- PAGE HEADER -->
+    <div class="page-header"><h1>'Ello Govna</h1></div>
 
+    <p>Hello {{name}}! </p>
 
+    <p>Call resp: {{resp}} </p>
 
-<img src="images/mustmono.png"/>
+    <button class="btn btn-success" ng-click="fetchGroup()" ng-disabled="error || incomplete">
+        <span class="glyphicon glyphicon-save"></span> Save Changes
+    </button>
 
-<p>Hello {{name}}! </p>
-<p>Call resp: {{resp}} </p>
+    <alert type="success" close="closeAlert(0)">Oh, no</alert>
 
-<button ng-click="buttonClicked()">Click me</button>
-<p></p>
-
-<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-<p></p>
-<button class='btn btn-default' ng-click="addAlert()">Add Alert</button>
-<p></p>
-<button class="btn btn-success" ng-disabled="error || incomplete">
-    <span class="glyphicon glyphicon-save"></span> Save Changes
-</button>
-
+</div>
 
 </body>
 
