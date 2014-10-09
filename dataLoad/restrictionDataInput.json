@@ -1,0 +1,85 @@
+[
+    //Restriction on the Group.  And the Group only...
+    {
+        "groupName": "com.trp.wdt.app",
+        "artifactRestrictions": null,
+        "artifactVersionRestrictions": null,
+        "restriction": {
+            "isDeprecated": false,
+            "message": null,
+            "permittedConsumers": [
+                "com.trp.amp.app"
+            ]
+        },
+        "versionRestrictions": null
+    },
+
+    //Restriction on a Group Artifact.
+    {
+        "groupName": "com.trp.xyz.service",
+        "artifactRestrictions": [
+            {
+                "artifactId": "XYZservicesSERV",
+                "restriction": {
+                    "isDeprecated": false,
+                    "message": null,
+                    "permittedConsumers": [
+                        "com.trp.mom.app"
+                    ]
+                }
+            }
+        ],
+        "artifactVersionRestrictions": null,
+        "restriction": null,
+        "versionRestrictions": null
+    },
+
+    //Restriction on a Group and Group Artifact
+    {
+        "groupName": "com.trp.xyz.webservice",
+        "artifactRestrictions": [
+            {
+                "artifactId": "XYZwebservicesUTIL",
+                "restriction": {
+                    "isDeprecated": false,
+                    "message": null,
+                    "permittedConsumers": [
+                        "com.trp.mom.app"
+                    ]
+                }
+            }
+        ],
+        "artifactVersionRestrictions": null,
+        "restriction": {
+            "isDeprecated": false,
+            "message": "This group is dead to everyone!",
+            "permittedConsumers": null
+        },
+        "versionRestrictions": null
+    },
+
+    //Restriction on a Group and Version
+    {
+        "groupName": "com.trp.sec.util",
+        "artifactRestrictions": null,
+        "artifactVersionRestrictions": null,
+        "restriction": {
+            "isDeprecated": false,
+            "message": null,
+            "permittedConsumers": null
+        },
+        "versionRestrictions": [
+            {
+                "versionLow": "1.2.4",
+                "versionHigh": "1.3.8",
+                "restriction": {
+                    "isDeprecated": false,
+                    "message": null,
+                    "permittedConsumers": [
+                        "com.trp.gak.app"
+                    ]
+                }
+            }
+        ]
+    }
+]
