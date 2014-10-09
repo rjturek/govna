@@ -1,7 +1,6 @@
 /*global angular*/    // Stop jsLint from complaining about globally defined variables.
 
 var app = angular.module('govna', ['ui.bootstrap']);
-//var app = angular.module('govna', []);
 
 app.controller('MainCtrl', function ($scope, $http) {
     'use strict';
@@ -20,4 +19,18 @@ app.controller('MainCtrl', function ($scope, $http) {
     $scope.buttonClicked = function () {
         alert("you clicked me");
     };
+
+    $scope.alerts = [
+        { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
+        { type: 'success', msg: 'Well done! You successfully read this important alert message.' }
+    ];
+
+    $scope.addAlert = function() {
+        $scope.alerts.push({msg: 'Another alert!'});
+    };
+
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
+
 });
