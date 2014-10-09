@@ -1,1 +1,17 @@
-[{"groupName":"com.trp.wdt.app","artifactRestrictions":null,"artifactVersionRestrictions":null,"restriction":{"isDeprecated":false,"message":null,"permittedConsumers":null},"versionRestrictions":null},{"_id":{"machine":-1364632914,"timeSecond":1412624128,"inc":2127084678,"new":false,"time":1412624128000},"groupName":"aaa","artifactRestrictions":null,"artifactVersionRestrictions":null,"restriction":{"isDeprecated":true,"message":null,"permittedConsumers":null},"versionRestrictions":null}]
+[
+    {"groupName":"com.trp.wdt.app",
+     "artifactRestrictions":null,
+     "artifactVersionRestrictions":null,
+     "restriction":{"isDeprecated":false,
+                    "message":null,
+                    "permittedConsumers":["com.trp.amp.app"]},
+     "versionRestrictions":null},
+
+    {"groupName":"com.trp.xyz",
+     "artifactRestrictions":null,
+     "artifactVersionRestrictions":null,
+     "restriction":{"isDeprecated":true,
+                    "message":"This group is dead to everyone!",
+                    "permittedConsumers":null},
+     "versionRestrictions":null}
+]

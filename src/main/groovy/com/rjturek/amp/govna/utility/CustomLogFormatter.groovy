@@ -10,7 +10,7 @@ import java.util.logging.Formatter
 public class CustomLogFormatter  extends Formatter  {
 
     public String format(LogRecord log) {
-        Date date = new Date(log.getMillis())
+        //Date date = new Date(log.getMillis())
         String level = log.getLevel().getName()
         //String message = "[custom] " + " " + date.toString() + " " + level.toUpperCase() + " "
         String message = "[custom] " + level.toUpperCase() + " " + log.getSourceClassName() + " "

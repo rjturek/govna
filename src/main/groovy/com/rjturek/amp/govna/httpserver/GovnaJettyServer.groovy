@@ -1,21 +1,20 @@
-package com.rjturek.amp.govna.jettyserver
+package com.rjturek.amp.govna.httpserver
 
-import com.fasterxml.jackson.core.JsonGenerator
 import com.rjturek.amp.govna.filter.CorsResponseFilter
-import com.rjturek.amp.govna.service.RestrictionService
+import com.rjturek.amp.govna.utility.CustomLogFormatter
 import org.eclipse.jetty.server.Handler
 import org.eclipse.jetty.server.Server
-import org.eclipse.jetty.server.handler.ContextHandlerCollection;
-import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.server.handler.ContextHandlerCollection
+import org.eclipse.jetty.servlet.ServletContextHandler
 import org.eclipse.jetty.servlet.ServletHolder
-import org.eclipse.jetty.webapp.WebAppContext;
-import org.glassfish.jersey.jackson.JacksonFeature;
-import org.glassfish.jersey.server.ResourceConfig;
+import org.eclipse.jetty.webapp.WebAppContext
+import org.glassfish.jersey.jackson.JacksonFeature
+import org.glassfish.jersey.server.ResourceConfig
 import org.glassfish.jersey.servlet.ServletContainer
 
 import java.util.logging.ConsoleHandler
 import java.util.logging.Level
-import java.util.logging.Logger;
+import java.util.logging.Logger
 
 class GovnaJettyServer {
 
@@ -24,8 +23,10 @@ class GovnaJettyServer {
     static Logger logger = Logger.getLogger("sharedLogger")
     static {
         logger.setLevel(Level.ALL)
+        logger.setUseParentHandlers(false);
         ConsoleHandler consoleHandler = new ConsoleHandler()
         consoleHandler.setLevel(Level.ALL)
+        consoleHandler.setFormatter(new CustomLogFormatter())
         logger.addHandler(consoleHandler)
     }
 

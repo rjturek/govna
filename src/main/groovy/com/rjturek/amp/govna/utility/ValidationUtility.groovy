@@ -20,8 +20,8 @@ class ValidationUtility {
 
 
     public Object checkConsumerGroupRestrictions( ValidationRequest jsonRequest){
-        log("checkConsumerGroupRestrictions()")
-        log( "       Consumer group: ${jsonRequest.consumerGroup}")
+        log( "checkConsumerGroupRestrictions()" )
+        log( "Consumer group: ${jsonRequest.consumerGroup}" )
 
         jsonRequest.dependencyCoordinates.each { gav ->
 

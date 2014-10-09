@@ -2,16 +2,14 @@ package com.rjturek.amp.govna.httpserver
 
 import com.rjturek.amp.govna.service.RestrictionService
 import com.rjturek.amp.govna.service.ValidationService
+import org.glassfish.grizzly.http.server.HttpServer
+import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory
 import org.glassfish.jersey.jackson.JacksonFeature
-
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig
 
-import org.glassfish.grizzly.http.server.HttpServer
+import java.util.logging.ConsoleHandler
+import java.util.logging.Level
+import java.util.logging.Logger
 
 class GovnaGrizzlyServer {
 
