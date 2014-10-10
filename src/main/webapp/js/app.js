@@ -4,17 +4,21 @@ var app = angular.module('govna', ['ui.bootstrap']);
 
 app.controller('MainCtrl', function ($scope, $http) {
     'use strict';
-    var part1 = 'Wo';
-    var part2 = 'rld';
-    $scope.name = part1 + part2;
 
+    $scope.groupName = null;
 
     $scope.fetchGroup = function () {
-        console.log("Calling for groups");
-        $http.get("http://localhost:8080/api/restrictions/groups")
+        var uri = "http://localhost:8080/api/restrictions/group/" + $scope.groupName;
+        console.log("Calling for group " + uri);
+        $http.get(uri)
             .then(function (response) {
-                $scope.resp = response.data;
+                $scope.groupRestrictions = response.data;
             });
+    };
+
+    $scope.clearGroup = function () {
+        $scope.groupName = null;
+        $scope.groupRestrictions = null;
     };
 
     $scope.alerts = [

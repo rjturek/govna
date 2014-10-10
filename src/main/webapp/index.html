@@ -19,18 +19,23 @@
 
 <div class="container">
 
-    <!-- PAGE HEADER -->
-    <div class="page-header"><h1>'Ello Govna</h1></div>
+    <div class="page-header"><h1 ng-style="{'text-align': 'center'}">'Ello Govna</h1></div>
 
-    <p>Hello {{name}}! </p>
+    <ng-form >
+        Group Name:
+        <input type="text" ng-model="groupName" />
+        <button class="btn btn-default" ng-click="fetchGroup()">
+            <span class="glyphicon glyphicon-open"></span> Fetch
+        </button>
+        <button class="btn btn-default" ng-click="clearGroup()">
+            <span class="glyphicon glyphicon-remove-circle"></span> Clear
+        </button>
 
-    <p>Call resp: {{resp}} </p>
+    </ng-form>
 
-    <button class="btn btn-success" ng-click="fetchGroup()" ng-disabled="error || incomplete">
-        <span class="glyphicon glyphicon-save"></span> Save Changes
-    </button>
+    <div>{{groupRestrictions}} </p>
 
-    <alert type="success" close="closeAlert(0)">Oh, no</alert>
+    <alert type="success" close="closeAlert(0)" hide="true">Yay!</alert>
 
 </div>
 
