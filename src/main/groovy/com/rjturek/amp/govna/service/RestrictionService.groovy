@@ -44,10 +44,17 @@ class RestrictionService {
     public Object getGroup(@PathParam("groupName") String groupName) {
         log("GET group/${groupName}")
         try {
-            return dao.getGroupRestrictions(groupName)
+            def foundObject = dao.getGroupRestrictions(groupName)
+            if (foundObject == null) {
+                return Response.status(Response.Status.NOT_FOUND).build()
+            }
+            else {
+                return Response.status(Response.Status.OK).entity(foundObject).build()
+            }
         }
         catch (Exception e) {
             log("Exception in getGroup()", e)
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.message).build()
         }
     }
 

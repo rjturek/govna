@@ -21,34 +21,38 @@
 
     <div class="page-header"><h1 ng-style="{'text-align': 'center'}">Third Party Library Governance</h1></div>
 
-    <ng-form >
-        Group Name:
-        <input type="text" ng-model="groupName" />
-        <button class="btn btn-default" ng-click="fetchGroup()">
-            <span class="glyphicon glyphicon-open"></span> Fetch
-        </button>
-        <button class="btn btn-default" ng-click="clearGroup()">
-            <span class="glyphicon glyphicon-remove-circle"></span> Clear
-        </button>
+    <div class="panel panel-success" ng-style="{'width': '70%'}">
+        <div class="panel-heading">
+            <h3 class="panel-title">Find Group Restriction</h3>
+        </div>
+        <div class="panel-body">
+            <ng-form >
+                Group Name:
+                <input type="text" size="40" ng-model="groupName"
+                       ng-keyup="$event.keyCode == 13 && fetchGroup()"
+                       ng-change="messageText=null;"/>
+                <button class="btn btn-default" ng-click="fetchGroup()">
+                    <span class="glyphicon glyphicon-search"></span> Fetch
+                </button>
+                <button class="btn btn-default" ng-click="clearGroup()">
+                    <span class="glyphicon glyphicon-remove-circle"></span> Clear
+                </button>
 
-    </ng-form>
+            </ng-form>
+        </div>
+    </div>
+
+    <alert type="danger" ng-if="messageText != null">{{messageText}}</alert>
 
     <div>{{groupRestrictions}}</div>
 
-    <accordion close-others="one">
-        <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
-            {{group.content}}
-        </accordion-group>
-    </accordion>
-
-    <div>{{groups}}</div>
-
-    <ul class="nav nav-pills nav-stacked">
+    <ul class="nav nav-pills nav-stacked" ng-if="groupRestrictions !== null">
         <li class="active">
             <a href="#">
                 <span class="badge pull-right">42</span>
                 Group Restrictions
             </a>
+            <div class="well">restriction</div>
         </li>
 
         <li class="active">
@@ -84,8 +88,6 @@
     </ul>
 
 </div>
-
-<alert type="success" close="closeAlert(0)" hide="true">Yay!</alert>
 
 </body>
 
