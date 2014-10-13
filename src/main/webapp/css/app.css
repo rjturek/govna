@@ -1,7 +1,8 @@
 /* Correct for Bootstrap CSS in angular, as instructed here: http://angular-ui.github.io/bootstrap/ */
-
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
 
 body {
   background: url(../images/mustmono.png) no-repeat top right;
 }
+

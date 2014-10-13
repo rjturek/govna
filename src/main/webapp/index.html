@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>'Ello Govna</title>
+    <title>Third Party Library Governance</title>
     <script>document.write('<base href="' + document.location + '" />');</script>
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/bootstrap-glyphicons.css" />
@@ -19,7 +19,7 @@
 
 <div class="container">
 
-    <div class="page-header"><h1 ng-style="{'text-align': 'center'}">'Ello Govna</h1></div>
+    <div class="page-header"><h1 ng-style="{'text-align': 'center'}">Third Party Library Governance</h1></div>
 
     <ng-form >
         Group Name:
@@ -33,11 +33,59 @@
 
     </ng-form>
 
-    <div>{{groupRestrictions}} </p>
+    <div>{{groupRestrictions}}</div>
 
-    <alert type="success" close="closeAlert(0)" hide="true">Yay!</alert>
+    <accordion close-others="one">
+        <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+            {{group.content}}
+        </accordion-group>
+    </accordion>
+
+    <div>{{groups}}</div>
+
+    <ul class="nav nav-pills nav-stacked">
+        <li class="active">
+            <a href="#">
+                <span class="badge pull-right">42</span>
+                Group Restrictions
+            </a>
+        </li>
+
+        <li class="active">
+            <a href="#" ng-click="artifactIsCollapsed = !artifactIsCollapsed">
+                <span class="badge pull-right">42</span>
+                Artifact Restrictions
+            </a>
+            <div collapse="artifactIsCollapsed">
+                <div class="well">artifs</div>
+            </div>
+        </li>
+
+        <li class="active">
+            <a href="#" ng-click="versionIsCollapsed = !versionIsCollapsed">
+                <span class="badge pull-right">42</span>
+                Version Restrictions
+            </a>
+            <div collapse="versionIsCollapsed">
+                <div class="well">versions</div>
+            </div>
+        </li>
+
+        <li class="active">
+            <a href="#" ng-click="artifactVersionIsCollapsed = !artifactVersionIsCollapsed">
+                <span class="badge pull-right">42</span>
+                Artifact Version Restrictions
+            </a>
+            <div collapse="artifactVersionIsCollapsed">
+                <div class="well">artifact versions</div>
+            </div>
+        </li>
+
+    </ul>
 
 </div>
+
+<alert type="success" close="closeAlert(0)" hide="true">Yay!</alert>
 
 </body>
 

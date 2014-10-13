@@ -34,4 +34,8 @@ app.controller('MainCtrl', function ($scope, $http) {
         $scope.alerts.splice(index, 1);
     };
 
+    $scope.artifactIsCollapsed = false;
+    $scope.versionIsCollapsed = false;
+    $scope.artifactVersionIsCollapsed = false;
+
 });
