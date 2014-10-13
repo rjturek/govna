@@ -28,7 +28,7 @@
         <div class="panel-body">
             <ng-form >
                 Group Name:
-                <input type="text" size="40" ng-model="groupName"
+                <input type="text" size="37" ng-model="groupName"
                        ng-keyup="$event.keyCode == 13 && fetchGroup()"
                        ng-change="messageText=null;"/>
                 <button class="btn btn-default" ng-click="fetchGroup()">
@@ -44,48 +44,48 @@
 
     <alert type="danger" ng-if="messageText != null">{{messageText}}</alert>
 
-    <div>{{groupRestrictions}}</div>
-
-    <ul class="nav nav-pills nav-stacked" ng-if="groupRestrictions !== null">
+    <ul class="nav nav-pills nav-stacked" ng-if="groupData !== null">
         <li class="active">
             <a href="#">
-                <span class="badge pull-right">42</span>
-                Group Restrictions
+                <span class="badge pull-left">{{groupData.groupName.length}}</span>
+                &nbsp;&nbsp;Group Restrictions
             </a>
-            <div class="well">restriction</div>
+            <div class="well well-sm">restriction</div>
         </li>
 
         <li class="active">
             <a href="#" ng-click="artifactIsCollapsed = !artifactIsCollapsed">
-                <span class="badge pull-right">42</span>
-                Artifact Restrictions
+                <span class="badge pull-left">42</span>
+                &nbsp;&nbsp;Artifact Restrictions
             </a>
             <div collapse="artifactIsCollapsed">
-                <div class="well">artifs</div>
+                <div class="well well-sm">artifs</div>
             </div>
         </li>
 
         <li class="active">
             <a href="#" ng-click="versionIsCollapsed = !versionIsCollapsed">
-                <span class="badge pull-right">42</span>
-                Version Restrictions
+                <span class="badge pull-left">42</span>
+                &nbsp;&nbsp;Version Restrictions
             </a>
             <div collapse="versionIsCollapsed">
-                <div class="well">versions</div>
+                <div class="well well-sm">versions</div>
             </div>
         </li>
 
         <li class="active">
             <a href="#" ng-click="artifactVersionIsCollapsed = !artifactVersionIsCollapsed">
-                <span class="badge pull-right">42</span>
-                Artifact Version Restrictions
+                <span class="badge pull-left">42</span>
+                &nbsp;&nbsp;Artifact Version Restrictions
             </a>
             <div collapse="artifactVersionIsCollapsed">
-                <div class="well">artifact versions</div>
+                <div class="well well-sm">artifact versions</div>
             </div>
         </li>
 
     </ul>
+
+    <div>{{groupData}}</div>
 
 </div>
 

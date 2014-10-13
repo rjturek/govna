@@ -6,10 +6,10 @@ app.controller('MainCtrl', function ($scope, $http) {
     'use strict';
 
     $scope.groupName = null;
-    $scope.groupRestrictions = null;
+    $scope.groupData = null;
 
     $scope.fetchGroup = function () {
-        $scope.groupRestrictions = null;
+        $scope.groupData = null;
         var uri = "http://localhost:8080/api/restrictions/group/" + $scope.groupName;
         console.log("Calling for group " + uri);
         $http.get(uri)
@@ -17,7 +17,7 @@ app.controller('MainCtrl', function ($scope, $http) {
     };
 
     var handleGroup = function(response) {
-        $scope.groupRestrictions = response.data;
+        $scope.groupData = response.data;
     };
 
     var handleGroupError = function(reason) {
@@ -31,7 +31,7 @@ app.controller('MainCtrl', function ($scope, $http) {
 
     $scope.clearGroup = function () {
         $scope.groupName = null;
-        $scope.groupRestrictions = null;
+        $scope.groupData = null;
         $scope.messageText = null;
     };
 
