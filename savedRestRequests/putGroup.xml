@@ -4,7 +4,7 @@
   </option>
   <option name="httpMethod" value="PUT" />
   <option name="urlBase" value="http://localhost:8080" />
-  <option name="urlPath" value="api/restrictions/group" />
+  <option name="urlPath" value="api/restrictions/group/com.trp.wdt.app" />
   <option name="headers">
     <list>
       <KeyValuePair>
@@ -28,6 +28,6 @@
   <option name="haveTextToSend" value="true" />
   <option name="haveFileToSend" value="false" />
   <option name="isFileUpload" value="false" />
-  <option name="textToSend" value="{&quot;groupName&quot;: &quot;aaa&quot;, &quot;restriction&quot;: {&quot;isDeprecated&quot;: false}}" />
+  <option name="textToSend" value="{ &quot;groupName&quot;: &quot;com.trp.wdt.app&quot;, &quot;artifactRestrictions&quot;: null, &quot;artifactVersionRestrictions&quot;: null, &quot;restriction&quot;: { &quot;isDeprecated&quot;: false, &quot;message&quot;: null, &quot;permittedConsumers&quot;: [ &quot;com.trp.amp.app&quot; ] }, &quot;versionRestrictions&quot;: null }" />
   <option name="filesToSend" value="" />
 </RestClientRequest>

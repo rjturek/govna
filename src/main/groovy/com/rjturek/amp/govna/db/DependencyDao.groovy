@@ -49,15 +49,12 @@ class DependencyDao {
         Map groupMap = [:]
 
         groupRestrictions.each{
-            if (! groupMap.put(it.groupName, it )){
-                throw new Exception("GroupName exists in Map.  More than 1 groupName returned from DB.")
+            /* db integrity check. groupNames are unique. */
+            if (!groupMap.put(it.groupName, it ) == null){
+                throw new Exception("GroupName: ${it.groupName} exists in Map.  More than 1 groupName returned from DB.")
             }
         }
 
-        groupMap.each{
-            logger.info( " >>>> Key: ${it.key}" )
-            logger.info( " >>>> Value: ${it.value}" )
-        }
         groupMap
 
     }
