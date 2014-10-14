@@ -35,14 +35,32 @@ class ValidationService {
 
     ValidationUtility vu = new ValidationUtility()
 
+    /**
+     * REST api url to POST json structure to tell the story of which dependencies have restrictions
+     * for a particular consumerGroup. (the group in gav - group:archive:version)
+     *
+     * json structure:
+     * { "consumerGroup" : "com.trp.wdt.app",
+     *   "dependencyCoordinates":["log4j:log4j:1.2.17", "com.trp.amp.afutil:AMPafutilUTIL:1.10", "org.jdom:jdom:1.1.1"]
+     * }
+     *
+     * @param jsonRequest
+     * @return ValidationResponse
+     */
     @POST
     @Path( "consumerGroup" )
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response validateConsumerGroupDependencies( ValidationRequest jsonRequest ) {
-        log( "Validating Consumer Group Dependencies" )
+        log("Validating Consumer Group Dependencies")
 
-        return Response.ok(vu.checkConsumerGroupRestrictions(jsonRequest)).build()
+        try {
+            return Response.ok(vu.checkConsumerGroupRestrictions(jsonRequest)).build()
+
+        } catch (Exception e) {
+            log("Exception in validateConsumerGroupDependencies()", e)
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.message).build()
+        }
     }
 
     @GET

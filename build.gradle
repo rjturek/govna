@@ -5,6 +5,10 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    groovyDoc
+}
+
 def v = [
         jetty: '9.2.2.v20140723',
         spock: '0.6-groovy-1.8'
@@ -12,6 +16,9 @@ def v = [
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.3.6'
+    groovyDoc 'org.codehaus.groovy:groovy-groovydoc:2.3.6'
+    groovyDoc 'org.codehaus.groovy:groovy-ant:2.3.6'    // yes you need the groovy-ant for groovyDoc
+
 
     compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
     compile 'javax.servlet:javax.servlet-api:3.0.1'
@@ -37,3 +44,9 @@ dependencies {
 
     testCompile group: 'org.spockframework', name: 'spock-core', version: v.spock
 }
+
+// not that documentation isn't all that important.
+groovydoc {
+    groovyClasspath = configurations.groovyDoc
+}
+

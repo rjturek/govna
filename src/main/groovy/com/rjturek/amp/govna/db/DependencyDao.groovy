@@ -39,6 +39,29 @@ class DependencyDao {
         groupList
     }
 
+    def Object getAllGroupRestrictionsMap(){
+        log( "getAllGroupRestrictionsMap" )
+
+        def groups = getGroupRestrictionsList()
+
+        List<GroupRestrictions> groupRestrictions = GenericStructUtil.convertGroups(groups)
+
+        Map groupMap = [:]
+
+        groupRestrictions.each{
+            if (! groupMap.put(it.groupName, it )){
+                throw new Exception("GroupName exists in Map.  More than 1 groupName returned from DB.")
+            }
+        }
+
+        groupMap.each{
+            logger.info( " >>>> Key: ${it.key}" )
+            logger.info( " >>>> Value: ${it.value}" )
+        }
+        groupMap
+
+    }
+
     def Object getGroupRestrictions(groupName) {
         log("getGroupRestrictions")
         def groupCursor = rstrColl.find(groupName: groupName)
