@@ -4,7 +4,7 @@
   </option>
   <option name="httpMethod" value="POST" />
   <option name="urlBase" value="http://localhost:8080" />
-  <option name="urlPath" value="api/restrictions/groupx" />
+  <option name="urlPath" value="api/restrictions/group" />
   <option name="headers">
     <list>
       <KeyValuePair>

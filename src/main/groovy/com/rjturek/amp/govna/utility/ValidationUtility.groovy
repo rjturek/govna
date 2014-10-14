@@ -1,8 +1,9 @@
 package com.rjturek.amp.govna.utility
 
 import com.rjturek.amp.govna.dataobj.ValidationRequest
+import com.rjturek.amp.govna.dataobj.ValidationResponse
+import com.rjturek.amp.govna.db.DependencyDao
 
-import java.util.logging.Level
 import java.util.logging.Logger
 
 /**
@@ -11,24 +12,41 @@ import java.util.logging.Logger
 class ValidationUtility {
 
     static Logger logger = Logger.getLogger("sharedLogger")
-    def log(msg) {
-        logger.log(Level.FINE, msg)
-    }
-    def log(msg, throwable) {
-        logger.log(Level.FINE, msg, throwable)
-    }
+
+    DependencyDao dao = new DependencyDao()
 
 
+
+    /**
+     * Entry point to compare the ValidationRequest against the Restrictions for the consumerGroup.
+     *
+     * @param ValidationRequest jsonRequest
+     * @return ValidationResponse validationResponse
+     */
     public Object checkConsumerGroupRestrictions( ValidationRequest jsonRequest){
-        log( "checkConsumerGroupRestrictions()" )
-        log( "Consumer group: ${jsonRequest.consumerGroup}" )
+        logger.fine( "checkConsumerGroupRestrictions()" )
+        logger.info( "Consumer group: ${jsonRequest.consumerGroup}" )
+
+        logger.info("Restrictions found for consumer group: " + dao.getGroupRestrictions(jsonRequest.consumerGroup))
+
+        Map groupMap = dao.getAllGroupRestrictionsMap()
+
+        ValidationResponse response = new ValidationResponse()
+
+        logger.fine( "*************************************" )
+        for ( k in groupMap) {
+            logger.fine( "Key: ${k.key} " )
+            logger.fine( "Value: ${k.value}" )
+        }
+
+
 
         jsonRequest.dependencyCoordinates.each { gav ->
 
-            log("Group Artifact Version: ${gav}")
+            logger.info("Group Artifact Version: ${gav}")
         }
 
-        return "{test:json}"
+        return "${dao.getGroupRestrictions(jsonRequest.consumerGroup)}"
 
     }
 }
