@@ -30,7 +30,7 @@
                 Group Name:
                 <input type="text" size="37" ng-model="groupName"
                        ng-keyup="$event.keyCode == 13 && fetchGroup()"
-                       ng-change="messageText=null;"/>
+                       ng-change="clearStuff()"/>
                 <button class="btn btn-default" ng-click="fetchGroup()">
                     <span class="glyphicon glyphicon-search"></span> Fetch
                 </button>
@@ -42,50 +42,66 @@
         </div>
     </div>
 
-    <alert type="danger" ng-if="messageText != null">{{messageText}}</alert>
+    <alert type="danger" ng-if="errorMessage != null">{{messageText}}</alert>
 
-    <ul class="nav nav-pills nav-stacked" ng-if="groupData !== null">
-        <li class="active">
-            <a href="#">
-                <span class="badge pull-left">{{groupData.groupName.length}}</span>
-                &nbsp;&nbsp;Group Restrictions
-            </a>
-            <div class="well well-sm">restriction</div>
-        </li>
+    <div ng-if="notFound">
+        <form>{{groupName}} not found:
+            <button class="btn btn-default" ng-click="newGroupData()">Create</button>
+        </form>
+    </div>
 
-        <li class="active">
-            <a href="#" ng-click="artifactIsCollapsed = !artifactIsCollapsed">
-                <span class="badge pull-left">42</span>
-                &nbsp;&nbsp;Artifact Restrictions
-            </a>
-            <div collapse="artifactIsCollapsed">
-                <div class="well well-sm">artifs</div>
-            </div>
-        </li>
+    <div ng-if="groupData !== null">
 
-        <li class="active">
-            <a href="#" ng-click="versionIsCollapsed = !versionIsCollapsed">
-                <span class="badge pull-left">42</span>
-                &nbsp;&nbsp;Version Restrictions
-            </a>
-            <div collapse="versionIsCollapsed">
-                <div class="well well-sm">versions</div>
-            </div>
-        </li>
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active">
+                <a href="#">
+                    Group Restriction
+                </a>
+                <div class="well well-sm">restriction</div>
+            </li>
 
-        <li class="active">
-            <a href="#" ng-click="artifactVersionIsCollapsed = !artifactVersionIsCollapsed">
-                <span class="badge pull-left">42</span>
-                &nbsp;&nbsp;Artifact Version Restrictions
-            </a>
-            <div collapse="artifactVersionIsCollapsed">
-                <div class="well well-sm">artifact versions</div>
-            </div>
-        </li>
+            <li class="active">
+                <a href="#" ng-click="artifactIsCollapsed = !artifactIsCollapsed">
+                    <span class="badge pull-left">
+                        {{(groupData.artifactRestrictions === undefined ||  groupData.artifactRestrictions === null)  ? 0 : groupData.artifactRestrictions.length}}
+                    </span>
+                    &nbsp;&nbsp;Artifact Restrictions
+                </a>
+                <div collapse="artifactIsCollapsed">
+                    <div class="well well-sm">artifs</div>
+                </div>
+            </li>
 
-    </ul>
+            <li class="active">
+                <a href="#" ng-click="versionIsCollapsed = !versionIsCollapsed">
+                    <span class="badge pull-left">
+                        {{(groupData.versionRestrictions === undefined ||  groupData.versionRestrictions === null)  ? 0 : groupData.versionRestrictions.length}}
+                    </span>
+                    &nbsp;&nbsp;Version Restrictions
+                </a>
+                <div collapse="versionIsCollapsed">
+                    <div class="well well-sm">versions</div>
+                </div>
+            </li>
+
+            <li class="active">
+                <a href="#" ng-click="artifactVersionIsCollapsed = !artifactVersionIsCollapsed">
+                    <span class="badge pull-left">
+                        {{(groupData.artifactVersionRestrictions === undefined ||  groupData.artifactVersionRestrictions === null)  ? 0 : groupData.artifactVersionRestrictions.length}}
+                    </span>
+                    &nbsp;&nbsp;Artifact Version Restrictions
+                </a>
+                <div collapse="artifactVersionIsCollapsed">
+                    <div class="well well-sm">artifact versions</div>
+                </div>
+            </li>
+
+        </ul>
+    </div>
 
     <div>{{groupData}}</div>
+    <div>{{groupData.restriction}}</div>
+
 
 </div>
 
