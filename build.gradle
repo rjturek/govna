@@ -18,6 +18,8 @@ dependencies {
 
     compile 'com.gmongo:gmongo:1.0'
 
+    compile 'com.google.code.gson:gson:2.3'
+
     compile 'org.slf4j:slf4j-api:1.7.5'
     compile 'org.slf4j:slf4j-simple:1.7.5'
 

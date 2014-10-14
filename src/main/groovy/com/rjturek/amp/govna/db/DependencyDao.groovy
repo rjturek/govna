@@ -2,6 +2,8 @@
 
 package com.rjturek.amp.govna.db
 import com.gmongo.GMongo
+import com.rjturek.amp.govna.dataobj.GroupRestrictions
+import com.rjturek.amp.govna.utility.GenericStructUtil
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 
@@ -10,7 +12,7 @@ import java.util.logging.Logger
 
 class DependencyDao {
 
-    Logger logger = Logger.getLogger("sharedLogger")
+    static Logger logger = Logger.getLogger("sharedLogger")
 
     def log(msg) {
         logger.log(Level.FINE, msg)
@@ -71,7 +73,7 @@ class DependencyDao {
 //        rstrColl.insert(new JsonSlurper().parseText(theJson))
 //    }
 
-    def Object upsertGroupRestrictions(group)  {
+    def Object upsertGroupRestrictions(GroupRestrictions group)  {
         log("updateGroupRestrictions")
         JsonBuilder jsonBuilder = new JsonBuilder(group)
         def theJson = jsonBuilder.toPrettyString()
