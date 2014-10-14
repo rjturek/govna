@@ -17,7 +17,9 @@ class GenericStructUtil {
         logger.log(Level.FINE, msg)
     }
 
-    static List<GroupRestrictions> convertGroups(groups) {
+    // It's a shame that we have to turn the generic structure (list of map of lists of maps)
+    // into JSON, just to marshall it into our real structures.  Not too bad, I suppose.
+    static List<GroupRestrictions> convertGroupsList(groups) {
         JsonBuilder jsonBuilder = new JsonBuilder(groups)
         def theJson = jsonBuilder.toString()
         log(theJson)
@@ -26,5 +28,4 @@ class GenericStructUtil {
         List<GroupRestrictions> groupRestrictionsList = gson.fromJson(theJson, collectionType)
         return groupRestrictionsList
     }
-
 }
