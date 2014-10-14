@@ -32,11 +32,6 @@ app.controller('MainCtrl', function ($scope, $http) {
         }
     };
 
-    $scope.newGroupData = function() {
-        $scope.notFound = false;
-        $scope.groupData = {groupName: 'groupName'};
-    }
-
     $scope.clearGroup = function () {
         $scope.groupName = null;
         $scope.groupData = null;
@@ -44,9 +39,18 @@ app.controller('MainCtrl', function ($scope, $http) {
         $scope.notFound = false;
     };
 
+    $scope.newGroupData = function() {
+        $scope.notFound = false;
+        $scope.groupData = {groupName: $scope.groupName};
+    };
+
     $scope.clearStuff = function() {
         $scope.errorMessage = null;
         $scope.notFound = false;
+    };
+
+    $scope.saveGroupData = function() {
+        $scope.errorMessage = "saving now";
     };
 
     $scope.artifactIsCollapsed = true;

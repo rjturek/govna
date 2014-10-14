@@ -21,6 +21,7 @@
 
     <div class="page-header"><h1 ng-style="{'text-align': 'center'}">Third Party Library Governance</h1></div>
 
+    <!--Finder-->
     <div class="panel panel-success" ng-style="{'width': '70%'}">
         <div class="panel-heading">
             <h3 class="panel-title">Find Group Restriction</h3>
@@ -42,24 +43,30 @@
         </div>
     </div>
 
-    <alert type="danger" ng-if="errorMessage != null">{{messageText}}</alert>
-
+    <!--Not Found Message-->
     <div ng-if="notFound">
         <form>{{groupName}} not found:
             <button class="btn btn-default" ng-click="newGroupData()">Create</button>
         </form>
     </div>
 
-    <div ng-if="groupData !== null">
+    <!--Group Data-->
+    <div class="panel panel-primary" ng-if="groupData !== null">
+        <div class="panel-heading">
+            <form>
+                <span class="panel-title" ng-style="{'margin' : '40px'}">Restrictions for Group: {{groupData.groupName}}</span>
+                <button class="btn btn-default" ng-click="saveGroupData()">Save</button>
+            </form>
+        </div>
+
+        <div class="well well-sm">
+            <div class="btn-group">
+                <label class="btn btn-success" ng-model="radioModel" btn-radio="'Left'" uncheckable>Prohibited</label>
+                <label class="btn btn-success" ng-model="radioModel" btn-radio="'Middle'" uncheckable>Deprecated</label>
+            </div>
+        </div>
 
         <ul class="nav nav-pills nav-stacked">
-            <li class="active">
-                <a href="#">
-                    Group Restriction
-                </a>
-                <div class="well well-sm">restriction</div>
-            </li>
-
             <li class="active">
                 <a href="#" ng-click="artifactIsCollapsed = !artifactIsCollapsed">
                     <span class="badge pull-left">
@@ -99,6 +106,11 @@
         </ul>
     </div>
 
+    <!--Error message-->
+    <br>
+    <alert type="danger" ng-if="errorMessage != null">{{errorMessage}}</alert>
+    <!--Debugging-->
+    <br>
     <div>{{groupData}}</div>
     <div>{{groupData.restriction}}</div>
 
