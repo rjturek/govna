@@ -51,30 +51,26 @@
     </div>
 
     <!--Group Data-->
-    <div class="panel panel-primary" ng-if="groupData !== null">
+    <div class="panel panel-primary" >
+        <!--ng-if="groupData !== null">-->
         <div class="panel-heading">
             <form>
-                <span class="panel-title" ng-style="{'margin' : '40px'}">Restrictions for Group: {{groupData.groupName}}</span>
-                <button class="btn btn-default" ng-click="saveGroupData()">Save</button>
+                <span class="panel-title" ng-style="{'margin' : '40px'}">
+                    Restrictions for Group:&nbsp;&nbsp;&nbsp; {{groupData.groupName}}
+                </span>
+                <span ng-style="{'float': 'right', 'position':'relative', 'top':'50%', 'height':'10em', 'margin-top':'-5px'}">
+                    <button class="btn btn-default" ng-click="saveGroupData()">Save</button>
+                </span>
             </form>
         </div>
 
-        <form class="well well-sm" >
-            <div class="btn-group form-group">
-                    <label class="btn btn-primary" ng-model="radioModel" btn-radio="'prohibit'" >Prohibited</label>
-                    <label class="btn btn-primary" ng-model="radioModel" btn-radio="'deprecate'" >Deprecated</label>
-            </div>
-            <div class="form-group">
-                <span>Message:</span>
-                <input type="text" size="60"/>
-            </div>
-            <div class="form-group">
-                <span>Permitted Consumers:</span>
-                <input type="text" size="60"/>
-            </div>
-        </form>
+        <!--Group restriction-->
+        <div>restriction: {{groupData.restriction}}</div>
+        <div ng-include=" ' restriction.html ' "></div>
 
+        <!--Other restrictions-->
         <ul class="nav nav-pills nav-stacked">
+            <!--Artifact restriction-->
             <li class="active">
                 <a href="#" ng-click="artifactIsCollapsed = !artifactIsCollapsed">
                     <span class="badge pull-left">
@@ -86,7 +82,7 @@
                     <div class="well well-sm">artifs</div>
                 </div>
             </li>
-
+            <!--Version Restriction-->
             <li class="active">
                 <a href="#" ng-click="versionIsCollapsed = !versionIsCollapsed">
                     <span class="badge pull-left">
@@ -98,7 +94,7 @@
                     <div class="well well-sm">versions</div>
                 </div>
             </li>
-
+            <!--Artifact version restriction-->
             <li class="active">
                 <a href="#" ng-click="artifactVersionIsCollapsed = !artifactVersionIsCollapsed">
                     <span class="badge pull-left">
@@ -120,7 +116,7 @@
     <!--Debugging-->
     <br>
     <div>{{groupData}}</div>
-    <div>{{groupData.restriction}}</div>
+
 
 
 </div>

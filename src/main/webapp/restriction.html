@@ -1,0 +1,26 @@
+<form class="well well-sm" >
+
+    <div class="row">
+        <div class="col-md-2">
+            <label class="btn btn-primary" ng-if="true" ng-click="alrt()">Delete</label>
+            <label class="btn btn-primary" ng-if="true">Create</label>
+        </div>
+        <div class="col-md-4">
+            <div class="row btn-group">
+                <label class="btn btn-primary" ng-model="radioModel" btn-radio="'prohibit'" >Prohibited</label>
+                <label class="btn btn-primary" ng-model="radioModel" btn-radio="'deprecate'" >Deprecated</label>
+            </div>
+            <div class="row">
+                <span>Message:</span>
+                <input type="text" size="60"/>
+            </div>
+            <div class="row">
+                <span>Permitted Consumers:</span>
+                <input type="text" size="60"/>
+            </div>
+            <div class="row">
+                resty {{groupData.get}}
+            </div>
+        </div>
+    </div>
+</form>

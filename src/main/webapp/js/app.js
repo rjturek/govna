@@ -1,8 +1,8 @@
 /*global angular*/    // Stop jsLint from complaining about globally defined variables.
 
-var app = angular.module('govna', ['ui.bootstrap']);
-
-app.controller('MainCtrl', function ($scope, $http) {
+angular
+    .module('govna', ['ui.bootstrap'])
+    .controller('MainCtrl', function ($scope, $http) {
     'use strict';
 
     $scope.groupName = null;
@@ -30,6 +30,10 @@ app.controller('MainCtrl', function ($scope, $http) {
         else {
             $scope.errorMessage = "HTTP " + reason.status + " - " + reason.data;
         }
+    };
+
+    $scope.alrt = function() {
+        alert("HHHHHHHHHHHHHHHey");
     };
 
     $scope.clearGroup = function () {
