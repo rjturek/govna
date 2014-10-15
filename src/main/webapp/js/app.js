@@ -30,7 +30,20 @@ angular
     };
 
     var handleGroup = function(response) {
-        $scope.groupData = response.data;
+        var data = response.data;
+        $scope.groupData = data;
+        if (data.restriction !== null) {
+            $scope.groupIsCollapsed = false;
+        }
+        if (data.artifactRestrictions.length > 0) {
+            $scope.artifacIsCollapsed = false;
+        }
+        if (data.versionRestrictions.length > 0) {
+            $scope.versionIsCollapsed = false;
+        }
+        if (data.artifactVersionRestrictions.length > 0) {
+            $scope.artifactVersionIsCollapsed = false;
+        }
     };
 
     var handleGroupError = function(reason) {

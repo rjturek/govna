@@ -75,10 +75,9 @@
                     <span class="badge pull-left">
                         {{(groupData.restriction === undefined ||  groupData.restrictions === null)  ? 0 : 1}}
                     </span>
-                    &nbsp;&nbsp;Group Restrictions
+                    &nbsp;&nbsp;Group Restriction
                 </a>
                 <div collapse="groupIsCollapsed">
-                    <div class="well well-sm">group</div>
                     <div ng-include=" ' restriction.html ' "></div>
                 </div>
             </li>
