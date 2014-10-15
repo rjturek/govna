@@ -11,7 +11,7 @@ configurations {
 
 def v = [
         jetty: '9.2.2.v20140723',
-        spock: '0.6-groovy-1.8'
+        spock: '0.7-groovy-2.0'
     ]
 
 dependencies {
