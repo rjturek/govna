@@ -107,4 +107,11 @@ class DependencyDao {
         log(genericStructure.toString())
         rstrColl.update([groupName: group.groupName], [$set: new JsonSlurper().parseText(theJson)], true)
     }
+
+    def Object removeGroupRestrictions(GroupRestrictions group) {
+        logger.info("removeGroupRestrictions()")
+
+        logger.info( "removing group name: ${group.groupName}")
+        rstrColl.remove([groupName: group.groupName])
+    }
 }

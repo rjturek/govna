@@ -10,6 +10,14 @@ import java.util.logging.Logger
 class DataObjectTester {
     static Logger logger = Logger.getLogger("DataObjectTester")
 
+    /**
+     * Create a Restriction object
+     *
+     * @param isDeprecated
+     * @param message
+     * @param permittedConsumers
+     * @return Restriction
+     */
     private static Object createRestriction(boolean isDeprecated, String  message, List<String> permittedConsumers){
         logger.info("createRestriction()")
         Restriction restriction =  new Restriction()
@@ -20,9 +28,13 @@ class DataObjectTester {
         restriction
     }
 
-
-
-
+    /**
+     * create a GroupOnly GroupRestriction Object
+     *
+     * @param groupId
+     * @param restriction
+     * @return GroupRestriction
+     */
     private static Object createGroupOnlyRestriction(String groupId, Restriction restriction){
         logger.info("createGroupOnlyRestriction()")
 
@@ -64,5 +76,9 @@ class DataObjectTester {
         /* after we get the restrictions we need, let's drop it in mongo*/
         DependencyDao dependencyDao = new DependencyDao()
         dependencyDao.upsertGroupRestrictions(groupRestrictions)
+
+        /* uncomment if you want to remove it too. */
+       //logger.info( "Removing: ${groupRestrictions.groupName}")
+       //dependencyDao.removeGroupRestrictions(groupRestrictions)
     }
 }
