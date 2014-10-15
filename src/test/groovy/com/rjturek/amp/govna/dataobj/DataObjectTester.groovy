@@ -47,7 +47,20 @@ class DataObjectTester {
 
     }
 
+    /**
+     * create a json object that contains restrictions on a group and an artifact.
+     *   the G and A of GAV
+     *
+     * @param groupId
+     * @param artifactId
+     * @param restriction
+     * @return GroupRestriction
+     */
+    private static Object createGroupAndArtifactRestriction(String groupId, String artifactId, Restriction restriction, List<ArtifactRestriction> artifactRestrictions) {
+        logger.info("createGroupAndArtifactRestriction()")
 
+        GroupRestrictions groupRestrictions = new GroupRestrictions()
+    }
 
     static void main(String[] args) {
 
@@ -72,13 +85,14 @@ class DataObjectTester {
         Restriction restriction = createRestriction(isDeprecated, restrictionMessage, permittedConsumers)
         GroupRestrictions groupRestrictions = dataObjectTester.createGroupOnlyRestriction(groupId, restriction)
 
+        logger.info("Creating Group and Artifact restriction")
 
         /* after we get the restrictions we need, let's drop it in mongo*/
         DependencyDao dependencyDao = new DependencyDao()
         dependencyDao.upsertGroupRestrictions(groupRestrictions)
 
         /* uncomment if you want to remove it too. */
-       logger.info( "Removing: ${groupRestrictions.groupName}")
-       dependencyDao.removeGroupRestrictions(groupRestrictions)
+        //logger.info( "Removing: ${groupRestrictions.groupName}")
+        //dependencyDao.removeGroupRestrictions(groupRestrictions)
     }
 }
