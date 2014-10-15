@@ -112,6 +112,7 @@ class DependencyDao {
         logger.info("removeGroupRestrictions()")
 
         logger.info( "removing group name: ${group.groupName}")
-        rstrColl.remove([groupName: group.groupName])
+        def result = rstrColl.remove([groupName: group.groupName])
+        logger.info(" Document Removal results: ${result}")
     }
 }

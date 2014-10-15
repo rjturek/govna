@@ -78,7 +78,7 @@ class DataObjectTester {
         dependencyDao.upsertGroupRestrictions(groupRestrictions)
 
         /* uncomment if you want to remove it too. */
-       //logger.info( "Removing: ${groupRestrictions.groupName}")
-       //dependencyDao.removeGroupRestrictions(groupRestrictions)
+       logger.info( "Removing: ${groupRestrictions.groupName}")
+       dependencyDao.removeGroupRestrictions(groupRestrictions)
     }
 }
