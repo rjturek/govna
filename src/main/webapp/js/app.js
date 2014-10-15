@@ -8,6 +8,16 @@ angular
     $scope.groupName = null;
     $scope.groupData = null;
 
+    $scope.debugIsCollapsed = false;
+
+    $scope.groupIsCollapsed = true;
+    $scope.artifactIsCollapsed = true;
+    $scope.versionIsCollapsed = true;
+    $scope.artifactVersionIsCollapsed = true;
+
+    $scope.message = null;
+    $scope.notFound = false;
+
     $scope.fetchGroup = function () {
         if ($scope.groupName.length === 0) {
             $scope.clearGroup();
@@ -28,7 +38,7 @@ angular
             $scope.notFound = true;
         }
         else {
-            $scope.errorMessage = "HTTP " + reason.status + " - " + reason.data;
+            $scope.message = "HTTP " + reason.status + " - " + reason.data;
         }
     };
 
@@ -39,7 +49,7 @@ angular
     $scope.clearGroup = function () {
         $scope.groupName = null;
         $scope.groupData = null;
-        $scope.errorMessage = null;
+        $scope.message = null;
         $scope.notFound = false;
     };
 
@@ -49,20 +59,17 @@ angular
     };
 
     $scope.clearStuff = function() {
-        $scope.errorMessage = null;
+        $scope.message = null;
         $scope.notFound = false;
     };
 
     $scope.saveGroupData = function() {
-        $scope.errorMessage = "saving now";
+        $scope.message = "saving now";
     };
 
-    $scope.groupIsCollapsed = true;
-    $scope.artifactIsCollapsed = true;
-    $scope.versionIsCollapsed = true;
-    $scope.artifactVersionIsCollapsed = true;
+    $scope.deleteGroupData = function() {
+        $scope.message = "deleting now";
+    };
 
-    $scope.errorMessage = null;
-    $scope.notFound = false;
 
 });

@@ -17,9 +17,14 @@
 
 <body ng-controller="MainCtrl" >
 
+<div ng-style="{'position':'absolute',
+                'top':'24px', 'right':'39px',
+                'width':'40px', 'height':'40px'}" ng-click="debugIsCollapsed = !debugIsCollapsed"></div>
+
 <div class="container">
 
     <div class="page-header"><h1 ng-style="{'text-align': 'center'}">Third Party Library Governance</h1></div>
+
 
     <!--Finder-->
     <div class="panel panel-success" ng-style="{'width': '70%'}">
@@ -53,32 +58,18 @@
     <!--Group Data-->
     <div class="panel panel-primary"
                     ng-if="groupData !== null">
-        <!--<div class="panel-heading">-->
-            <!--<form>-->
-                <!--<span class="panel-title" ng-style="{'margin' : '40px'}">-->
-                    <!--Restrictions for Group:&nbsp;&nbsp;&nbsp; {{groupData.groupName}}-->
-                <!--</span>-->
-                <!--<span ng-style="{'float': 'right', 'position':'relative', 'top':'50%', 'height':'10em', 'margin-top':'-5px'}">-->
-                    <!--<button class="btn btn-default" ng-click="saveGroupData()">Save</button>-->
-                <!--</span>-->
-            <!--</form>-->
-        <!--</div>        -->
-        <!---->
 
-
-        <!--&lt;!&ndash;Group restriction&ndash;&gt;-->
-        <!--<div>restriction: {{groupData.restriction}}</div>-->
-        <!--<div ng-include=" ' restriction.html ' "></div>-->
-
-        <div>
+        <form>
             <span ng-style="{'padding' : '50px'}">
                 {{groupData.groupName}}
             </span>
             <button class="btn btn-default" ng-click="saveGroupData()">Save</button>
+            <button class="btn btn-default" ng-click="deleteGroupData()">Delete</button>
         </form>
 
-        <!--Other restrictions-->
+        <!--Restrictions-->
         <ul class="nav nav-pills nav-stacked">
+            <!--Group restriction-->
             <li class="active">
                 <a href="#" ng-click="groupIsCollapsed = !groupIsCollapsed">
                     <span class="badge pull-left">
@@ -133,10 +124,15 @@
 
     <!--Error message-->
     <br>
-    <alert type="danger" ng-if="errorMessage != null">{{errorMessage}}</alert>
+    <alert ng-if="message != null">{{message}}</alert>
     <!--Debugging-->
-    <br>
-    <div>{{groupData}}</div>
+    <div collapse="debugIsCollapsed">
+        <div>Full JSON<br>{{groupData}}<br><br></div>
+        <div>Group restriction<br>{{groupData.restriction}}<br><br></div>
+        <div>Artifact restriction<br>{{groupData.artifactRestrictions}}<br><br></div>
+        <div>Version restriction<br>{{groupData.versionRestrictions}}<br><br></div>
+        <div>Artifact version restriction<br>{{groupData.artifactVersionRestrictions}}<br><br></div>
+    </div>
 
 
 
