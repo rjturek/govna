@@ -39,15 +39,20 @@ class DependencyDao {
         groupList
     }
 
+    /**
+     * Read entire database of group restrictions and places them into a map.
+     *
+     * @return Map (<groupName>,<GroupRestrictions>)
+     */
     def Object getAllGroupRestrictionsMap(){
         log( "getAllGroupRestrictionsMap" )
 
         def groups = getGroupRestrictionsList()
-
         List<GroupRestrictions> groupRestrictions = GenericStructUtil.convertGroups(groups)
 
         Map groupMap = [:]
 
+        /* create the map with no duplicate groupNames */
         groupRestrictions.each{
             /* db integrity check. groupNames are unique. */
             if (!groupMap.put(it.groupName, it ) == null){

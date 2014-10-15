@@ -11,11 +11,22 @@ import java.util.logging.Logger
  */
 class ValidationUtility {
 
-    static Logger logger = Logger.getLogger("sharedLogger")
+     static Logger logger = Logger.getLogger("sharedLogger")
 
     DependencyDao dao = new DependencyDao()
 
+    /**
+     *
+     */
+    public Object checkDependencyRestrictions(ValidationRequest request, Map restrictionsMap){
+        logger.fine("checkDependencyRestrictions()")
 
+
+        request.dependencyCoordinates.each{ gav->
+            logger.info(" Dependency GAV: ${gav}")
+        }
+
+    }
 
     /**
      * Entry point to compare the ValidationRequest against the Restrictions for the consumerGroup.
@@ -29,24 +40,11 @@ class ValidationUtility {
 
         logger.info("Restrictions found for consumer group: " + dao.getGroupRestrictions(jsonRequest.consumerGroup))
 
-        Map groupMap = dao.getAllGroupRestrictionsMap()
+        Map groupRestrictionsMap = dao.getAllGroupRestrictionsMap()
 
-        ValidationResponse response = new ValidationResponse()
+        ValidationResponse validationResponse = checkDependencyRestrictions(jsonRequest, groupRestrictionsMap)
 
-        logger.fine( "*************************************" )
-        for ( k in groupMap) {
-            logger.fine( "Key: ${k.key} " )
-            logger.fine( "Value: ${k.value}" )
-        }
-
-
-
-        jsonRequest.dependencyCoordinates.each { gav ->
-
-            logger.info("Group Artifact Version: ${gav}")
-        }
-
-        return "${dao.getGroupRestrictions(jsonRequest.consumerGroup)}"
+        return validationResponse
 
     }
 }
