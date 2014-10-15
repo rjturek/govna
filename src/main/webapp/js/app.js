@@ -57,6 +57,7 @@ angular
         $scope.errorMessage = "saving now";
     };
 
+    $scope.groupIsCollapsed = true;
     $scope.artifactIsCollapsed = true;
     $scope.versionIsCollapsed = true;
     $scope.artifactVersionIsCollapsed = true;

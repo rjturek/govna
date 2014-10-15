@@ -51,25 +51,47 @@
     </div>
 
     <!--Group Data-->
-    <div class="panel panel-primary" >
-        <!--ng-if="groupData !== null">-->
-        <div class="panel-heading">
-            <form>
-                <span class="panel-title" ng-style="{'margin' : '40px'}">
-                    Restrictions for Group:&nbsp;&nbsp;&nbsp; {{groupData.groupName}}
-                </span>
-                <span ng-style="{'float': 'right', 'position':'relative', 'top':'50%', 'height':'10em', 'margin-top':'-5px'}">
-                    <button class="btn btn-default" ng-click="saveGroupData()">Save</button>
-                </span>
-            </form>
-        </div>
+    <div class="panel panel-primary"
+                    ng-if="groupData !== null">
+        <!--<div class="panel-heading">-->
+            <!--<form>-->
+                <!--<span class="panel-title" ng-style="{'margin' : '40px'}">-->
+                    <!--Restrictions for Group:&nbsp;&nbsp;&nbsp; {{groupData.groupName}}-->
+                <!--</span>-->
+                <!--<span ng-style="{'float': 'right', 'position':'relative', 'top':'50%', 'height':'10em', 'margin-top':'-5px'}">-->
+                    <!--<button class="btn btn-default" ng-click="saveGroupData()">Save</button>-->
+                <!--</span>-->
+            <!--</form>-->
+        <!--</div>        -->
+        <!---->
 
-        <!--Group restriction-->
-        <div>restriction: {{groupData.restriction}}</div>
-        <div ng-include=" ' restriction.html ' "></div>
+
+        <!--&lt;!&ndash;Group restriction&ndash;&gt;-->
+        <!--<div>restriction: {{groupData.restriction}}</div>-->
+        <!--<div ng-include=" ' restriction.html ' "></div>-->
+
+        <div>
+            <span ng-style="{'padding' : '50px'}">
+                {{groupData.groupName}}
+            </span>
+            <button class="btn btn-default" ng-click="saveGroupData()">Save</button>
+        </form>
 
         <!--Other restrictions-->
         <ul class="nav nav-pills nav-stacked">
+            <li class="active">
+                <a href="#" ng-click="groupIsCollapsed = !groupIsCollapsed">
+                    <span class="badge pull-left">
+                        {{(groupData.restriction === undefined ||  groupData.restrictions === null)  ? 0 : 1}}
+                    </span>
+                    &nbsp;&nbsp;Group Restrictions
+                </a>
+                <div collapse="groupIsCollapsed">
+                    <div class="well well-sm">group</div>
+                    <div ng-include=" ' restriction.html ' "></div>
+                </div>
+            </li>
+
             <!--Artifact restriction-->
             <li class="active">
                 <a href="#" ng-click="artifactIsCollapsed = !artifactIsCollapsed">
@@ -81,7 +103,6 @@
                 <div collapse="artifactIsCollapsed">
                     <div class="well well-sm">artifs</div>
                 </div>
-            </li>
             <!--Version Restriction-->
             <li class="active">
                 <a href="#" ng-click="versionIsCollapsed = !versionIsCollapsed">
