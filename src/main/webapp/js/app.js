@@ -2,7 +2,7 @@
 
 angular
     .module('govna', ['ui.bootstrap'])
-    .controller('MainCtrl', function ($scope, $http) {
+    .controller('MainCtrl', function ($scope, $http, $timeout) {
     'use strict';
 
     $scope.groupName = null;

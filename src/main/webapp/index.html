@@ -33,8 +33,7 @@
         </div>
         <div class="panel-body">
             <ng-form >
-                Group Name:
-                <input type="text" size="37" ng-model="groupName"
+                <input type="search" placeholder="Group name:" size="37" ng-model="groupName"
                        ng-keyup="$event.keyCode == 13 && fetchGroup()"
                        ng-change="clearStuff()"/>
                 <button class="btn btn-default" ng-click="fetchGroup()">
@@ -73,7 +72,7 @@
             <li class="active">
                 <a href="#" ng-click="groupIsCollapsed = !groupIsCollapsed">
                     <span class="badge pull-left">
-                        {{(groupData.restriction === undefined ||  groupData.restrictions === null)  ? 0 : 1}}
+                        {{groupData.restriction ? 1 : 0}}
                     </span>
                     &nbsp;&nbsp;Group Restriction
                 </a>
@@ -86,7 +85,7 @@
             <li class="active">
                 <a href="#" ng-click="artifactIsCollapsed = !artifactIsCollapsed">
                     <span class="badge pull-left">
-                        {{(groupData.artifactRestrictions === undefined ||  groupData.artifactRestrictions === null)  ? 0 : groupData.artifactRestrictions.length}}
+                        {{groupData.artifactRestrictions ? groupData.artifactRestrictions.length : 0}}
                     </span>
                     &nbsp;&nbsp;Artifact Restrictions
                 </a>
@@ -97,7 +96,7 @@
             <li class="active">
                 <a href="#" ng-click="versionIsCollapsed = !versionIsCollapsed">
                     <span class="badge pull-left">
-                        {{(groupData.versionRestrictions === undefined ||  groupData.versionRestrictions === null)  ? 0 : groupData.versionRestrictions.length}}
+                        {{groupData.versionRestrictions ? groupData.versionRestrictions.length : 0}}
                     </span>
                     &nbsp;&nbsp;Version Restrictions
                 </a>
@@ -109,7 +108,7 @@
             <li class="active">
                 <a href="#" ng-click="artifactVersionIsCollapsed = !artifactVersionIsCollapsed">
                     <span class="badge pull-left">
-                        {{(groupData.artifactVersionRestrictions === undefined ||  groupData.artifactVersionRestrictions === null)  ? 0 : groupData.artifactVersionRestrictions.length}}
+                        {{groupData.artifactVersionRestrictions ? groupData.artifactVersionRestrictions.length : 0}}
                     </span>
                     &nbsp;&nbsp;Artifact Version Restrictions
                 </a>
@@ -126,7 +125,7 @@
     <alert ng-if="message != null">{{message}}</alert>
     <!--Debugging-->
     <div collapse="debugIsCollapsed">
-        <div>Full JSON<br>{{groupData}}<br><br></div>
+        <div>Full JSON  ...... Klicken sie monokel to show/hide de bug information......<br>{{groupData}}<br><br></div>
         <div>Group restriction<br>{{groupData.restriction}}<br><br></div>
         <div>Artifact restriction<br>{{groupData.artifactRestrictions}}<br><br></div>
         <div>Version restriction<br>{{groupData.versionRestrictions}}<br><br></div>
