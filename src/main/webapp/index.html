@@ -17,9 +17,14 @@
 
 <body ng-controller="MainCtrl" >
 
+<div ng-style="{'position':'absolute',
+                'top':'24px', 'right':'39px',
+                'width':'40px', 'height':'40px'}" ng-click="debugIsCollapsed = !debugIsCollapsed"></div>
+
 <div class="container">
 
     <div class="page-header"><h1 ng-style="{'text-align': 'center'}">Third Party Library Governance</h1></div>
+
 
     <!--Finder-->
     <div class="panel panel-success" ng-style="{'width': '70%'}">
@@ -51,30 +56,33 @@
     </div>
 
     <!--Group Data-->
-    <div class="panel panel-primary" ng-if="groupData !== null">
-        <div class="panel-heading">
-            <form>
-                <span class="panel-title" ng-style="{'margin' : '40px'}">Restrictions for Group: {{groupData.groupName}}</span>
-                <button class="btn btn-default" ng-click="saveGroupData()">Save</button>
-            </form>
-        </div>
+    <div class="panel panel-primary"
+                    ng-if="groupData !== null">
 
-        <form class="well well-sm" >
-            <div class="btn-group form-group">
-                    <label class="btn btn-primary" ng-model="radioModel" btn-radio="'prohibit'" >Prohibited</label>
-                    <label class="btn btn-primary" ng-model="radioModel" btn-radio="'deprecate'" >Deprecated</label>
-            </div>
-            <div class="form-group">
-                <span>Message:</span>
-                <input type="text" size="60"/>
-            </div>
-            <div class="form-group">
-                <span>Permitted Consumers:</span>
-                <input type="text" size="60"/>
-            </div>
+        <form>
+            <span ng-style="{'padding' : '50px'}">
+                {{groupData.groupName}}
+            </span>
+            <button class="btn btn-default" ng-click="saveGroupData()">Save</button>
+            <button class="btn btn-default" ng-click="deleteGroupData()">Delete</button>
         </form>
 
+        <!--Restrictions-->
         <ul class="nav nav-pills nav-stacked">
+            <!--Group restriction-->
+            <li class="active">
+                <a href="#" ng-click="groupIsCollapsed = !groupIsCollapsed">
+                    <span class="badge pull-left">
+                        {{(groupData.restriction === undefined ||  groupData.restrictions === null)  ? 0 : 1}}
+                    </span>
+                    &nbsp;&nbsp;Group Restriction
+                </a>
+                <div collapse="groupIsCollapsed">
+                    <div ng-include=" ' restriction.html ' "></div>
+                </div>
+            </li>
+
+            <!--Artifact restriction-->
             <li class="active">
                 <a href="#" ng-click="artifactIsCollapsed = !artifactIsCollapsed">
                     <span class="badge pull-left">
@@ -85,8 +93,7 @@
                 <div collapse="artifactIsCollapsed">
                     <div class="well well-sm">artifs</div>
                 </div>
-            </li>
-
+            <!--Version Restriction-->
             <li class="active">
                 <a href="#" ng-click="versionIsCollapsed = !versionIsCollapsed">
                     <span class="badge pull-left">
@@ -98,7 +105,7 @@
                     <div class="well well-sm">versions</div>
                 </div>
             </li>
-
+            <!--Artifact version restriction-->
             <li class="active">
                 <a href="#" ng-click="artifactVersionIsCollapsed = !artifactVersionIsCollapsed">
                     <span class="badge pull-left">
@@ -116,11 +123,16 @@
 
     <!--Error message-->
     <br>
-    <alert type="danger" ng-if="errorMessage != null">{{errorMessage}}</alert>
+    <alert ng-if="message != null">{{message}}</alert>
     <!--Debugging-->
-    <br>
-    <div>{{groupData}}</div>
-    <div>{{groupData.restriction}}</div>
+    <div collapse="debugIsCollapsed">
+        <div>Full JSON<br>{{groupData}}<br><br></div>
+        <div>Group restriction<br>{{groupData.restriction}}<br><br></div>
+        <div>Artifact restriction<br>{{groupData.artifactRestrictions}}<br><br></div>
+        <div>Version restriction<br>{{groupData.versionRestrictions}}<br><br></div>
+        <div>Artifact version restriction<br>{{groupData.artifactVersionRestrictions}}<br><br></div>
+    </div>
+
 
 
 </div>

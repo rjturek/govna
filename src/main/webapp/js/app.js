@@ -1,12 +1,22 @@
 /*global angular*/    // Stop jsLint from complaining about globally defined variables.
 
-var app = angular.module('govna', ['ui.bootstrap']);
-
-app.controller('MainCtrl', function ($scope, $http) {
+angular
+    .module('govna', ['ui.bootstrap'])
+    .controller('MainCtrl', function ($scope, $http) {
     'use strict';
 
     $scope.groupName = null;
     $scope.groupData = null;
+
+    $scope.debugIsCollapsed = false;
+
+    $scope.groupIsCollapsed = true;
+    $scope.artifactIsCollapsed = true;
+    $scope.versionIsCollapsed = true;
+    $scope.artifactVersionIsCollapsed = true;
+
+    $scope.message = null;
+    $scope.notFound = false;
 
     $scope.fetchGroup = function () {
         if ($scope.groupName.length === 0) {
@@ -20,7 +30,20 @@ app.controller('MainCtrl', function ($scope, $http) {
     };
 
     var handleGroup = function(response) {
-        $scope.groupData = response.data;
+        var data = response.data;
+        $scope.groupData = data;
+        if (data.restriction !== null) {
+            $scope.groupIsCollapsed = false;
+        }
+        if (data.artifactRestrictions.length > 0) {
+            $scope.artifacIsCollapsed = false;
+        }
+        if (data.versionRestrictions.length > 0) {
+            $scope.versionIsCollapsed = false;
+        }
+        if (data.artifactVersionRestrictions.length > 0) {
+            $scope.artifactVersionIsCollapsed = false;
+        }
     };
 
     var handleGroupError = function(reason) {
@@ -28,14 +51,18 @@ app.controller('MainCtrl', function ($scope, $http) {
             $scope.notFound = true;
         }
         else {
-            $scope.errorMessage = "HTTP " + reason.status + " - " + reason.data;
+            $scope.message = "HTTP " + reason.status + " - " + reason.data;
         }
+    };
+
+    $scope.alrt = function() {
+        alert("HHHHHHHHHHHHHHHey");
     };
 
     $scope.clearGroup = function () {
         $scope.groupName = null;
         $scope.groupData = null;
-        $scope.errorMessage = null;
+        $scope.message = null;
         $scope.notFound = false;
     };
 
@@ -45,19 +72,17 @@ app.controller('MainCtrl', function ($scope, $http) {
     };
 
     $scope.clearStuff = function() {
-        $scope.errorMessage = null;
+        $scope.message = null;
         $scope.notFound = false;
     };
 
     $scope.saveGroupData = function() {
-        $scope.errorMessage = "saving now";
+        $scope.message = "saving now";
     };
 
-    $scope.artifactIsCollapsed = true;
-    $scope.versionIsCollapsed = true;
-    $scope.artifactVersionIsCollapsed = true;
+    $scope.deleteGroupData = function() {
+        $scope.message = "deleting now";
+    };
 
-    $scope.errorMessage = null;
-    $scope.notFound = false;
 
 });
