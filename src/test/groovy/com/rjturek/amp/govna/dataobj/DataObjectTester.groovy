@@ -1,6 +1,7 @@
 package com.rjturek.amp.govna.dataobj
 
 import com.rjturek.amp.govna.db.DependencyDao
+import jersey.repackaged.com.google.common.collect.Lists
 
 import java.util.logging.Logger
 
@@ -35,12 +36,12 @@ class DataObjectTester {
      * @param restriction
      * @return GroupRestriction
      */
-    private static Object createGroupOnlyRestriction(String groupId, Restriction restriction){
+    private static Object createGroupOnlyRestriction(String groupName, Restriction restriction){
         logger.info("createGroupOnlyRestriction()")
 
         GroupRestrictions groupRestrictions = new GroupRestrictions()
 
-        groupRestrictions.groupName = groupId
+        groupRestrictions.groupName = groupName
         groupRestrictions.restriction = restriction
 
         groupRestrictions
@@ -55,19 +56,34 @@ class DataObjectTester {
      * @param artifactId
      * @param restriction
      * @return GroupRestriction
+     *
+     * TODO: make multiple artifact restrictions.  (AKA list)
      */
-    private static Object createGroupAndArtifactRestriction(String groupId, String artifactId, Restriction restriction, List<ArtifactRestriction> artifactRestrictions) {
+    private static Object createGroupAndArtifactRestriction(String groupName, String artifactId, Restriction restriction) {
         logger.info("createGroupAndArtifactRestriction()")
 
         GroupRestrictions groupRestrictions = new GroupRestrictions()
+        groupRestrictions.groupName = groupName
+
+        ArtifactRestriction artifactRestriction = new ArtifactRestriction()
+        artifactRestriction.artifactId = artifactId
+        artifactRestriction.restriction = restriction
+
+        /* add the artifactRestriction to a List */
+        List<ArtifactRestriction> artifactRestrictionList = Lists.newArrayList(artifactRestriction)
+
+        /* add the artifact restriction list to the Group Restriction */
+        groupRestrictions.artifactRestrictions = artifactRestrictionList
+
+        groupRestrictions
+
     }
 
     static void main(String[] args) {
 
         /* what group and artifact are we restricting?*/
-        String groupId = "ant"
+        String groupName = "ant"
         String artifactId = "ant-optional"
-
 
         /* if we just need to restriction one version, set the low and the high to the same version? */
         String artifactVersionLow  = "1.4.1"
@@ -81,11 +97,15 @@ class DataObjectTester {
 
         DataObjectTester dataObjectTester = new DataObjectTester()
 
-        logger.info("Creating Group only restriction")
+        /* create a restriction to use */
         Restriction restriction = createRestriction(isDeprecated, restrictionMessage, permittedConsumers)
-        GroupRestrictions groupRestrictions = dataObjectTester.createGroupOnlyRestriction(groupId, restriction)
+
+
+        //logger.info("Creating Group only restriction")
+        //GroupRestrictions groupRestrictions = dataObjectTester.createGroupOnlyRestriction(groupName, restriction)
 
         logger.info("Creating Group and Artifact restriction")
+        GroupRestrictions groupRestrictions = createGroupAndArtifactRestriction(groupName, artifactId, restriction)
 
         /* after we get the restrictions we need, let's drop it in mongo*/
         DependencyDao dependencyDao = new DependencyDao()
