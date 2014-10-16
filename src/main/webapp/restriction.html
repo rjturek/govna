@@ -7,25 +7,20 @@
         </div>
         <div class="col-md-6">
             <div class="row">
-                <span>
-                    <input type="radio" ng-model="groupData.restriction.isDeprecated" value="false">Prohibited</input>
+                <div class="col-md-6">
                     <input type="radio" ng-model="groupData.restriction.isDeprecated" value="true">Deprecated</input>
                     {{groupData.restriction.isDeprecated}}
-                </span>
+                </div>
+                Message:
+                <input type="text" size="60" ng-model="groupData.restriction.message"/>
             </div>
             <div class="row">
-                <span>
-                    Message:
-                    <input type="text" size="60" ng-model="groupData.restriction.message"/>
-                </span>
-            </div>
+                <div class="col-md-6">
+                    <input type="radio" ng-model="groupData.restriction.isDeprecated" value="false">Prohibited</input>
             <div class="row">
                 <span>Permitted Consumers:</span>
                 <input type="text" size="60"/>
             </div>
-            <!--<div class="row">-->
-                <!--resty {{groupData.restriction}}-->
-            <!--</div>-->
         </div>
     </div>
 </form>

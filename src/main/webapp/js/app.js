@@ -84,5 +84,13 @@ angular
         $scope.message = "deleting now";
     };
 
+    $scope.addVersion = function(msg) {
+        $scope.message = msg + " version clicked ";
+        if (!$scope.groupData.versionRestrictions) {
+            $scope.groupData.versionRestrictions = [];
+        }
+        $scope.groupData.versionRestrictions.push(msg);
+        $scope.$apply();
+    };
 
 });

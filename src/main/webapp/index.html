@@ -62,8 +62,8 @@
             <span ng-style="{'padding' : '50px'}">
                 {{groupData.groupName}}
             </span>
-            <button class="btn btn-default" ng-click="saveGroupData()">Save</button>
-            <button class="btn btn-default" ng-click="deleteGroupData()">Delete</button>
+            <button ng-click="saveGroupData()">Save</button>
+            <button ng-click="deleteGroupData()">Delete</button>
         </form>
 
         <!--Restrictions-->
@@ -92,6 +92,7 @@
                 <div collapse="artifactIsCollapsed">
                     <div class="well well-sm">artifs</div>
                 </div>
+            </li>
             <!--Version Restriction-->
             <li class="active">
                 <a href="#" ng-click="versionIsCollapsed = !versionIsCollapsed">
@@ -101,7 +102,8 @@
                     &nbsp;&nbsp;Version Restrictions
                 </a>
                 <div collapse="versionIsCollapsed">
-                    <div class="well well-sm">versions</div>
+                    <div ng-include=" ' version.html ' "
+                         onload="context='version'"></div>
                 </div>
             </li>
             <!--Artifact version restriction-->
@@ -120,12 +122,13 @@
         </ul>
     </div>
 
-    <!--Error message-->
+    <!--Status message-->
     <br>
     <alert ng-if="message != null">{{message}}</alert>
+
     <!--Debugging-->
     <div collapse="debugIsCollapsed">
-        <div>Full JSON  ...... Klicken sie monokel to show/hide de bug information......<br>{{groupData}}<br><br></div>
+        <div>Full JSON  ...... Click the monocle to show hide<br>{{groupData}}<br><br></div>
         <div>Group restriction<br>{{groupData.restriction}}<br><br></div>
         <div>Artifact restriction<br>{{groupData.artifactRestrictions}}<br><br></div>
         <div>Version restriction<br>{{groupData.versionRestrictions}}<br><br></div>
