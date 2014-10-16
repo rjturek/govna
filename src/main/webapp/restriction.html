@@ -5,22 +5,22 @@
             <label class="btn btn-primary" ng-if="true" ng-click="clearRestriction()">Delete</label>
             <label class="btn btn-primary" ng-if="true">Create</label>
         </div>
-        <div class="col-md-4">
-            <div class="row btn-group">
-                <input type="radio" ng-model="isDeprecated" value="red">Prohibited<br/>
-                <input type="radio" ng-model="isDeprecated" value="green">Deprecated<br/>
-            </div>
+        <div class="col-md-6">
             <div class="row">
-                <span>Message:</span>
+                <div class="col-md-6">
+                    <input type="radio" ng-model="groupData.restriction.isDeprecated" value="true">Deprecated</input>
+                    {{groupData.restriction.isDeprecated}}
+                </div>
+                Message:
                 <input type="text" size="60" ng-model="groupData.restriction.message"/>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="radio" ng-model="groupData.restriction.isDeprecated" value="false">Prohibited</input>
             <div class="row">
                 <span>Permitted Consumers:</span>
                 <input type="text" size="60"/>
             </div>
-            <!--<div class="row">-->
-                <!--resty {{groupData.restriction}}-->
-            <!--</div>-->
         </div>
     </div>
 </form>
