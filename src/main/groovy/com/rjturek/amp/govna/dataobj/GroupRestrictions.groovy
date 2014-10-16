@@ -4,10 +4,10 @@ class GroupRestrictions {
     String groupName  // unique identifier
     Restriction restriction
     List<ArtifactRestriction> artifactRestrictions
-    List<VersionRestriction>  versionRestrictions
-    List<ArtifactVersionRestriction> artifactVersionRestrictions
+List<VersionRestriction>  versionRestrictions
+List<ArtifactVersionRestriction> artifactVersionRestrictions
 
-    GroupRestrictions() { }
+GroupRestrictions() { }
 }
 
 

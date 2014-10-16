@@ -113,6 +113,15 @@ class DependencyDao {
 
         logger.info( "removing group name: ${group.groupName}")
         def result = rstrColl.remove([groupName: group.groupName])
-        logger.info(" Document Removal results: ${result}")
+        logger.info("Document Removal results: ${result}")
+    }
+
+    def Object wipeRestrictionsDocuments(){
+        logger.info("wipeRestrictionsDocuments()")
+        logger.warning("Wiping all documents in the restrictions collection.")
+
+        def result = rstrColl.remove([:])
+
+        logger.info("Restrictions collection document removal results: ${result}")
     }
 }
