@@ -1,0 +1,17 @@
+{
+    "groupName": "aaa",
+    "restrictions": [
+        {"isDeprecated": false,
+        "message": "aaa stuff is mostly horrible for TRowe",
+        "artifactId": null,
+        "versionHigh": null,
+        "versionLow": null,
+        "exemptConsumers": null},
+        {"isDeprecated": false,
+         "message": "Though thing1 is OK for IAS",
+         "artifactId": "thing1",
+         "versionHigh": null,
+         "versionLow": null,
+         "exemptConsumers": ["com.trp.ias.service","com.trp.ias.tester"]}
+    ]
+}
