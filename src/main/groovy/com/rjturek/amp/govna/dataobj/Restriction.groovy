@@ -6,5 +6,5 @@ class Restriction {
     String  message
     String versionHigh
     String versionLow
-    List<String> permittedConsumers
+    List<String> exemptConsumers
 }

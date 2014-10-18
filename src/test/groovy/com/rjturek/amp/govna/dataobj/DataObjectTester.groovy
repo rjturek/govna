@@ -24,7 +24,7 @@ class DataObjectTester {
         Restriction restriction =  new Restriction()
         restriction.isDeprecated = isDeprecated
         restriction.message = message
-        restriction.permittedConsumers = permittedConsumers
+        restriction.exemptConsumers = permittedConsumers
 
         restriction
     }
@@ -129,7 +129,7 @@ class DataObjectTester {
         /* restriction variables */
 //        boolean isDeprecated = false
 //        String restrictionMessage = "This version has known vulnerabilities.  Please use the latest provided in Artifactory."
-//        List<String> permittedConsumers = ["com.trp.amp.app", "com.trp.sec.util"]
+//        List<String> exemptConsumers = ["com.trp.amp.app", "com.trp.sec.util"]
           boolean isDeprecated = false
           String restrictionMessage = "These versions have known WebSphere cluster compatibility issues.  Please use the latest provided in Artifactory."
           List<String> permittedConsumers = ["com.trp.tst.app"]

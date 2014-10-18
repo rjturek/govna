@@ -12,7 +12,7 @@
         <div class=row">
             ccc
         </div>
-        <div class=row" ng-repeat="ver in groupData.versionRestrictions">
+        <div class=row" ng-repeat="ver in groupData.versionRestrictions track by $index">
             {{$index}}
         </div>
     </div>

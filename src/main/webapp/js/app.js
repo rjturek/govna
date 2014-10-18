@@ -32,16 +32,16 @@ angular
     var handleGroup = function(response) {
         var data = response.data;
         $scope.groupData = data;
-        if (data.restriction !== null) {
+        if (data.restriction) {
             $scope.groupIsCollapsed = false;
         }
-        if (data.artifactRestrictions.length > 0) {
-            $scope.artifacIsCollapsed = false;
+        if (data.artifactRestrictions) {
+            $scope.artifactIsCollapsed = false;
         }
-        if (data.versionRestrictions.length > 0) {
+        if (data.versionRestrictions) {
             $scope.versionIsCollapsed = false;
         }
-        if (data.artifactVersionRestrictions.length > 0) {
+        if (data.artifactVersionRestrictions) {
             $scope.artifactVersionIsCollapsed = false;
         }
     };
@@ -85,12 +85,12 @@ angular
     };
 
     $scope.addVersion = function(msg) {
-        $scope.message = msg + " version clicked ";
+        $scope.message = msg + " clicked ";
         if (!$scope.groupData.versionRestrictions) {
             $scope.groupData.versionRestrictions = [];
         }
-        $scope.groupData.versionRestrictions.push(msg);
-        $scope.$apply();
+//        $scope.groupData.versionRestrictions.push(msg);
+        $scope.groupData.versionRestrictions.splice(0,0,msg);
     };
 
 });

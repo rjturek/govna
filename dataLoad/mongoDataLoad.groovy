@@ -59,7 +59,7 @@ class MongoDataLoad {
         Restriction restriction =  new Restriction()
         restriction.isDeprecated = isDeprecated
         restriction.message = message
-        restriction.permittedConsumers = permittedConsumers
+        restriction.exemptConsumers = permittedConsumers
 
         return restriction
     }
@@ -92,20 +92,20 @@ class MongoDataLoad {
             GroupRestrictions groupRestrictions = dependencyDao.getGroupRestrictions( groupName )
 
             /* if it's not there add the entire list, else just add to the list */
-            if ( !groupRestrictions.restriction.permittedConsumers ){
-                /*  if there isn't a permittedConsumers List for a group restriction type,
+            if ( !groupRestrictions.restriction.exemptConsumers ){
+                /*  if there isn't a exemptConsumers List for a group restriction type,
                  *  that probably means the data file has a wrong entry in it.
                  */
                 logger.severe( "Restriction does not contain Permitted Consumers list for : ${groupName}" )
                 logger.severe( "I really was expecting one!" )
 
-                groupRestrictions.restriction.permittedConsumers = permittedConsumers
+                groupRestrictions.restriction.exemptConsumers = permittedConsumers
                 groupRestrictions.restriction.message = restrictionMessage
 
             }else {
                 logger.info( " Group Restriction contains an permitted Consumers List. Adding to it." )
 
-                groupRestrictions.restriction.permittedConsumers.add( permittedConsumers )
+                groupRestrictions.restriction.exemptConsumers.add( permittedConsumers )
 
                 logger.warning( "Overwriting the deprecation" )
             }
