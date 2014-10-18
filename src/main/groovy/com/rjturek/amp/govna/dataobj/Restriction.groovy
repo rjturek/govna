@@ -2,9 +2,9 @@ package com.rjturek.amp.govna.dataobj
 
 class Restriction {
     boolean isDeprecated
-    String artifactId
     String  message
-    String versionHigh
+    String artifactId
     String versionLow
+    String versionHigh
     List<String> exemptConsumers
 }
