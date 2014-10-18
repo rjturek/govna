@@ -66,14 +66,15 @@ angular
         $scope.notFound = false;
     };
 
+    $scope.clearStuff = function () {
+        $scope.groupData = null;
+        $scope.message = null;
+        $scope.notFound = false;
+    };
+
     $scope.newGroupData = function() {
         $scope.notFound = false;
         $scope.groupData = {groupName: $scope.groupName};
-    };
-
-    $scope.clearStuff = function() {
-        $scope.message = null;
-        $scope.notFound = false;
     };
 
     $scope.saveGroupData = function() {
