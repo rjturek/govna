@@ -29,20 +29,32 @@
     <!--Finder-->
     <div class="panel panel-success" ng-style="{'width': '70%'}">
         <div class="panel-heading">
-            <h3 class="panel-title">Find Group Restriction</h3>
+            <h3 class="panel-title">Find Group Restrictions</h3>
         </div>
         <div class="panel-body">
             <ng-form >
-                <input type="search" placeholder="Group name:" size="37" ng-model="groupName"
-                       ng-keyup="$event.keyCode == 13 && fetchGroup()"
-                       ng-change="clearStuff()"/>
-                <button class="btn btn-default" ng-click="fetchGroup()">
-                    <span class="glyphicon glyphicon-search"></span> Fetch
-                </button>
-                <button class="btn btn-default" ng-click="clearGroup()">
-                    <span class="glyphicon glyphicon-remove-circle"></span> Clear
-                </button>
-
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class=row">
+                            <input type="search" placeholder="Group name:" size="37" ng-model="groupName"
+                                ng-keyup="$event.keyCode == 13 && fetchGroup()"
+                                ng-change="clearStuff()"/>
+                        </div>
+                        <div class="row" style="padding-top: 0px">
+                            <span style="padding-left: 20px; font-size: .8em">Wildcard = </span>
+                            <span style="font-size: 1.5em"><sub>*</sub></span>
+                            <span style="padding-left: 20px; font-size: .8em">(TODO: make this work)</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-default" ng-click="fetchGroup()">
+                            <span class="glyphicon glyphicon-search"></span> Find
+                        </button>
+                        <button class="btn btn-default" ng-click="clearGroup()">
+                            <span class="glyphicon glyphicon-remove-circle"></span> Clear
+                        </button>
+                    </div>
+                </div>
             </ng-form>
         </div>
     </div>

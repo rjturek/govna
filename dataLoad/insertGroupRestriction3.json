@@ -1,0 +1,17 @@
+{
+    "groupName": "abc",
+    "restrictions": [
+        {"isDeprecated": true,
+        "message": "This is deprecated.",
+        "artifactId": "fred",
+        "versionLow": "2.0",
+        "versionHigh": "4.0",
+        "exemptConsumers": ["com.trp.asf.appsec"]},
+        {"isDeprecated": false,
+         "message": null,
+         "artifactId": null,
+         "versionLow": null,
+         "versionHigh": null,
+         "exemptConsumers": ["com.trp.bdx.app","com.trp.rip.yeahman","com.trp.ace.go-out"]}
+    ]
+}
