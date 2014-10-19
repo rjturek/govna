@@ -17,13 +17,15 @@
 
 <body ng-controller="MainCtrl" >
 
+<!--Invisible rectangle to show/hide debug panel-->
 <div ng-style="{'position':'absolute',
                 'top':'24px', 'right':'39px',
                 'width':'40px', 'height':'40px'}" ng-click="debugIsCollapsed = !debugIsCollapsed"></div>
 
-<div class="container">
 
-    <div class="page-header"><h1 ng-style="{'text-align': 'center'}">Third Party Library Governance</h1></div>
+<div class="container-fluid" style="padding: 0px 35px 0px 35px">
+
+    <div class="page-header"><h1 style="text-align: center">Third Party Library Governance</h1></div>
 
 
     <!--Finder-->
@@ -82,7 +84,7 @@
         <div class="panel-body">
             <!--Header-->
             <div class="row" style="background-color: #F4F4F4">
-                <div class="col-md-1"> </div>
+                <div class="col-md-1">Remove</div>
                 <div class="col-md-2">Artifact ID</div>
                 <div class="col-md-2 text-center">Version Range</div>
                 <div class="col-md-1 text-center">Prohibited</div>

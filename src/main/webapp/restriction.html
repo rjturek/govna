@@ -1,24 +1,25 @@
-<div class="row" ng-style="{'backgroundColor': $even ? 'white' : '#F4F4F4'}">
-    <div class="col-md-1">
-        <span class="glyphicon glyphicon-remove-circle" ng-click="removeElement($index)"></span>
+<form role="form">
+    <div class="row" class="col-sm-1" ng-style="{'backgroundColor': $even ? 'white' : '#F4F4F4'}">
+        <div class="col-sm-1">
+            <span class="glyphicon glyphicon-remove-circle" ng-click="removeElement($index)"></span>
+        </div>
+        <div class="col-sm-2">
+            <input type="text" ng-value="item.artifactId">
+        </div>
+        <div class="col-sm-1 text-center">
+            <input type="text" style="width: 85px" ng-value="item.versionLow"/>
+        </div>
+        <div class="col-sm-1 text-center">
+            <input type="text" style="width: 85px" ng-value="item.versionHigh"/>
+        </div>
+        <div class="col-sm-1 text-center">
+            <input type="radio" ng-model="groupData.restriction.isDeprecated" ng-checked="!item.isDeprecated"/>
+        </div>
+        <div class="col-sm-1 text-center">
+            <input type="radio" ng-model="groupData.restriction.isDeprecated" ng-checked="item.isDeprecated"/>
+        </div>
+        <div class="col-sm-5">
+            <input type="text" style="width: 100%" ng-value="item.exemptConsumers.join(', ')"/>
+        </div>
     </div>
-    <div class="col-md-2">
-        {{item.artifactId}}
-    </div>
-    <div class="col-md-1 text-center">
-        {{item.versionLow}}
-    </div>
-    <div class="col-md-1 text-center">
-        {{item.versionHigh}}
-    </div>
-    <div class="col-md-1 text-center">
-        <input type="radio" ng-model="groupData.restriction.isDeprecated" value="true"> </input>
-    </div>
-    <div class="col-md-1 text-center">
-        <input type="radio" ng-model="groupData.restriction.isDeprecated" value="false"> </input>
-    </div>
-    <div class="col-md-5">
-        <input type="select"> </input>
-    </div>
-</div>
-
+</form>
