@@ -96,21 +96,11 @@
         <div class="panel-body" style="padding: 0px 15px 0px 15px">
             <!--Header-->
             <div class="row" style="background-color: #F4F4F4">
-                <div class="col-md-1 text-center">Remove</div>
+                <div class="col-md-3">Remove</div>
                 <div class="col-md-2">Artifact ID</div>
-                <div class="col-md-2 text-center">Version Range</div>
-                <div class="col-md-1 text-center">Prohibited</div>
-                <div class="col-md-1 text-center">Deprecated</div>
+                <div class="col-md-2 text-center" data-toggle="tooltip"
+                     data-placement="left" title="Tooltip on top">Version Range</div>
                 <div class="col-md-3 text-center">Exempt Groups</div>
-            </div>
-            <div class="row" style="background-color: #F4F4F4">
-                <div class="col-md-1"> </div>
-                <div class="col-md-2"> </div>
-                <div class="col-md-1 text-center">Low</div>
-                <div class="col-md-1 text-center">High</div>
-                <div class="col-md-1"> </div>
-                <div class="col-md-1"> </div>
-                <div class="col-md-3"> </div>
             </div>
             <!--Rows-->
             <div ng-repeat="restriction in groupData.restrictions">
