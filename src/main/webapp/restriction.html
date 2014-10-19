@@ -1,27 +1,24 @@
-<form class="well well-sm" >
-
-    <div class="row">
-        <div class="col-md-2">
-            <label class="btn btn-primary" ng-show="groupData.restriction" ng-click="clearRestriction()">Delete</label>
-            <label class="btn btn-primary" ng-hide="groupData.restriction">Create</label>
-        </div>
-        <div class="col-md-6" ng-show="groupData.restriction">
-            <div class="row">
-                <div class="col-md-6">
-                    <input type="radio" ng-model="groupData.restriction.isDeprecated" value="true">Deprecated</input>
-                </div>
-                <div class="col-md-6">
-                    <input type="radio" ng-model="groupData.restriction.isDeprecated" value="false">Prohibited</input>
-                </div>
-            </div>
-            <div class="row">
-                <span>Message:</span>
-                <input type="text" size="60" ng-model="groupData.restriction.message"/>
-            </div>
-            <div class="row">
-                <span>Permitted Consumers:</span>
-                <input type="text" size="60"/>
-            </div>
-        </div>
+<div class="row" ng-style="{'backgroundColor': $even ? 'white' : '#F4F4F4'}">
+    <div class="col-md-1">
+        <span class="glyphicon glyphicon-remove-circle" ng-click="removeElement($index)"></span>
     </div>
-</form>
+    <div class="col-md-2">
+        {{item.artifactId}}
+    </div>
+    <div class="col-md-1 text-center">
+        {{item.versionLow}}
+    </div>
+    <div class="col-md-1 text-center">
+        {{item.versionHigh}}
+    </div>
+    <div class="col-md-1 text-center">
+        <input type="radio" ng-model="groupData.restriction.isDeprecated" value="true"> </input>
+    </div>
+    <div class="col-md-1 text-center">
+        <input type="radio" ng-model="groupData.restriction.isDeprecated" value="false"> </input>
+    </div>
+    <div class="col-md-5">
+        <input type="select"> </input>
+    </div>
+</div>
+

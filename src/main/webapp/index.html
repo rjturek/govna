@@ -47,9 +47,11 @@
                         </div>
                     </div>
                     <div class="col-sm-4">
+                        &nbsp;&nbsp;&nbsp;
                         <button class="btn btn-default" ng-click="fetchGroup()">
                             <span class="glyphicon glyphicon-search"></span> Find
                         </button>
+                        &nbsp;&nbsp;&nbsp;
                         <button class="btn btn-default" ng-click="clearGroup()">
                             <span class="glyphicon glyphicon-remove-circle"></span> Clear
                         </button>
@@ -67,68 +69,41 @@
     </div>
 
     <!--Group Data-->
-    <div class="panel panel-success" ng-if="groupData !== null">
-        <div class="panel-heading">
-            <span style="font-size: 1.2em">Restrictions for: {{groupName}}</span>
-            <span style="padding: 12px; margin: 12px">
-                <button ng-click="saveGroupData()">Save</button>
-                <button ng-click="deleteGroupData()">Delete</button>
-            </span>
-            <!--Restrictions-->
-            <ul class="nav nav-pills nav-stacked">
-                <!--Group restriction-->
-                <li class="active">
-                    <a href="#" ng-click="groupIsCollapsed = !groupIsCollapsed">
-                        <span class="badge pull-left">
-                            {{groupData.restriction ? 1 : 0}}
-                        </span>
-                        &nbsp;&nbsp;Group Restriction
-                    </a>
-                    <div collapse="groupIsCollapsed">
-                        <div ng-include=" ' restriction.html ' "></div>
-                    </div>
-                </li>
-
-                <!--Artifact restriction-->
-                <li class="active">
-                    <a href="#" ng-click="artifactIsCollapsed = !artifactIsCollapsed">
-                        <span class="badge pull-left">
-                            {{groupData.artifactRestrictions ? groupData.artifactRestrictions.length : 0}}
-                        </span>
-                        &nbsp;&nbsp;Artifact Restrictions
-                    </a>
-                    <div collapse="artifactIsCollapsed">
-                        <div class="well well-sm">artifs</div>
-                    </div>
-                </li>
-                <!--Version Restriction-->
-                <li class="active">
-                    <a href="#" ng-click="versionIsCollapsed = !versionIsCollapsed">
-                        <span class="badge pull-left">
-                            {{groupData.versionRestrictions ? groupData.versionRestrictions.length : 0}}
-                        </span>
-                        &nbsp;&nbsp;Version Restrictions
-                    </a>
-                    <div collapse="versionIsCollapsed">
-                        <div ng-include=" ' version.html ' "
-                             onload="context='version'"></div>
-                    </div>
-                </li>
-                <!--Artifact version restriction-->
-                <li class="active">
-                    <a href="#" ng-click="artifactVersionIsCollapsed = !artifactVersionIsCollapsed">
-                        <span class="badge pull-left">
-                            {{groupData.artifactVersionRestrictions ? groupData.artifactVersionRestrictions.length : 0}}
-                        </span>
-                        &nbsp;&nbsp;Artifact Version Restrictions
-                    </a>
-                    <div collapse="artifactVersionIsCollapsed">
-                        <div class="well well-sm">artifact versions</div>
-                    </div>
-                </li>
-
-            </ul>
+    <div class="panel panel-info" ng-if="groupData !== null">
+        <div class="panel-heading" style="font-size: 1.2em; padding: 4px 0px 4px 12px">
+            Restrictions for: {{groupName}}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-default" ng-click="saveGroupData()"><span class="glyphicon glyphicon-ok"></span> Save</button>
+            &nbsp;&nbsp;&nbsp;
+            <button class="btn btn-default" ng-click="deleteGroupData()"><span class="glyphicon glyphicon-remove"></span> Delete</button>
         </div>
+        <!--Restrictions-->
+
+        <div class="panel-body">
+            <!--Header-->
+            <div class="row" style="background-color: #F4F4F4">
+                <div class="col-md-1"> </div>
+                <div class="col-md-2">Artifact ID</div>
+                <div class="col-md-2 text-center">Version Range</div>
+                <div class="col-md-1 text-center">Prohibited</div>
+                <div class="col-md-1 text-center">Deprecated</div>
+                <div class="col-md-3 text-center">Exempt Groups</div>
+            </div>
+            <div class="row" style="background-color: #F4F4F4">
+                <div class="col-md-1"> </div>
+                <div class="col-md-2"> </div>
+                <div class="col-md-1 text-center">Low</div>
+                <div class="col-md-1 text-center">High</div>
+                <div class="col-md-1"> </div>
+                <div class="col-md-1"> </div>
+                <div class="col-md-3"> </div>
+            </div>
+            <!--Rows-->
+            <div ng-repeat="restriction in groupData.restrictions">
+                <div ng-include=" ' restriction.html ' " onload="item = restriction"></div>
+            </div>
+        </div>
+
     </div>
 
     <!--Status message-->
@@ -136,12 +111,10 @@
     <alert ng-if="message != null">{{message}}</alert>
 
     <!--Debugging-->
-    <div collapse="debugIsCollapsed" style="background-color: #EFEFEF; padding: 12px">
-        <div>Full JSON  ...... Click the monocle to show hide<br>{{groupData}}<br><br></div>
-        <div>Group restriction<br>{{groupData.restriction}}<br><br></div>
-        <div>Artifact restriction<br>{{groupData.artifactRestrictions}}<br><br></div>
-        <div>Version restriction<br>{{groupData.versionRestrictions}}<br><br></div>
-        <div>Artifact version restriction<br>{{groupData.artifactVersionRestrictions}}<br><br></div>
+    <div collapse="debugIsCollapsed" style="background-color: #F4F4F4; padding: 12px">
+        <div>...... Click the monocle to show hide</div><br>
+        <div>{{groupData}}</div><br>
+        <div ng-repeat="r in groupData.restrictions">{{r}}<br><br></div>
     </div>
 
 

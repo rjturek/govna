@@ -85,6 +85,10 @@ angular
         $scope.message = "deleting now";
     };
 
+    $scope.removeElement = function(index) {
+        $scope.message = "removing now " + index;
+    };
+
     $scope.addVersion = function(msg) {
         $scope.message = msg + " clicked ";
         if (!$scope.groupData.versionRestrictions) {
