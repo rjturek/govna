@@ -73,18 +73,30 @@
     <!--Group Data-->
     <div class="panel panel-info" ng-if="groupData !== null">
         <div class="panel-heading" style="font-size: 1.2em; padding: 4px 0px 4px 12px">
-            Restrictions for: {{groupName}}
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="btn btn-default" ng-click="saveGroupData()"><span class="glyphicon glyphicon-ok"></span> Save</button>
-            &nbsp;&nbsp;&nbsp;
-            <button class="btn btn-default" ng-click="deleteGroupData()"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+            <div class="row">
+                <div class="col-md-4">
+                    {{groupName}}
+                </div>
+                <div class="col-md-3 ">
+                    <button class="btn btn-default" ng-click="addElement()">
+                        <span class="glyphicon glyphicon-plus-sign"></span> Add One</button>
+                </div>
+                <div class="col-md-2 text-right">
+                    <button class="btn btn-default" ng-click="saveGroupData()">
+                        <span class="glyphicon glyphicon-ok"></span> Save Group</button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-default" ng-click="deleteGroupData()">
+                        <span class="glyphicon glyphicon-remove"></span> Delete Group</button>
+                 </div>
+            </div>
         </div>
         <!--Restrictions-->
 
-        <div class="panel-body">
+        <div class="panel-body" style="padding: 0px 15px 0px 15px">
             <!--Header-->
             <div class="row" style="background-color: #F4F4F4">
-                <div class="col-md-1">Remove</div>
+                <div class="col-md-1 text-center">Remove</div>
                 <div class="col-md-2">Artifact ID</div>
                 <div class="col-md-2 text-center">Version Range</div>
                 <div class="col-md-1 text-center">Prohibited</div>

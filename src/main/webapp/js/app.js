@@ -78,15 +78,21 @@ angular
     };
 
     $scope.saveGroupData = function() {
-        $scope.message = "saving now";
+        $scope.message = "saving groupData";
     };
 
     $scope.deleteGroupData = function() {
-        $scope.message = "deleting now";
+        $scope.message = "deleting groupData";
+    };
+
+    $scope.addElement = function() {
+        $scope.message = "add element";
+        $scope.groupData.restrictions.push({});
     };
 
     $scope.removeElement = function(index) {
-        $scope.message = "removing now " + index;
+        $scope.message = "removing element " + index;
+        $scope.groupData.restrictions.splice(index, 1);
     };
 
     $scope.addVersion = function(msg) {
