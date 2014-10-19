@@ -25,7 +25,7 @@
 
 <div class="container-fluid" style="padding: 0px 35px 0px 35px">
 
-    <div class="page-header"><h1 style="text-align: center">Third Party Library Governance</h1></div>
+    <div class="page-header" style="padding: 0px"><h1 style="text-align: center">Third Party Library Governance</h1></div>
 
 
     <!--Finder-->
@@ -92,17 +92,16 @@
             </div>
         </div>
         <!--Restrictions-->
-
-        <div class="panel-body" style="padding: 0px 15px 0px 15px">
+         <!--Rows-->
             <!--Header-->
-            <div class="row" style="background-color: #F4F4F4">
+        <div class="panel-body" style="padding: 0px 15px 0px 15px">
+            <div class="row" style="background-color: #F4F4F4; padding: 4px 0px 4px 0px">
                 <div class="col-md-3">Remove</div>
                 <div class="col-md-2">Artifact ID</div>
                 <div class="col-md-2 text-center" data-toggle="tooltip"
                      data-placement="left" title="Tooltip on top">Version Range</div>
                 <div class="col-md-3 text-center">Exempt Groups</div>
             </div>
-            <!--Rows-->
             <div ng-repeat="restriction in groupData.restrictions">
                 <div ng-include=" ' restriction.html ' " onload="item = restriction"></div>
             </div>
