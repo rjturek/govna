@@ -60,10 +60,14 @@ angular
 /////////////// Delete group ////////////////
 
     $scope.deleteGroupData = function() {
-        $scope.message = "deleting groupData";
-    };
+        var uri = "http://localhost:8080/api/restrictions/group/" + $scope.groupName;
+        console.log("Deleting group " + uri);
+        $http.delete(uri)
+            .then(handlePutGroup, handlePutGroupError);    };
 
     var handleDeleteGroup = function(response) {
+        $scope.clearStuff();
+        $scope.message = "Group " + $scope.groupData.groupName + " deleted successfully.";
     };
 
     var handleDeleteGroupError = function(reason) {

@@ -77,6 +77,20 @@ class RestrictionService {
             log("Exception in insertOrUpdateGroup()", e)
         }
     }
+
+    @DELETE
+    @Path("group/{groupName}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Object deleteGroup(@PathParam("groupName") String groupName) {
+        log("DELETE group... groupName: $groupName")
+        try {
+            dao.removeGroupRestrictions(groupName)
+        }
+        catch (Exception e) {
+            log("Exception in deleteGroup()", e)
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.message).build()
+        }
+    }
 }
 
 

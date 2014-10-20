@@ -108,11 +108,11 @@ class DependencyDao {
         rstrColl.update([groupName: group.groupName], [$set: new JsonSlurper().parseText(theJson)], true)
     }
 
-    def Object removeGroupRestrictions(GroupRestrictions group) {
+    def Object removeGroupRestrictions(String groupName) {
         logger.info("removeGroupRestrictions()")
 
-        logger.info( "removing group name: ${group.groupName}")
-        def result = rstrColl.remove([groupName: group.groupName])
+        logger.info( "removing group name: $groupName}")
+        def result = rstrColl.remove([groupName: groupName])
         logger.info("Document Removal results: ${result}")
     }
 
