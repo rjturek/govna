@@ -1,8 +1,36 @@
 /* Correct for Bootstrap CSS in angular, as instructed here: http://angular-ui.github.io/bootstrap/ */
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
-
 body {
   background: url(../images/mustmono.png) no-repeat top right;
 }
 
+.evenRow {
+  background-color: white;
+}
+
+.oddRow {
+  background-color: #F5F5F5;
+}
+
+.headerRow {
+  padding: 6px 0px 6px 0px ;
+}
+
+.firstRow {
+  padding: 6px 0px 5px 0px ;
+  /*border-top-style: solid;*/
+  /*border-top-color: black;*/
+  /*border-top-width: 2px;*/
+}
+
+.secondRow {
+  padding: 3px 0px 2px 0px
+}
+
+.thirdRow {
+  padding: 3px 0px 7px 0px;
+  /*border-bottom-style: solid;*/
+  /*border-bottom-color: black;*/
+  /*border-bottom-width: 2px;*/
+}

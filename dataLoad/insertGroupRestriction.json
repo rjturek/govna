@@ -12,6 +12,12 @@
          "artifactId": "thing1",
          "versionLow": null,
          "versionHigh": null,
-         "exemptConsumers": ["com.trp.ias.service"]}
+         "exemptConsumers": ["com.trp.ias.service"]},
+        {"isDeprecated": false,
+         "message": "Hey there message",
+         "artifactId": "yowza",
+         "versionLow": null,
+         "versionHigh": null,
+         "exemptConsumers": ["com.trp.ias.service","org.funky.never"]}
     ]
 }

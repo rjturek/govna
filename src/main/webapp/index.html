@@ -95,15 +95,16 @@
          <!--Rows-->
             <!--Header-->
         <div class="panel-body" style="padding: 0px 15px 0px 15px">
-            <div class="row" style="background-color: #F4F4F4; padding: 4px 0px 4px 0px">
-                <div class="col-md-3">Remove</div>
+            <div class="row headerRow" >
+                <div class="col-md-1 text-center">Remove</div>
+                <div class="col-md-2 text-center"> </div>
                 <div class="col-md-2">Artifact ID</div>
                 <div class="col-md-2 text-center" data-toggle="tooltip"
                      data-placement="left" title="Tooltip on top">Version Range</div>
-                <div class="col-md-3 text-center">Exempt Groups</div>
+                <div class="col-md-3">Exempt Groups</div>
             </div>
             <div ng-repeat="restriction in groupData.restrictions">
-                <div ng-include=" ' restriction.html ' " onload="item = restriction"></div>
+                <div ng-include=" ' restriction.html ' " onload="theRestriction = restriction"> </div>
             </div>
         </div>
 

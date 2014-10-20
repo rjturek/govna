@@ -1,8 +1,8 @@
 /*global angular*/    // Stop jsLint from complaining about globally defined variables.
 
 angular
-    .module('govna', ['ui.bootstrap'])
-    .controller('MainCtrl', function ($scope, $http, $timeout) {
+.module('govna', ['ui.bootstrap'])
+.controller('MainCtrl', function ($scope, $http, $timeout) {
     'use strict';
 
     $scope.groupName = null;
@@ -10,13 +10,10 @@ angular
 
     $scope.debugIsCollapsed = false;
 
-    $scope.groupIsCollapsed = true;
-    $scope.artifactIsCollapsed = true;
-    $scope.versionIsCollapsed = true;
-    $scope.artifactVersionIsCollapsed = true;
-
     $scope.message = null;
     $scope.notFound = false;
+
+///////////// Fetch group /////////////////
 
     $scope.fetchGroup = function () {
         if ($scope.groupName.length === 0) {
@@ -24,29 +21,18 @@ angular
         }
         $scope.groupData = null;
         var uri = "http://localhost:8080/api/restrictions/group/" + $scope.groupName;
-        console.log("Calling for group " + uri);
+        console.log("Getting group " + uri);
         $http.get(uri)
-            .then(handleGroup, handleGroupError);
+            .then(handleGetGroup, handleGetGroupError);
     };
 
-    var handleGroup = function(response) {
+    var handleGetGroup = function(response) {
         var data = response.data;
+        delete data._id;
         $scope.groupData = data;
-        if (data.restriction) {
-            $scope.groupIsCollapsed = false;
-        }
-        if (data.artifactRestrictions) {
-            $scope.artifactIsCollapsed = false;
-        }
-        if (data.versionRestrictions) {
-            $scope.versionIsCollapsed = false;
-        }
-        if (data.artifactVersionRestrictions) {
-            $scope.artifactVersionIsCollapsed = false;
-        }
     };
 
-    var handleGroupError = function(reason) {
+    var handleGetGroupError = function(reason) {
         if (reason.status === 404) {
             $scope.notFound = true;
         }
@@ -55,10 +41,41 @@ angular
         }
     };
 
-    $scope.alrt = function() {
-        alert("HHHHHHHHHHHHHHHey");
+/////////////// Save group //////////////////
+    $scope.saveGroupData = function() {
+        var uri = "http://localhost:8080/api/restrictions/group/" + $scope.groupName;
+        console.log("Putting group " + uri);
+        $http.put(uri, $scope.groupData)
+            .then(handlePutGroup, handlePutGroupError);
     };
 
+    var handlePutGroup = function(response) {
+        $scope.message = "Group " + $scope.groupData.groupName + " inserted/updated successfully.";
+    };
+
+    var handlePutGroupError = function(reason) {
+        $scope.message = "HTTP " + reason.status + " - " + reason.data;
+    };
+
+/////////////// Delete group ////////////////
+
+    $scope.deleteGroupData = function() {
+        $scope.message = "deleting groupData";
+    };
+
+    var handleDeleteGroup = function(response) {
+    };
+
+    var handleDeleteGroupError = function(reason) {
+        if (reason.status === 404) {
+            $scope.notFound = true;
+        }
+        else {
+            $scope.message = "HTTP " + reason.status + " - " + reason.data;
+        }
+    };
+
+////////////////////////////////////////////
     $scope.clearGroup = function () {
         $scope.groupName = null;
         $scope.groupData = null;
@@ -75,33 +92,17 @@ angular
     $scope.newGroupData = function() {
         $scope.notFound = false;
         $scope.groupData = {groupName: $scope.groupName};
-    };
-
-    $scope.saveGroupData = function() {
-        $scope.message = "saving groupData";
-    };
-
-    $scope.deleteGroupData = function() {
-        $scope.message = "deleting groupData";
+        $scope.addElement();
     };
 
     $scope.addElement = function() {
         $scope.message = "add element";
-        $scope.groupData.restrictions.push({});
+        $scope.groupData.restrictions.push({"isDeprecated": false});
     };
 
     $scope.removeElement = function(index) {
         $scope.message = "removing element " + index;
         $scope.groupData.restrictions.splice(index, 1);
-    };
-
-    $scope.addVersion = function(msg) {
-        $scope.message = msg + " clicked ";
-        if (!$scope.groupData.versionRestrictions) {
-            $scope.groupData.versionRestrictions = [];
-        }
-//        $scope.groupData.versionRestrictions.push(msg);
-        $scope.groupData.versionRestrictions.splice(0,0,msg);
     };
 
 });

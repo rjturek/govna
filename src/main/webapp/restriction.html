@@ -1,42 +1,41 @@
 <form role="form">
-    <div class="row" ng-style="{'backgroundColor': $even ? 'white' : '#F4F4F4'}" style="padding: 5px 0px 2px 0px ">
-        <div class="col-sm-1 text-center"></div>
+    <div class="row firstRow"  ng-class-even=" 'evenRow' "  ng-class-odd=" 'oddRow' ">
+        <div class="col-sm-1 text-center"> </div>
         <div class="col-sm-2">
-            <input type="radio" ng-model="groupData.restriction.isDeprecated" ng-checked="!item.isDeprecated"/>
+            <input type="radio" ng-checked="!theRestriction.isDeprecated"/>
             &nbsp;Prohibited
         </div>
         <div class="col-sm-2">
-            <input type="text" ng-value="item.artifactId">
+            <input type="text" ng-model="theRestriction.artifactId">
         </div>
         <div class="col-sm-2">
             Low&nbsp;&nbsp;
-            <input type="text" style="width: 85px" ng-value="item.versionLow"/>
+            <input type="text" style="width: 85px" ng-model="theRestriction.versionLow"/>
         </div>
         <div class="col-sm-5">
-            <input type="text" style="width: 100%" ng-value="item.exemptConsumers.join(', ')"/>
+            <input type="text" style="width: 100%" ng-value="theRestriction.exemptConsumers.join(', ')"/>
         </div>
     </div>
-    <div class="row" ng-style="{'backgroundColor': $even ? 'white' : '#F4F4F4'}" style="padding: 3px 0px 2px 0px ">
-        <div class="col-sm-1">
+    <div class="row secondRow"  ng-class-even=" 'evenRow' "  ng-class-odd=" 'oddRow' ">
+        <div class="col-sm-1 text-center">
             <span class="glyphicon glyphicon-remove-circle" ng-click="removeElement($index)"></span>
         </div>
         <div class="col-sm-2">
-            <input type="radio" ng-model="groupData.restriction.isDeprecated" ng-checked="item.isDeprecated"/>
-            &nbsp;Deprecated
+            <input type="radio" ng-model="theRestriction.isDeprecated" ng-checked="theRestriction.isDeprecated"/>
        </div>
         <div class="col-sm-2"> </div>
         <div class="col-sm-2">
             High&nbsp;
-            <input type="text" style="width: 85px" ng-value="item.versionHigh"/>
+            <input type="text" style="width: 85px" ng-model="theRestriction.versionHigh"/>
         </div>
     </div>
-    <div class="row" ng-style="{'backgroundColor': $even ? 'white' : '#F4F4F4'}" style="padding: 3px 0px 5px 0px ">
-        <div class="col-sm-1"></div>
+    <div class="row thirdRow"  ng-class-even=" 'evenRow' "  ng-class-odd=" 'oddRow' ">
+        <div class="col-sm-1"> </div>
         <div class="col-sm-1 text-right">
             Message
         </div>
         <div class="col-sm-10">
-            <input type="text" style="width: 100%" ng-value="item.message)"/>
+            <input type="text" style="width: 100%" ng-model="theRestriction.message"/>
         </div>
     </div>
 </form>
