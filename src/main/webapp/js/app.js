@@ -63,7 +63,7 @@ angular
         var uri = "http://localhost:8080/api/restrictions/group/" + $scope.groupName;
         console.log("Deleting group " + uri);
         $http.delete(uri)
-            .then(handlePutGroup, handlePutGroupError);    };
+            .then(handleDeleteGroup, handleDeleteGroupError);    };
 
     var handleDeleteGroup = function(response) {
         $scope.clearStuff();
