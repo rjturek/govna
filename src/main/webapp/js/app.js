@@ -16,6 +16,7 @@ angular
 ///////////// Fetch group /////////////////
 
     $scope.fetchGroup = function () {
+        $scope.clearStuff();
         if ($scope.groupName.length === 0) {
             $scope.clearGroup();
         }
@@ -66,8 +67,9 @@ angular
             .then(handleDeleteGroup, handleDeleteGroupError);    };
 
     var handleDeleteGroup = function(response) {
+        var message = "Group " + $scope.groupData.groupName + " deleted successfully.";
         $scope.clearStuff();
-        $scope.message = "Group " + $scope.groupData.groupName + " deleted successfully.";
+        $scope.message = message;
     };
 
     var handleDeleteGroupError = function(reason) {
@@ -95,7 +97,7 @@ angular
 
     $scope.newGroupData = function() {
         $scope.notFound = false;
-        $scope.groupData = {groupName: $scope.groupName};
+        $scope.groupData = {groupName: $scope.groupName, restrictions: []};
         $scope.addElement();
     };
 
