@@ -39,7 +39,7 @@
                     <div class="col-sm-5">
                         <div class=row">
                             <input type="search" autofocus="autofocus" placeholder="Group name:" size="37" ng-model="groupName"
-                                ng-keyup="$event.keyCode == 13 && fetchGroup()"
+                                ng-keyup="$event.keyCode == 13 && groupNameEnterKeyHit()"
                                 ng-change="clearStuff()"/>
                         </div>
                         <div class="row" style="padding-top: 0px">
@@ -82,7 +82,7 @@
                         <span class="glyphicon glyphicon-plus-sign"></span> Add One</button>
                 </div>
                 <div class="col-md-2 text-right">
-                    <button class="btn btn-default" ng-click="saveGroupData()">
+                    <button class="btn btn-default" ng-click="saveGroup()">
                         <span class="glyphicon glyphicon-ok"></span> Save Group</button>
                 </div>
                 <div class="col-md-3">

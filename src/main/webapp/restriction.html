@@ -2,7 +2,7 @@
     <div class="row firstRow"  ng-class-even=" 'evenRow' "  ng-class-odd=" 'oddRow' ">
         <div class="col-sm-1 text-center"> </div>
         <div class="col-sm-2">
-            <input type="radio" ng-checked="!theRestriction.isDeprecated"/>
+            <input type="radio" ng-model="theRestriction.isDeprecated" value="false" ng-checked="!theRestriction.isDeprecated"/>
             &nbsp;Prohibited
         </div>
         <div class="col-sm-2">
@@ -13,7 +13,7 @@
             <input type="text" style="width: 85px" ng-model="theRestriction.versionLow"/>
         </div>
         <div class="col-sm-5">
-            <input type="text" style="width: 100%" ng-value="theRestriction.exemptConsumers.join(', ')"/>
+            <input type="text" style="width: 100%" ng-model="theRestriction.exemptConsumersString"/>
         </div>
     </div>
     <div class="row secondRow"  ng-class-even=" 'evenRow' "  ng-class-odd=" 'oddRow' ">
@@ -21,7 +21,8 @@
             <span class="glyphicon glyphicon-remove-circle" ng-click="removeElement($index)"></span>
         </div>
         <div class="col-sm-2">
-            <input type="radio" ng-model="theRestriction.isDeprecated" ng-checked="theRestriction.isDeprecated"/>
+            <input type="radio" ng-model="theRestriction.isDeprecated" value="true" ng-checked="theRestriction.isDeprecated"/>
+            &nbsp;Deprecated
        </div>
         <div class="col-sm-2"> </div>
         <div class="col-sm-2">

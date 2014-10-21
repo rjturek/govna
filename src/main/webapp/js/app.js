@@ -13,8 +13,29 @@ angular
     $scope.message = null;
     $scope.notFound = false;
 
-///////////// Fetch group /////////////////
 
+    $scope.groupNameEnterKeyHit = function() {
+        if ($scope.notFound) {
+            $scope.newGroupData();
+        }
+        else {
+            $scope.fetchGroup();
+        }
+    };
+
+    var createExemptConsumersString = function() {
+        if ($scope.groupData.restrictions === null) {
+            $scope.groupData.restrictions = [];
+        }
+        $scope.groupData.restrictions.forEach(function (oneRestriction, index) {
+            if (oneRestriction.exemptConsumers === null) {
+                oneRestriction.exemptConsumers = [];
+            }
+            oneRestriction.exemptConsumersString = oneRestriction.exemptConsumers.join(', ');
+        });
+    };
+
+///////////// Fetch group /////////////////
     $scope.fetchGroup = function () {
         $scope.clearStuff();
         if ($scope.groupName.length === 0) {
@@ -31,6 +52,7 @@ angular
         var data = response.data;
         delete data._id;
         $scope.groupData = data;
+        createExemptConsumersString();
     };
 
     var handleGetGroupError = function(reason) {
@@ -43,6 +65,21 @@ angular
     };
 
 /////////////// Save group //////////////////
+
+    var fixRestrictions = function() {
+        $scope.groupData.restrictions.forEach(function (oneRestriction) {
+            // Replace all whitespace with an empty string
+            oneRestriction.exemptConsumersString = oneRestriction.exemptConsumersString.replace(/\s/g, '');
+            oneRestriction.exemptConsumers = oneRestriction.exemptConsumersString.split(',');
+            delete oneRestriction.exemptConsumersString;  // delete from JSON going back to server.
+        });
+    };
+
+    $scope.saveGroup = function() {
+        fixRestrictions();
+        $scope.saveGroupData();
+    };
+
     $scope.saveGroupData = function() {
         var uri = "http://localhost:8080/api/restrictions/group/" + $scope.groupName;
         console.log("Putting group " + uri);
@@ -52,6 +89,8 @@ angular
 
     var handlePutGroup = function(response) {
         $scope.message = "Group " + $scope.groupData.groupName + " inserted/updated successfully.";
+        // Put the whitespace back
+        createExemptConsumersString();
     };
 
     var handlePutGroupError = function(reason) {
@@ -59,7 +98,6 @@ angular
     };
 
 /////////////// Delete group ////////////////
-
     $scope.deleteGroupData = function() {
         var uri = "http://localhost:8080/api/restrictions/group/" + $scope.groupName;
         console.log("Deleting group " + uri);
@@ -102,12 +140,10 @@ angular
     };
 
     $scope.addElement = function() {
-        $scope.message = "add element";
         $scope.groupData.restrictions.push({"isDeprecated": false});
     };
 
     $scope.removeElement = function(index) {
-        $scope.message = "removing element " + index;
         $scope.groupData.restrictions.splice(index, 1);
     };
 
