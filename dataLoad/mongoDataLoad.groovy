@@ -6,6 +6,7 @@
  */
 import com.rjturek.amp.govna.db.DependencyDao
 import com.rjturek.amp.govna.dataobj.*
+import com.rjturek.amp.govna.utility.GenericStructUtil
 import jersey.repackaged.com.google.common.collect.Lists
 
 import java.util.logging.Logger
@@ -15,15 +16,6 @@ class MongoDataLoad {
 
     /* we are going to need database access */
     static DependencyDao dependencyDao = new DependencyDao()
-
-
-    private static GroupRestrictions convertObjectToGroupRestriction( Object group ){
-        logger.info( "convertObjectToGroupRestriction()" )
-
-        GroupRestrictions groupRestrictions = new GroupRestrictions()
-        groupRestrictions.groupName = group.group
-
-    }
 
     /**
      * check to see if a document already exists in the db for a particular group name.
@@ -49,230 +41,84 @@ class MongoDataLoad {
     /**
      * Create a Restriction object to be applied at any level (group, artifact, version)
      *
-     * @param isDeprecated
+     * @param type
      * @param message
      * @param permittedConsumers
      * @return Restriction
      */
-    private static Object createRestriction( boolean isDeprecated, String  message, List<String> permittedConsumers ){
-        logger.info( "createRestriction()" )
+    private static Restriction createRestriction( String type, String artifactId, String versionLow, String versionHigh, String message, List<String> exemptConsumers ){
+        logger.info( "MongoDataLoad.createRestriction()" )
+
+        if (versionLow == null){
+            logger.fine ( "low version is null. setting it to 0")
+            versionLow = "0"
+        }
+
+        if (versionHigh == null){
+            logger.fine("high version is null. setting it to Integer.MAX_VALUE")
+            versionHigh = Integer.MAX_VALUE
+        }
+
         Restriction restriction =  new Restriction()
-        restriction.isDeprecated = isDeprecated
+        restriction.type = type
+        restriction.artifactId = artifactId
+        restriction.versionLow = versionLow
+        restriction.versionHigh = versionHigh
         restriction.message = message
-        restriction.exemptConsumers = permittedConsumers
+        restriction.exemptConsumers = exemptConsumers
 
         return restriction
     }
 
 
     /**
-     * create a GroupOnly GroupRestriction Object
+     * create a GroupRestriction Object
      *
      * @param groupId
      * @param restriction
      * @return GroupRestriction
      *
      */
-    private static Object createGroupRestriction( String groupName, List<String> permittedConsumers, String restrictionMessage,  Restriction restriction ){
-        logger.info( "createGroupRestriction()" )
+    private static GroupRestrictions createGroupRestriction( String groupName, Restriction restriction ){
+        logger.info( "MongoDataLoad.createGroupRestriction()" )
+
+        List<Restriction> restrictionList = Lists.newArrayList( restriction )
 
         if (!checkGroupNameExistenceInDb( groupName ) ) {
             logger.info( "Group Name: ${groupName} does not exist in database.  Creating new group restriction." )
 
             GroupRestrictions groupRestrictions = new GroupRestrictions()
 
-            groupRestrictions.groupName   = groupName
-            groupRestrictions.restriction = restriction
+            groupRestrictions.groupName    = groupName
+            groupRestrictions.restrictions = restrictionList
 
             return groupRestrictions
 
         } else {
-            logger.info( "Group Name: ${groupName} exists in database.  Adding consumer groups to the restriction." )
+            logger.info( "Group Name: ${groupName} exists in database.  Adding additional restriction." )
 
-            GroupRestrictions groupRestrictions = dependencyDao.getGroupRestrictions( groupName )
+            def groupRestrictionsObject = dependencyDao.getGroupRestrictions( groupName )
+            GroupRestrictions groupRestrictions = GenericStructUtil.convertGroup(groupRestrictionsObject)
 
             /* if it's not there add the entire list, else just add to the list */
-            if ( !groupRestrictions.restriction.exemptConsumers ){
-                /*  if there isn't a exemptConsumers List for a group restriction type,
-                 *  that probably means the data file has a wrong entry in it.
-                 */
-                logger.severe( "Restriction does not contain Permitted Consumers list for : ${groupName}" )
-                logger.severe( "I really was expecting one!" )
+            if ( !groupRestrictions.restrictions ){
 
-                groupRestrictions.restriction.exemptConsumers = permittedConsumers
-                groupRestrictions.restriction.message = restrictionMessage
+                logger.severe( "No restrictions for : ${groupName}" )
+                logger.severe( "I really was expecting one!" )
+                logger.severe( "Why would there be a group but no restrictions?")
+
+                groupRestrictions.restrictions = restrictionList
 
             }else {
                 logger.info( " Group Restriction contains an permitted Consumers List. Adding to it." )
 
-                groupRestrictions.restriction.exemptConsumers.add( permittedConsumers )
+                groupRestrictions.restrictions.add(restriction)
 
-                logger.warning( "Overwriting the deprecation" )
             }
-
-            return groupRestrictions
-
-        }
-    }
-
-
-    /**
-     * create restrictions object on a group and an artifact.
-     *
-     * @param groupId
-     * @param artifactId
-     * @param restriction
-     * @return GroupRestriction
-     *
-     */
-    private static Object createGroupAndArtifactRestriction( String groupName, String artifactId, Restriction restriction ) {
-        logger.info("createGroupAndArtifactRestriction()")
-
-        /* create an artifact restriction with what we have in hand and throw it into a list */
-        ArtifactRestriction artifactRestriction = new ArtifactRestriction()
-        artifactRestriction.artifactId  = artifactId
-        artifactRestriction.restriction = restriction
-
-        List<ArtifactRestriction> artifactRestrictionList = Lists.newArrayList( artifactRestriction )
-
-        if (!checkGroupNameExistenceInDb( groupName ) ) {
-            logger.info( "Group Name: ${groupName} does not exist in database.  Creating new group and artifact restriction." )
-
-            GroupRestrictions groupRestrictions = new GroupRestrictions()
-            groupRestrictions.groupName = groupName
-
-            /* add the artifact restriction list to the Group Restriction */
-            groupRestrictions.artifactRestrictions = artifactRestrictionList
-
-            return groupRestrictions
-
-        } else {
-            logger.info( "Group Name: ${groupName} exists in database.  Adding new group and artifact restriction." )
-
-            GroupRestrictions groupRestrictions = dependencyDao.getGroupRestrictions( groupName )
-
-            /* if it's not there, add the entire list, else just add to the list */
-            if ( !groupRestrictions.artifactRestrictions ){
-                logger.info( "Group Restriction does not contain an artifact restriction." )
-
-                groupRestrictions.artifactRestrictions = artifactRestrictionList
-
-            }else {
-                logger.info( "Group Restriction contains an artifact restriction." )
-
-                groupRestrictions.artifactRestrictions.add(artifactRestriction)
-            }
-
-            groupRestrictions
-        }
-    }
-
-    /**
-     *   create a restriction for a version rnge at the group level.
-     *
-     * @param groupName
-     * @param versionLow
-     * @param versionHigh
-     * @param restriction
-     * @return
-     */
-    private static Object createGroupVersionRestriction( String groupName, String versionLow, String versionHigh, Restriction restriction ){
-        logger.info( "createGroupVersionRestriction" )
-
-        /* generate the restriction and throw it in a List */
-        VersionRestriction versionRestriction = new VersionRestriction()
-        versionRestriction.versionLow = versionLow
-        versionRestriction.versionHigh = versionHigh
-        versionRestriction.restriction = restriction
-
-        List<VersionRestriction> versionRestrictionList = Lists.newArrayList( versionRestriction )
-
-        if (!checkGroupNameExistenceInDb( groupName ) ) {
-            logger.info( "Group Name: ${groupName} does not exist in database.  Creating new group version restriction." )
-
-            GroupRestrictions groupRestrictions = new GroupRestrictions()
-            groupRestrictions.groupName = groupName
-            groupRestrictions.versionRestrictions = versionRestrictionList
-
-            return groupRestrictions
-
-        } else {
-            logger.info("Group Name: ${groupName} exists in database.  Adding new group version restriction.")
-
-            GroupRestrictions groupRestrictions = dependencyDao.getGroupRestrictions(groupName)
-
-            /* if it's not there add the entire list, else just add to the list */
-            if ( !groupRestrictions.versionRestrictions ){
-                logger.info( "Group Restriction does not contain a version restriction." )
-
-                groupRestrictions.versionRestrictions = versionRestrictionList
-
-            }else {
-                logger.info( "Group Restriction contains a version restriction." )
-
-                groupRestrictions.versionRestrictions.add(versionRestriction)
-            }
-
             return groupRestrictions
         }
     }
 
-    /**
-     * create a restriction for a group artifact and version
-     *
-     * @param groupName
-     * @param artifactId
-     * @param versionLow
-     * @param versionHigh
-     * @param restriction
-     * @return
-     */
-    private static Object createGroupArtifactVersionRestriction( String groupName, String artifactId, String versionLow, String versionHigh, Restriction restriction ){
-        logger.info( "createGroupArtifactVersionRestriction" )
-
-        /* generate the nested restrictions and throw it into a List */
-        VersionRestriction versionRestriction = new VersionRestriction()
-        versionRestriction.versionLow = versionLow
-        versionRestriction.versionHigh = versionHigh
-        versionRestriction.restriction = restriction
-
-        ArtifactVersionRestriction artifactVersionRestriction = new ArtifactVersionRestriction()
-        artifactVersionRestriction.artifactId = artifactId
-        artifactVersionRestriction.versionRestriction = versionRestriction
-
-        List<ArtifactVersionRestriction> artifactVersionRestrictionList = Lists.newArrayList( artifactVersionRestriction )
-
-        /* do we add the restriction (if the group name already exists) or create a new one*/
-        if ( !checkGroupNameExistenceInDb( groupName ) ) {
-            logger.info( "Group Name: ${groupName} does not exist in database.  Creating new group artifact version restriction." )
-
-            GroupRestrictions groupRestrictions = new GroupRestrictions()
-            groupRestrictions.groupName = groupName
-            groupRestrictions.artifactVersionRestrictions = artifactVersionRestrictionList
-
-            return groupRestrictions
-
-        } else {
-            logger.info( "Group Name: ${groupName} exists in database.  Adding new group artifact version restriction." )
-
-            GroupRestrictions groupRestrictions = dependencyDao.getGroupRestrictions(groupName)
-
-            /* if it's not there add the entire list, else just add to the list */
-            if ( !groupRestrictions.artifactVersionRestrictions ){
-                logger.info( "Group Restriction does not contain an artifact version restriction." )
-
-                groupRestrictions.artifactVersionRestrictions = artifactVersionRestrictionList
-
-            }else{
-                logger.info("Group Restriction contains an artifact version restriction.")
-
-                groupRestrictions.artifactVersionRestrictions.add(artifactVersionRestriction)
-            }
-
-            return groupRestrictions
-        }
-
-    }
 
     static void main(String[] args) {
 
@@ -285,59 +131,57 @@ class MongoDataLoad {
         loadFile.eachLine { line ->
             if( line.startsWith("#") ) { return }
 
-            def ( g, a, h, l, d, p, m ) = line.split( "\\|")
+            def ( g, a, h, l, t, e, m ) = line.split( "\\|")
 
             /* clean up the variables we just received from the split and name them properly */
             String groupName                = g.replaceAll( "\\s", "" )
-            String artifactName             = a.replaceAll( "\\s", "" )
+            String artifactId               = a.replaceAll( "\\s", "" )
             String versionHigh              = h.replaceAll( "\\s", "" )
             String versionLow               = l.replaceAll( "\\s", "" )
-            boolean isDeprecated            = d.replaceAll( "\\s", "" )
-            List<String> permittedConsumers = p.replaceAll( "\\s", "" ).split( "\\," )
-            String restrictionMessage       = m
+            String type                     = t.replaceAll( "\\s", "" )
+            List<String> exemptConsumers    = e.replaceAll( "\\s", "" ).split( "\\," )
+            String message                  = m.replaceAll( "^\\s", "")
 
             /* create a restriction to use */
-            Restriction restriction = createRestriction( isDeprecated, restrictionMessage, permittedConsumers )
-
-            switch ( restrictionType ) {
-
-                case "g":
-                    logger.info( "Group Only Restriction: ${restrictionType}" )
-
-                    GroupRestrictions groupRestrictions = createGroupRestriction(groupName, permittedConsumers, restrictionMessage, restriction)
-                    dependencyDao.upsertGroupRestrictions(groupRestrictions)
-
-                    break
-
-                case "ga":
-                    logger.info("Group Artifact Restriction: ${restrictionType}")
-
-                    GroupRestrictions groupRestrictions = createGroupAndArtifactRestriction(groupName, artifactName, restriction)
-                    dependencyDao.upsertGroupRestrictions(groupRestrictions)
-
-                    break
-
-                case "gv":
-                    logger.info("Group Version Restriction: ${restrictionType}")
-
-                    GroupRestrictions groupRestrictions = createGroupVersionRestriction(groupName, versionLow, versionHigh, restriction)
-                    dependencyDao.upsertGroupRestrictions(groupRestrictions)
-
-                    break
-
-                case "gav":
-                    logger.info("Group Artifact Version Restriction: ${restrictionType}")
-
-                    GroupRestrictions groupRestrictions = createGroupArtifactVersionRestriction(groupName, artifactName, versionLow, versionHigh, restriction)
-                    dependencyDao.upsertGroupRestrictions(groupRestrictions)
-
-                    break
-
-                default:
-                    logger.warning("Could not process the following line correctly.")
-                    logger.warning(line)
+            if ( artifactId.contains("null") ){
+                logger.info("artifactId found to be a string null.")
+                artifactId = null
             }
 
+            if ( versionHigh.contains("null") ){
+                logger.info("versionHigh found to be a string null.")
+                versionHigh = null
+            }
+
+            if ( versionLow.contains("null") ){
+                logger.info("versionLow found to be a string null.")
+                versionLow = null
+            }
+
+            if ( e.contains("null") ) {
+                logger.info("exemptConsumers found to be a string null.")
+                exemptConsumers = null
+            }
+
+            if ( message.contains("null") ){
+                logger.info("message found to be a string null.")
+                message = null
+            }
+            Restriction restriction = createRestriction( type, artifactId, versionLow, versionHigh, message, exemptConsumers )
+
+            logger.info("========================================================")
+            logger.info("restriction created with values:")
+            logger.info("type:             ${restriction.type}")
+            logger.info("artifactId:       ${restriction.artifactId}")
+            logger.info("versionLow:       ${restriction.versionLow}")
+            logger.info("versionHigh:      ${restriction.versionHigh}")
+            logger.info("message:          ${restriction.message}")
+            logger.info("exemptConsumers:  ${restriction.exemptConsumers}")
+            logger.info("========================================================")
+
+            GroupRestrictions groupRestrictions = createGroupRestriction(groupName, restriction)
+
+            dependencyDao.upsertGroupRestrictions(groupRestrictions)
         }
     }
 }
