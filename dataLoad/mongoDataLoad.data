@@ -1,5 +1,5 @@
 #
-# mongoDataLoad.txt - flat file that can be imported via the mongoDataLoad.groovy Script so that all developers are working with the same data set.
+# mongoDataLoad.data - flat file that can be imported via the mongoDataLoad.groovy Script so that all developers are working with the same data set.
 # file format - each line is loaded separately. And must have 8 "|" delimited fields.
 # restrictions: g   - group only restriction
 #               ga  - group and artifact restriction
@@ -10,15 +10,15 @@
 #
 #
 #
- Group Name         |  Artifact Name    | Version High  | Version Low | Deprecated  | Permitted Consumers                 | Message
-org.ow2.util.scan  | null               | null         | null        | false       | null                                 | Anything related to this Group Name is prohibited.  Please use an alternative.
-ant                | ant-optional       | null         | null        | false       | null                                 | Anything related to this Group Name and Artifact Name is prohibited.  Please use an alternative.
-org.commonjava.ssl | null               | 1.0          | 1.0         | false       | com.trp.sec.app                      | This Group Name and Version pose a security risk.  Please use another implementation of SSL.
-org.apache.solr    | solr-clustering    | 4.3.0        | 3.6.2       | false       | null                                 | The versions related to this Group Name and Artifact Name have been found to cause instability within the WebSphere Environment. Please use alternative.
-org.treetank       | null               | null         | null        | true        | null                                 | The company behind this Group Name has been bought by IBM.  Please convert your application to IBM implementation.
-com.oracle         | ojdbc12            | null         | null        | true        | null                                 | Oracle has implemented a new JDBC interface.  Please migrate to Artifact Name ojdbc14.
-org.jboss          | resteasy-jaxrs-all | 3.0.0-beta-5 | 0.0.1       | true        | null                                 | Earlier versions of Rest Easy have been deprecated for use at T Rowe.  Please use a more recent version.
-org.jboss          | resteasy-jaxrs-all | 5.0.0        | 4.0.0       | true        | com.trp.amp.app                      | Earlier versions of Rest Easy have been deprecated for use at T Rowe.  Please use a more recent version.
-com.jcraft         | jsch               | 0.1.42       | 0.1.23      | true        | null                                 | The version related to this Group Name and Artifact Name have been deprecated.  Please use a more recent version.
-com.trp.cov.cov1p  | null               | null         | null        | false       | com.trp.ias.ias1p, com.trp.rem.rem1p | This Group Name is restricted to PurePoc Apps only.
-com.trp.amp.aftil  | AMPafutilUTIL      | null         | null        | false       | com.trp.amp.app                      | This Artifact Name is for use by AMP only.
+# Group Name        |  Artifact Name     | Version High | Version Low  | type        | Exempt Consumers                     | Message
+org.ow2.util.scan  | null               | null         | null         | P           | null                                 | Anything related to this Group Name is prohibited.  Please use an alternative.
+ant                | ant-optional       | null         | null         | P           | null                                 | Anything related to this Group Name and Artifact Name is prohibited.  Please use an alternative.
+org.commonjava.ssl | null               | 1.0          | null         | P           | com.trp.sec.app                      | This Group Name and Version pose a security risk.  Please use another implementation of SSL.
+org.apache.solr    | solr-clustering    | 4.3.0        | 3.6.2        | P           | null                                 | The versions related to this Group Name and Artifact Name have been found to cause instability within the WebSphere Environment. Please use alternative.
+org.treetank       | null               | null         | null         | D           | null                                 | The company behind this Group Name has been bought by IBM.  Please convert your application to IBM implementation.
+com.oracle         | ojdbc12            | null         | null         | D           | null                                 | Oracle has implemented a new JDBC interface.  Please migrate to Artifact Name ojdbc14.
+org.jboss          | resteasy-jaxrs-all | 3.0.0        | 0.0.1        | D           | null                                 | Earlier versions of Rest Easy have been deprecated for use at T Rowe.  Please use a more recent version.
+org.jboss          | resteasy-jaxrs-all | 5.0.0        | 4.0.0        | D           | com.trp.amp.app                      | Earlier versions of Rest Easy have been deprecated for use at T Rowe.  Please use a more recent version.
+com.jcraft         | jsch               | 0.1.42       | 0.1.23       | D           | null                                 | The version related to this Group Name and Artifact Name have been deprecated.  Please use a more recent version.
+com.trp.cov.cov1p  | null               | null         | null         | P           | com.trp.ias.ias1p, com.trp.rem.rem1p | This Group Name is restricted to PurePoc Apps only.
+com.trp.amp.aftil  | AMPafutilUTIL      | null         | null         | P           | com.trp.amp.app                      | This Artifact Name is for use by AMP only.

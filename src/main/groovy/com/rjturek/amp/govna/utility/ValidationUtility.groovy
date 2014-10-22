@@ -58,25 +58,25 @@ class ValidationUtility {
                 restrictionCount++
                 logger.info("=============================================================")
                 logger.info("Restriction:     ${restrictionCount}")
-                logger.info("isDeprecated:    ${r.isDeprecated}")
+                logger.info("type:            ${r.type}")
                 logger.info("artifactId:      ${r.artifactId}")
                 logger.info("versionLow:      ${r.versionLow}")
                 logger.info("versionHish:     ${r.versionHigh}")
                 logger.info("message:         ${r.message}")
                 logger.info("exemptConsumers: ${r.exemptConsumers}")
 
-                /* it has been said, if the low number is null, it is 0.0.0, and if the high number is null it is infinity - RJT 10/22/14 */
+                /* it has been said, if the low version is null, it is 0, and if the high version is null it is java MAX_VALUE CONSTANT - RJT 10/22/14 */
                 if (${r.versionLow == null}){
                     logger.fine ( "low version is null. setting it to 0.0.0")
-                    r.versionLow = "0.0.0"
+                    r.versionLow = "0"
                 }
 
                 if (${r.versionHigh} == null){
-                    logger.fine("high version is null. setting it to infinity.infinity.infinity")
-                    r.versionHigh = "1000000000000000.1000000000000000.1000000000000000"
+                    logger.fine("high version is null. setting it to Integer.MAX_VALUE")
+                    r.versionHigh = Integer.MAX_VALUE
                 }
 
-                /* what is the partial story for this row? */
+                /* what is the best/worst story for this restriction? */
                 if ( (r.exemptConsumers != null) && (consumerGroupName in r.exemptConsumers) ) {
                     logger.info("Consumer Group Name is found within the exempt consumers list..........")
 

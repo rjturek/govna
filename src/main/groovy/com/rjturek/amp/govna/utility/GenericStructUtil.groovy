@@ -34,4 +34,17 @@ class GenericStructUtil {
 
         return groupRestrictionsList
     }
+
+    static GroupRestrictions convertGroup(group) {
+        logger.info( "convertGroup" )
+
+        JsonBuilder jsonBuilder = new JsonBuilder(group)
+        def theJson = jsonBuilder.toString()
+
+        Gson gson = new GsonBuilder().create()
+
+        GroupRestrictions groupRestrictions = gson.fromJson(theJson, GroupRestrictions.class)
+
+        return groupRestrictions
+    }
 }
