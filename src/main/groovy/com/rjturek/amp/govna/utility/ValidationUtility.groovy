@@ -57,13 +57,24 @@ class ValidationUtility {
             gr.restrictions.each { r ->
                 restrictionCount++
                 logger.info("=============================================================")
-                logger.info( "Restriction:    ${restrictionCount}")
+                logger.info("Restriction:     ${restrictionCount}")
                 logger.info("isDeprecated:    ${r.isDeprecated}")
                 logger.info("artifactId:      ${r.artifactId}")
                 logger.info("versionLow:      ${r.versionLow}")
                 logger.info("versionHish:     ${r.versionHigh}")
                 logger.info("message:         ${r.message}")
                 logger.info("exemptConsumers: ${r.exemptConsumers}")
+
+                /* it has been said, if the low number is null, it is 0.0.0, and if the high number is null it is infinity - RJT 10/22/14 */
+                if (${r.versionLow == null}){
+                    logger.fine ( "low version is null. setting it to 0.0.0")
+                    r.versionLow = "0.0.0"
+                }
+
+                if (${r.versionHigh} == null){
+                    logger.fine("high version is null. setting it to infinity.infinity.infinity")
+                    r.versionHigh = "1000000000000000.1000000000000000.1000000000000000"
+                }
 
                 /* what is the partial story for this row? */
                 if ( (r.exemptConsumers != null) && (consumerGroupName in r.exemptConsumers) ) {
