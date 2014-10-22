@@ -1,7 +1,7 @@
 {
     "groupName": "org.ow2.util.scan",
     "restrictions": [
-        {"isDeprecated": false,
+        {"type": "D",
         "message": "Anything related to this Group Name is prohibited.  Please use an alternative.",
         "artifactId": null,
         "versionLow": null,
