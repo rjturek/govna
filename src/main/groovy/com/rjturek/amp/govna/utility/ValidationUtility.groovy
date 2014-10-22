@@ -37,7 +37,7 @@ class ValidationUtility {
         logger.fine("version compareTo minVersion: ${version.compareTo(minVersion)}")
         logger.fine("version compareTo maxVersion: ${version.compareTo(maxVersion)}")
 
-        if (version.compareTo(minVersion) == 1 && version.compareTo(maxVersion) == -1) {
+        if (version.compareTo(minVersion) >= 0 && version.compareTo(maxVersion) <= 0) {
             logger.info("Version: ${dependencyVersion} falls between the version range: ${versionLow} - ${versionHigh} ")
             inBoundary = true
         }
