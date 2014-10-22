@@ -52,7 +52,7 @@ class ValidationService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response validateConsumerGroupDependencies( ValidationRequest jsonRequest ) {
-        log("Validating Consumer Group Dependencies")
+        logger.info("Received POST request to validate the consumer group dependencies for : ${jsonRequest.consumerGroup}")
 
         try {
             return Response.ok(vu.checkConsumerGroupRestrictions(jsonRequest)).build()

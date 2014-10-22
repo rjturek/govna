@@ -13,7 +13,8 @@ public class CustomLogFormatter  extends Formatter  {
         //Date date = new Date(log.getMillis())
         String level = log.getLevel().getName()
         //String message = "[custom] " + " " + date.toString() + " " + level.toUpperCase() + " "
-        String message = "[custom] " + level.toUpperCase() + " " + log.getSourceClassName() + " "
+        //String message = "[custom] " + level.toUpperCase() + " " + log.getSourceClassName() + " "
+        String message = "[custom] " + level.toUpperCase() + " "
         message = message + log.getMessage() + "\n";
 
         Throwable thrown = log.getThrown();

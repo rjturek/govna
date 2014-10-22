@@ -23,6 +23,8 @@ dependencies {
     compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
     compile 'javax.servlet:javax.servlet-api:3.0.1'
 
+    compile 'org.apache.maven.artifact:maven-artifact:3.0-alpha-1'
+
     compile 'com.gmongo:gmongo:1.0'
 
     compile 'com.google.code.gson:gson:2.3'

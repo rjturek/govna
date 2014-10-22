@@ -29,14 +29,20 @@ class DependencyDao {
         rstrColl = db.getCollection("restrictions")
     }
 
-    def Object getGroupRestrictionsList() {
-        log("getGroupRestrictionsList")
+    /**
+     * query for all GroupRestrictions in the Database
+     *
+     * @return List<GroupRestrictions>
+     *
+     */
+    def List<GroupRestrictions> getGroupRestrictionsList() {
+        logger.fine("DependencyDao.getGroupRestrictionsList()")
+
         def groups = rstrColl.find()
-        List groupList = []
-        groups.each {
-            groupList.add(it)
-        }
-        groupList
+
+        List<GroupRestrictions> groupRestrictionsList = GenericStructUtil.convertGroupsList(groups)
+
+        return groupRestrictionsList
     }
 
     /**
@@ -44,24 +50,23 @@ class DependencyDao {
      *
      * @return Map (<groupName>,<GroupRestrictions>)
      */
-    def Object getAllGroupRestrictionsMap(){
-        log( "getAllGroupRestrictionsMap" )
+    def Map<String,GroupRestrictions> getAllGroupRestrictionsMap(){
+        logger.fine( "DependencyDao.getAllGroupRestrictionsMap()" )
 
         def groups = getGroupRestrictionsList()
-        List<GroupRestrictions> groupRestrictions = GenericStructUtil.convertGroups(groups)
+        List<GroupRestrictions> groupRestrictionsList = GenericStructUtil.convertGroupsList(groups)
 
-        Map groupMap = [:]
+        Map groupRestrictionsMap = [:]
 
         /* create the map with no duplicate groupNames */
-        groupRestrictions.each{
+        groupRestrictionsList.each{
             /* db integrity check. groupNames are unique. */
-            if (!groupMap.put(it.groupName, it ) == null){
+            if (!groupRestrictionsMap.put(it.groupName, it ) == null){
                 throw new Exception("GroupName: ${it.groupName} exists in Map.  More than 1 groupName returned from DB.")
             }
         }
 
-        groupMap
-
+        groupRestrictionsMap
     }
 
     def Object getGroupRestrictions(groupName) {

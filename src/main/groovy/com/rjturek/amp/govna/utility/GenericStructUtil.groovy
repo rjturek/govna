@@ -20,12 +20,18 @@ class GenericStructUtil {
     // It's a shame that we have to turn the generic structure (list of map of lists of maps)
     // into JSON, just to marshall it into our real structures.  Not too bad, I suppose.
     static List<GroupRestrictions> convertGroupsList(groups) {
+        logger.fine( "GenericStructUtil.convertGroupsList() ")
+
         JsonBuilder jsonBuilder = new JsonBuilder(groups)
-        def theJson = jsonBuilder.toString()
-        log(theJson)
-        Gson gson = new GsonBuilder().create()
-        Type collectionType = new TypeToken<Collection<GroupRestrictions>>(){}.getType();
+        def theJson = jsonBuilder.toPrettyString()
+
+        def gson
+        gson = new GsonBuilder().create()
+
+        Type collectionType = new TypeToken<Collection<GroupRestrictions>>(){}.getType()
+
         List<GroupRestrictions> groupRestrictionsList = gson.fromJson(theJson, collectionType)
+
         return groupRestrictionsList
     }
 }

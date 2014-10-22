@@ -1,15 +1,15 @@
 {
-    "groupName": "bbb",
+    "groupName": "ant",
     "restrictions": [
         {"isDeprecated": true,
-        "message": "Look for an alternative for crying out loud.",
+        "message": "Anything related to this Group Name and Artifact Name is prohibited.  Please use an alternative.",
         "artifactId": null,
-        "versionLow": "1.0",
-        "versionHigh": "2.0",
+        "versionLow": "0.1",
+        "versionHigh": "1.0",
         "exemptConsumers": null},
         {"isDeprecated": false,
          "message": "AWD has one special case",
-         "artifactId": "sumpin",
+         "artifactId": "ant-optional",
          "versionLow": "1.4",
          "versionHigh": "1.4",
          "exemptConsumers": ["com.trp.awd.service","com.trp.awd.tester"]}

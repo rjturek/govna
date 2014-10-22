@@ -285,10 +285,9 @@ class MongoDataLoad {
         loadFile.eachLine { line ->
             if( line.startsWith("#") ) { return }
 
-            def ( t, g, a, h, l, d, p, m ) = line.split( "\\|")
+            def ( g, a, h, l, d, p, m ) = line.split( "\\|")
 
             /* clean up the variables we just received from the split and name them properly */
-            String restrictionType          = t.replaceAll( "\\s", "" )
             String groupName                = g.replaceAll( "\\s", "" )
             String artifactName             = a.replaceAll( "\\s", "" )
             String versionHigh              = h.replaceAll( "\\s", "" )
