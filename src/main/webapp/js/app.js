@@ -140,7 +140,7 @@ angular
     };
 
     $scope.addElement = function() {
-        $scope.groupData.restrictions.push({"isDeprecated": false});
+        $scope.groupData.restrictions.push({});
     };
 
     $scope.removeElement = function(index) {
