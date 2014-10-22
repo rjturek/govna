@@ -8,7 +8,7 @@ angular
     $scope.groupName = null;
     $scope.groupData = null;
 
-    $scope.debugIsCollapsed = false;
+    $scope.debugIsCollapsed = true;
 
     $scope.message = null;
     $scope.notFound = false;

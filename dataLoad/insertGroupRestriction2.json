@@ -1,13 +1,13 @@
 {
     "groupName": "ant",
     "restrictions": [
-        {"isDeprecated": true,
+        {"type": "P",
         "message": "Anything related to this Group Name and Artifact Name is prohibited.  Please use an alternative.",
         "artifactId": null,
         "versionLow": "0.1",
         "versionHigh": "1.0",
         "exemptConsumers": null},
-        {"isDeprecated": false,
+        {"type": "P",
          "message": "AWD has one special case",
          "artifactId": "ant-optional",
          "versionLow": "1.4",

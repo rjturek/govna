@@ -1,13 +1,13 @@
 {
     "groupName": "abc",
     "restrictions": [
-        {"isDeprecated": true,
+        {"type": "D",
         "message": "This is deprecated.",
         "artifactId": "fred",
         "versionLow": "2.0",
         "versionHigh": "4.0",
         "exemptConsumers": ["com.trp.asf.appsec"]},
-        {"isDeprecated": false,
+        {"type": "P",
          "message": null,
          "artifactId": null,
          "versionLow": null,
