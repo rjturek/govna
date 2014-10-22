@@ -140,7 +140,7 @@ angular
     };
 
     $scope.addElement = function() {
-        $scope.groupData.restrictions.push({});
+        $scope.groupData.restrictions.push({type: "P"});
     };
 
     $scope.removeElement = function(index) {
