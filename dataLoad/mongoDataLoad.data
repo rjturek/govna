@@ -11,7 +11,7 @@
 #
 #
 # Group Name       |  Artifact Name     | Version High | Version Low  | type        | Exempt Consumers                     | Message
-org.ow2.util.scan  | wifiutil           | 1.0.25       | 2.5.1        | P           | com.trp.sec.scanner                  | Anything related to this Group Name is prohibited.  Please use an alternative.
+org.ow2.util.scan  | wifiutil           | 2.0.25       | 1.0.5        | P           | com.trp.sec.scanner                  | Anything related to this Group Name is prohibited.  Please use an alternative.
 ant                | ant-optional       | null         | null         | P           | null                                 | Anything related to this Group Name and Artifact Name is prohibited.  Please use an alternative.
 org.commonjava.ssl | null               | 1.0          | null         | P           | com.trp.sec.app                      | This Group Name and Version pose a security risk.  Please use another implementation of SSL.
 org.apache.solr    | solr-clustering    | 4.3.0        | 3.6.2        | P           | null                                 | The versions related to this Group Name and Artifact Name have been found to cause instability within the WebSphere Environment. Please use alternative.
