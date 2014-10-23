@@ -51,16 +51,24 @@ class MongoDataLoad {
 
         if (versionLow == null){
             logger.fine ( "low version is null. setting it to 0")
-            versionLow = "0"
+            versionLow = "0.0.0"
         }
 
         if (versionHigh == null){
             logger.fine("high version is null. setting it to Integer.MAX_VALUE")
-            versionHigh = Integer.MAX_VALUE
+            versionHigh = Integer.MAX_VALUE + "." + Integer.MAX_VALUE + "." + Integer.MAX_VALUE
         }
 
         Restriction restriction =  new Restriction()
-        restriction.type = type
+
+        if (type == 'P'){
+            restriction.type = Restriction.TYPE_PROHIBITED
+        }
+
+        if (type == 'D'){
+            restriction.type = Restriction.TYPE_DEPRECATED
+        }
+
         restriction.artifactId = artifactId
         restriction.versionLow = versionLow
         restriction.versionHigh = versionHigh
