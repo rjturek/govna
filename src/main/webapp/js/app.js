@@ -133,7 +133,7 @@ angular
     };
 
     var handleTrialValidation = function(response) {
-        $scope.validationResponse = {failBuild: false,
+        $scope.validationResponse = {failBuild: true,
             validationResponseElements: [
                 {dependency: "com.trp.amp.app", type: "P", message: "blah blah"},
                 {dependency: "com.trp.amp.util", type: "D", message: "ugga woo"}
