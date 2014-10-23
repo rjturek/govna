@@ -2,7 +2,7 @@
     <div class="row firstRow"  ng-class-even=" 'evenRow' "  ng-class-odd=" 'oddRow' ">
         <div class="col-sm-1">
             <div ng-show="theRestriction.type==='P'" style="color: #B32554">Prohibited</div>
-            <div ng-show="theRestriction.type==='D'" style="color: #855B00">Deprecated</div>
+            <div ng-show="theRestriction.type==='D'" style="color: #b17700">Deprecated</div>
         </div>
         <div class="col-sm-2 text-right">
             Artifact ID
@@ -34,7 +34,7 @@
             </div>
             <div class="col-sm-2 text-right" style="font-size: .7em">
                 <div ng-show="!showMessage" ng-click="showMessage = !showMessage">Show Msg</div>
-                <div ng-show="showMessage" ng-click="showMessage = !showMessage">Hide Msg</div>
+                <div ng-show="showMessage"  ng-click="showMessage = !showMessage">Hide Msg</div>
             </div>
         </div>
         <div ng-show="theRestriction.type==='D'">

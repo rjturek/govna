@@ -13,6 +13,8 @@ angular
     $scope.message = null;
     $scope.notFound = false;
 
+    $scope.validationResponse = null;
+
 
     $scope.groupNameEnterKeyHit = function() {
         if ($scope.notFound) {
@@ -121,12 +123,34 @@ angular
         }
     };
 
+/////////////// Perform Validation ////////////////
+    $scope.trialValidation = function() {
+        handleTrialValidation("duh");  //TODO remove fake
+//        var uri = "http://localhost:8080/api/restrictions/group/" + $scope.groupName;
+//        console.log("Deleting group " + uri);
+//        $http.post(uri)
+//            .then(handleTrialValidation, handleTrialValidationError);
+    };
+
+    var handleTrialValidation = function(response) {
+        $scope.validationResponse = {failBuild: false,
+            validationResponseElements: [
+                {dependency: "com.trp.amp.app", type: "P", message: "blah blah"},
+                {dependency: "com.trp.amp.util", type: "D", message: "ugga woo"}
+            ]};
+    };
+
+    var handleTrialValidationError = function(reason) {
+        $scope.message = "HTTP " + reason.status + " - " + reason.data;
+    };
+
 ////////////////////////////////////////////
     $scope.clearGroup = function () {
         $scope.groupName = null;
-        $scope.groupData = null;
-        $scope.message = null;
-        $scope.notFound = false;
+        $scope.clearStuff();
+//        $scope.groupData = null;
+//        $scope.message = null;
+//        $scope.notFound = false;
     };
 
     $scope.clearStuff = function () {

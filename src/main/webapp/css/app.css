@@ -6,6 +6,10 @@ body {
   /*background: url(../images/mustmono.png) no-repeat top right;*/
 }
 
+textarea {
+  resize: vertical;
+}
+
 .evenRow {
   background-color: white;
 }
