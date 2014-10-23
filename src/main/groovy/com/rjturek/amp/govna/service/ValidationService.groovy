@@ -58,7 +58,7 @@ class ValidationService {
             return Response.ok(vu.checkConsumerGroupRestrictions(jsonRequest)).build()
 
         } catch (Exception e) {
-            log("Exception in validateConsumerGroupDependencies()", e)
+            log("Exception in validateConsumerGroupDependencies()", e.printStackTrace())
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.message).build()
         }
     }

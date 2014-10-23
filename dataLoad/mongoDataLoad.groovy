@@ -49,18 +49,16 @@ class MongoDataLoad {
     private static Restriction createRestriction( String type, String artifactId, String versionLow, String versionHigh, String message, List<String> exemptConsumers ){
         logger.info( "MongoDataLoad.createRestriction()" )
 
-        if (versionLow == null){
-            logger.fine ( "low version is null. setting it to 0")
-            versionLow = "0"
-        }
-
-        if (versionHigh == null){
-            logger.fine("high version is null. setting it to Integer.MAX_VALUE")
-            versionHigh = Integer.MAX_VALUE
-        }
-
         Restriction restriction =  new Restriction()
-        restriction.type = type
+
+        if (type == 'P'){
+            restriction.type = Restriction.TYPE_PROHIBITED
+        }
+
+        if (type == 'D'){
+            restriction.type = Restriction.TYPE_DEPRECATED
+        }
+
         restriction.artifactId = artifactId
         restriction.versionLow = versionLow
         restriction.versionHigh = versionHigh
