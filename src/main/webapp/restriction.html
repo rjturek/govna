@@ -1,41 +1,57 @@
 <form role="form">
     <div class="row firstRow"  ng-class-even=" 'evenRow' "  ng-class-odd=" 'oddRow' ">
-        <div class="col-sm-1 text-center"> </div>
-        <div class="col-sm-2">
-            <input type="radio" ng-model="theRestriction.type" value="P" ng-checked="theRestriction.type==='P'"/>
-            &nbsp;Prohibited
+        <div class="col-sm-1">
+            <div ng-show="theRestriction.type==='P'" style="color: #B32554">Prohibited</div>
+            <div ng-show="theRestriction.type==='D'" style="color: #855B00">Deprecated</div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2 text-right">
+            Artifact ID
+        </div>
+        <div class="col-sm-2"  style="padding-left: 0px">
             <input type="text" ng-model="theRestriction.artifactId">
         </div>
-        <div class="col-sm-2">
-            Low&nbsp;&nbsp;
-            <input type="text" style="width: 85px" ng-model="theRestriction.versionLow"/>
+        <div class="col-sm-3 text-right">
+            Version
+            <input type="text" placeholder="Low" style="width: 85px; padding-left: 0px" ng-model="theRestriction.versionLow"/>
         </div>
-        <div class="col-sm-5">
-            <input type="text" style="width: 100%" ng-model="theRestriction.exemptConsumersString"/>
+        <div class="col-sm-2">
+            <input type="text" placeholder="High" style="width: 85px; padding-left: 0px" ng-model="theRestriction.versionHigh"/>
         </div>
     </div>
     <div class="row secondRow"  ng-class-even=" 'evenRow' "  ng-class-odd=" 'oddRow' ">
-        <div class="col-sm-1 text-center">
-            <span class="glyphicon glyphicon-remove-circle" ng-click="removeElement($index)"></span>
+        <div class="col-sm-1 text-left">
+            <button class="btn btn-default" ng-click="removeElement($index)"
+                    style="position:absolute; top: -6px; right:18px; padding: 2px 2px 2px 2px ">
+                Remove
+            </button>
         </div>
-        <div class="col-sm-2">
-            <input type="radio" ng-model="theRestriction.type" value="D" ng-checked="theRestriction.type==='D'"/>
-            &nbsp;Deprecated
-       </div>
-        <div class="col-sm-2"> </div>
-        <div class="col-sm-2">
-            High&nbsp;
-            <input type="text" style="width: 85px" ng-model="theRestriction.versionHigh"/>
+        <div ng-show="theRestriction.type==='P'">
+            <div class="col-sm-2 text-right">
+                Exempt Consumers
+            </div>
+            <div class="col-sm-7" style="padding-left: 0px">
+                <input type="text" style="width: 100%" ng-model="theRestriction.exemptConsumersString"/>
+            </div>
+            <div class="col-sm-2 text-right" style="font-size: .7em">
+                <div ng-show="!showMessage" ng-click="showMessage = !showMessage">Show Msg</div>
+                <div ng-show="showMessage" ng-click="showMessage = !showMessage">Hide Msg</div>
+            </div>
+        </div>
+        <div ng-show="theRestriction.type==='D'">
+            <div class="col-sm-2 text-right">
+                Message
+            </div>
+            <div class="col-sm-9" style="padding-left: 0px">
+                <input type="text" style="width: 100%" ng-model="theRestriction.message"/>
+            </div>
         </div>
     </div>
-    <div class="row thirdRow"  ng-class-even=" 'evenRow' "  ng-class-odd=" 'oddRow' ">
+    <div class="row thirdRow" ng-show="theRestriction.type==='P' && showMessage"  ng-class-even=" 'evenRow' "  ng-class-odd=" 'oddRow' ">
         <div class="col-sm-1"> </div>
-        <div class="col-sm-1 text-right">
+        <div class="col-sm-2 text-right">
             Message
         </div>
-        <div class="col-sm-10">
+        <div class="col-sm-9" style="padding-left: 0px">
             <input type="text" style="width: 100%" ng-model="theRestriction.message"/>
         </div>
     </div>

@@ -69,8 +69,10 @@ angular
     var fixRestrictions = function() {
         $scope.groupData.restrictions.forEach(function (oneRestriction) {
             // Replace all whitespace with an empty string
-            oneRestriction.exemptConsumersString = oneRestriction.exemptConsumersString.replace(/\s/g, '');
-            oneRestriction.exemptConsumers = oneRestriction.exemptConsumersString.split(',');
+            if (oneRestriction.exemptConsumersString) {
+                oneRestriction.exemptConsumersString = oneRestriction.exemptConsumersString.replace(/\s/g, '');
+                oneRestriction.exemptConsumers = oneRestriction.exemptConsumersString.split(',');
+            }
             delete oneRestriction.exemptConsumersString;  // delete from JSON going back to server.
         });
     };
@@ -139,8 +141,8 @@ angular
         $scope.addElement();
     };
 
-    $scope.addElement = function() {
-        $scope.groupData.restrictions.push({type: "P"});
+    $scope.addElement = function(type) {
+        $scope.groupData.restrictions.push({type: type});
     };
 
     $scope.removeElement = function(index) {

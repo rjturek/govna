@@ -19,41 +19,32 @@
 
 <!--Invisible rectangle to show/hide debug panel-->
 <div ng-style="{'position':'absolute',
-                'top':'24px', 'right':'39px',
+                'top':'11px', 'right':'21px',
                 'width':'40px', 'height':'40px'}" ng-click="debugIsCollapsed = !debugIsCollapsed"></div>
 
+<div class="container-fluid" style="padding: 15px 35px 0px 35px">
 
-<div class="container-fluid" style="padding: 0px 35px 0px 35px">
-
-    <div class="page-header" style="padding: 0px"><h3 style="text-align: center">Build Dependency Governance</h1></div>
-
-
-    <!--Finder-->
-    <div class="panel panel-success" ng-style="{'width': '70%'}">
+    <div class="panel panel-success text-right" ng-style="{'width': '70%'}">
         <div class="panel-heading">
-            <h3 class="panel-title">Find Group Restrictions</h3>
+            <div class="panel-title text-center">Build Dependency Governance</div>
         </div>
         <div class="panel-body">
             <ng-form >
                 <div class="row">
-                    <div class="col-sm-5">
-                        <div class=row">
-                            <input type="search" autofocus="autofocus" placeholder="Group name:" size="37" ng-model="groupName"
-                                ng-keyup="$event.keyCode == 13 && groupNameEnterKeyHit()"
-                                ng-change="clearStuff()"/>
-                        </div>
-                        <div class="row" style="padding-top: 0px">
-                            <span style="padding-left: 20px; font-size: .8em">Wildcard = </span>
-                            <span style="font-size: 1.5em"><sub>*</sub></span>
-                            <span style="padding-left: 20px; font-size: .8em">(TODO: make this work)</span>
-                        </div>
+                    <div class="col-sm-3 text-right">
+                        Fetch Group Restrictions:
                     </div>
-                    <div class="col-sm-4">
-                        &nbsp;&nbsp;&nbsp;
+                    <div class="col-sm-5">
+                        <input type="search" autofocus="autofocus" placeholder="Group name:" size="37" ng-model="groupName"
+                            ng-keyup="$event.keyCode == 13 && groupNameEnterKeyHit()"
+                            ng-change="clearStuff()"/>
+                    </div>
+                    <div class="col-sm-2">
                         <button class="btn btn-default" ng-click="fetchGroup()">
                             <span class="glyphicon glyphicon-search"></span> Find
                         </button>
-                        &nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="col-sm-2">
                         <button class="btn btn-default" ng-click="clearGroup()">
                             <span class="glyphicon glyphicon-remove-circle"></span> Clear
                         </button>
@@ -62,6 +53,8 @@
             </ng-form>
         </div>
     </div>
+
+    <!--Finder-->
 
     <!--Not Found Message-->
     <div ng-if="notFound">
@@ -72,20 +65,28 @@
 
     <!--Group Data-->
     <div class="panel panel-info" ng-if="groupData !== null">
-        <div class="panel-heading" style="font-size: 1.2em; padding: 4px 0px 4px 12px">
+        <div class="panel-heading" style="font-size: 1.2em; padding: 10px 0px 10px 12px">
             <div class="row">
                 <div class="col-md-4">
                     {{groupName}}
                 </div>
-                <div class="col-md-3 ">
-                    <button class="btn btn-default" ng-click="addElement()">
-                        <span class="glyphicon glyphicon-plus-sign"></span> Add One</button>
+                <div class="col-md-2 ">
+                    <button class="btn btn-default" ng-click="addElement('P')" style="color: #B32554">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                        Prohibition
+                    </button>
+                </div>
+                <div class="col-md-2 ">
+                    <button class="btn btn-default" ng-click="addElement('D')" style="color: #855B00">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                        Deprecation
+                    </button>
                 </div>
                 <div class="col-md-2 text-right">
                     <button class="btn btn-default" ng-click="saveGroup()">
                         <span class="glyphicon glyphicon-ok"></span> Save Group</button>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2 text-left">
                     <button class="btn btn-default" ng-click="deleteGroupData()">
                         <span class="glyphicon glyphicon-remove"></span> Delete Group</button>
                  </div>
@@ -95,16 +96,8 @@
          <!--Rows-->
             <!--Header-->
         <div class="panel-body" style="padding: 0px 15px 0px 15px">
-            <div class="row headerRow" >
-                <div class="col-md-1 text-center">Remove</div>
-                <div class="col-md-2 text-center"> </div>
-                <div class="col-md-2">Artifact ID</div>
-                <div class="col-md-2 text-center" data-toggle="tooltip"
-                     data-placement="left" title="Tooltip on top">Version Range</div>
-                <div class="col-md-3">Exempt Groups</div>
-            </div>
             <div ng-repeat="restriction in groupData.restrictions">
-                <div ng-include=" ' restriction.html ' " onload="theRestriction = restriction"> </div>
+                <div ng-include=" ' restriction.html ' " onload="theRestriction = restriction; showMessage=false"> </div>
             </div>
         </div>
 
