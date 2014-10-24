@@ -137,7 +137,7 @@
                     <div>
                         <label style="border: 3px; border-style: solid"
                                ng-style="{'border-color': validationResponse.failBuild ? '#B32554' : '#08c009' }">
-                            <textarea rows="9" cols="100">{{validationResponse.toString()}}</textarea>
+                            <textarea rows="9" cols="100" ng-value="validationResponse"></textarea>
                         </label>
                     </div>
                 </div>
@@ -154,8 +154,6 @@
         <div>{{groupData}}</div><br><br>
         <div ng-repeat="r in groupData.restrictions">{{r}}<br><br></div>
     </div>
-
-
 
 </div>
 

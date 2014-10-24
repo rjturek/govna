@@ -74,34 +74,38 @@ class ValidationUtility {
             logger.info("exemptConsumers: ${r.exemptConsumers}")
             logger.info("=============================================================")
 
-            if (r.artifactId != null) {
+            if (r.artifactId != null && r.artifactId.trim() != "") {
                 if (r.artifactId != dependencyArtifactId) {
+                    logger.info("artifactId is present null and does not match dependency - moving on")
                     continue  // move on to the next restriction, this one does not apply
                 }
             }
 
-            if (r.versionLow != null || r.versionHigh != null) {
-                // If the low version is null set it to 0.
-                // If the high version is null set it to java MAX_VALUE CONSTANT - RJT 10/22/14
-                if (r.versionLow == null) {
-                    logger.fine("low version is null. setting it to 0.0.0")
+            if ((r.versionLow != null && r.versionLow.trim() != "")
+                    ||
+                (r.versionHigh != null && r.versionHigh.trim() != "")) {
+                // If the low version is null/empty set it to 0.
+                // If the high version is null/empty set it to java MAX_VALUE CONSTANT - RJT 10/22/14
+                if (r.versionLow == null || r.versionLow.trim() == "") {
+                    logger.fine("low version is null/empty. setting it to 0.0.0")
                     r.versionLow = "0.0.0"
                 }
-                if (r.versionHigh == null) {
-                    logger.fine("high version is null. setting it to Integer.MAX_VALUE")
+                if (r.versionHigh == null || r.versionHigh.trim() == "") {
+                    logger.fine("high version is null/empty. setting it to Integer.MAX_VALUE")
                     r.versionHigh = Integer.MAX_VALUE + "." + Integer.MAX_VALUE + "." + Integer.MAX_VALUE
                 }
                 if (!checkVersionBoundaries(dependencyVersion, r.versionLow, r.versionHigh)) {
-
+                    logger.info("version ranges are not both null/empty, dependency is not in range - moving on")
                     continue // move on the the next restriction, this one does not apply
                 }
             }
 
-            // Still here?   This restriction element applies to the given dependency.
+            // Still here?   This restriction element applies to the dependency.
 
             // If this is a Prohibition Exemption, the dependency is allowed.  Hallelujah!  Leave the method.
             if ((r.exemptConsumers != null) && (consumerGroupName in r.exemptConsumers)) {
                 assert r.type == Restriction.TYPE_PROHIBITED
+                logger.fine("Prohibition Exemption found - this dependency is OK")
                 return null;
             }
 
@@ -119,6 +123,13 @@ class ValidationUtility {
                 validationResponseElement.message = r.message
             }
         } // end loop over GroupRestrictions restriction elements
+
+        if (validationResponseElement == null) {
+            logger.fine("Returning null validationResponseElement - this dependency is OK.")
+        }
+        else {
+            logger.fine("Returning validationResponseElement type=$validationResponseElement.type")
+        }
 
         return validationResponseElement  // will be null if no restrictions apply
     }
