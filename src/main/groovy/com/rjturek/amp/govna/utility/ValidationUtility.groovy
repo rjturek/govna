@@ -166,7 +166,7 @@ class ValidationUtility {
 
     /**
      * Entry point to compare the ValidationRequest against the Restrictions for the dependencies of the consumerGroup.
-     * The groupRestrictionMap is passed in when doing a trial validation, if null passed in, it will be null and retrieved from the database.
+     * The groupRestrictionMap is passed in when doing a trial validation. When passed in null, the map will be constructed the database.
      *
      * @param ValidationRequest jsonRequest
      * @param Map<String, GroupRestrictions> groupRestrictionsMap
