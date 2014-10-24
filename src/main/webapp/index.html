@@ -113,34 +113,29 @@
                 <div class="col-sm-4">
                     <span>
                         <div>Building this releasable unit...</div>
-                        <input type="text" placeholder="Group name" size="30">{{trialGroup}}</input>
+                        <input type="text" placeholder="Group name" size="30" ng-model="$parent.trialGroup"> </input>
                         <button class="btn btn-default" ng-click="trialValidation()">Validate</button>
                     </span>
                     <div>
                         Requiring these dependencies...
-                        <textarea rows="6" style="width:100%" placeholder="G:A:V G:A:V G:A:V">{{trialDeps}}</textarea>
+                        <textarea rows="6" style="width:100%" placeholder="G:A:V G:A:V G:A:V" ng-model="$parent.trialDeps"> </textarea>
                     </div>
                 </div>
-                <!--Gap-->
-                <h1 class="col-xs-1 text-center" style="min-height: 100%;" >
-                    <span ng-show="validationResponse && !validationResponse.failBuild">
-                        <span class="glyphicon glyphicon-thumbs-up" style="color:#08c009"></span>
-                    </span>
-                    <span ng-show="validationResponse && validationResponse.failBuild">
-                        <span class="glyphicon glyphicon-thumbs-down" style="color:#B32554"></span>
-                    </span>
-                </h1>
                 <!--Validation Outputs-->
-                <div class="col-sm-7"  ng-show="validationResponse">
+                <div class="col-sm-8"  ng-show="validationResponse">
                     <div>
-                        Validation Results...
+                        Validation Results...&nbsp;&nbsp;
+                        <span ng-show="validationResponse && !validationResponse.failBuild">
+                            <span class="glyphicon glyphicon-thumbs-up" style="color:#08c009"></span>
+                        </span>
+                        <span ng-show="validationResponse && validationResponse.failBuild">
+                            <span class="glyphicon glyphicon-thumbs-down" style="color:#B32554"></span>
+                        </span>
                     </div>
                     <div>
-                        <label style="border: 5px; border-style: solid"
+                        <label style="border: 3px; border-style: solid"
                                ng-style="{'border-color': validationResponse.failBuild ? '#B32554' : '#08c009' }">
-                            <textarea rows="9" cols="90">
-                                {{validationResults.failBuild}}
-                            </textarea>
+                            <textarea rows="9" cols="100">{{validationResponse.toString()}}</textarea>
                         </label>
                     </div>
                 </div>

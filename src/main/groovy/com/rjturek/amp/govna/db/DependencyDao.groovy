@@ -94,15 +94,6 @@ class DependencyDao {
         return count
     }
 
-// Probably not needed due to upsert capability - below
-//    def Object insertGroupRestrictions(group) {
-//        log("insertGroupRestrictions")
-//        JsonBuilder jsonBuilder = new JsonBuilder(group)
-//        def theJson = jsonBuilder.toPrettyString()
-//        log(theJson)
-//        rstrColl.insert(new JsonSlurper().parseText(theJson))
-//    }
-
     def Object upsertGroupRestrictions(GroupRestrictions group)  {
         log("updateGroupRestrictions")
         JsonBuilder jsonBuilder = new JsonBuilder(group)

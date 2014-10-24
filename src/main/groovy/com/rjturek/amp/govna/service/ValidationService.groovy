@@ -1,5 +1,7 @@
 package com.rjturek.amp.govna.service
 
+import com.rjturek.amp.govna.dataobj.GroupRestrictions
+import com.rjturek.amp.govna.dataobj.TrialValidationRequest
 import com.rjturek.amp.govna.dataobj.ValidationRequest
 import com.rjturek.amp.govna.utility.ValidationUtility
 
@@ -51,11 +53,31 @@ class ValidationService {
     @Path( "consumerGroup" )
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response validateConsumerGroupDependencies( ValidationRequest jsonRequest ) {
+    public Response validateConsumerGroupDependencies( ValidationRequest request ) {
         logger.info("Received POST request to validate the consumer group dependencies for : ${jsonRequest.consumerGroup}")
 
         try {
-            return Response.ok(vu.checkConsumerGroupRestrictions(jsonRequest)).build()
+            return Response.ok(vu.checkConsumerGroupRestrictions(request, null)).build()
+
+        } catch (Exception e) {
+            log("Exception in validateConsumerGroupDependencies()", e.printStackTrace())
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.message).build()
+        }
+    }
+
+    @POST
+    @Path( "trialValidation" )
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response trialValidation( TrialValidationRequest request ) {
+        logger.info("Received POST request to trial validate the consumer group dependencies for : " +
+                "${request.consumerGroup} using trial group : ${request.groupRestrictions.groupName}")
+
+        try {
+            Map<String, GroupRestrictions> groupRestrictionsMap = new HashMap<String, GroupRestrictions>()
+            groupRestrictionsMap.put(request.groupRestrictions.groupName, request.groupRestrictions)
+
+            return Response.ok(vu.checkConsumerGroupRestrictions(request, groupRestrictionsMap)).build()
 
         } catch (Exception e) {
             log("Exception in validateConsumerGroupDependencies()", e.printStackTrace())

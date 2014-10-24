@@ -119,13 +119,19 @@ class ValidationUtility {
     /**
      *
      */
-    def List<ValidationResponseElement> analyzeDependenciesForRestrictions( ValidationRequest request ){
-        logger.fine( "ValidationUtility.analyzeDependenciesForRestrictions()" )
+    def List<ValidationResponseElement> analyzeDependenciesForRestrictions( ValidationRequest request ) {
+        logger.fine("ValidationUtility.analyzeDependenciesForRestrictions(request)")
 
         /* a poor mans cache of all the restrictions */
-        Map<String, GroupRestrictions> groupRestrictionsMap = dao.getAllGroupRestrictionsMap()
 
-        /* generate a List holder for what we will return. */
+        return analyzeDependenciesForRestrictions(request, groupRestrictionsMap)
+    }
+
+    def List<ValidationResponseElement> analyzeDependenciesForRestrictions (
+                                    ValidationRequest request, Map<String, GroupRestrictions> groupRestrictionsMap)
+    {
+        logger.fine("ValidationUtility.analyzeDependenciesForRestrictions(request, groupRestrictionsMap)")
+       /* generate a List holder for what we will return. */
         List<ValidationResponseElement> validationResponseElementList = Lists.newArrayList()
 
         /* loop through the consumers dependencies and see if any of them have a top level group name restriction
@@ -160,15 +166,24 @@ class ValidationUtility {
 
     /**
      * Entry point to compare the ValidationRequest against the Restrictions for the dependencies of the consumerGroup.
+     * The groupRestrictionMap is passed in when doing a trial validation, if null passed in, it will be null and retrieved from the database.
      *
      * @param ValidationRequest jsonRequest
+     * @param Map<String, GroupRestrictions> groupRestrictionsMap
      * @return ValidationResponse validationResponse
      */
-    def ValidationResponse checkConsumerGroupRestrictions( ValidationRequest jsonRequest ){
+    def ValidationResponse checkConsumerGroupRestrictions(
+                ValidationRequest validationRequest, Map<String, GroupRestrictions> groupRestrictionsMap ) {
+
         logger.fine( "ValidationUtility.checkConsumerGroupRestrictions()" )
 
+        if (groupRestrictionsMap == null) {
+            groupRestrictionsMap = dao.getAllGroupRestrictionsMap()
+        }
+
         /* looking for a list of ValidationResponseElement(s).  One foreach consumer dependency GAV */
-        List<ValidationResponseElement> validationResponseElementsList = analyzeDependenciesForRestrictions( jsonRequest )
+        List<ValidationResponseElement> validationResponseElementsList =
+                    analyzeDependenciesForRestrictions(validationRequest, groupRestrictionsMap )
 
         /* loop over the list and see if we have anything interesting to return to the caller */
         ValidationResponse validationResponse = new ValidationResponse()

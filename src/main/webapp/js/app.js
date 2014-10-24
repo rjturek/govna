@@ -13,8 +13,9 @@ angular
     $scope.message = null;
     $scope.notFound = false;
 
+    $scope.trialGroup = null;
+    $scope.trialDeps  = null;
     $scope.validationResponse = null;
-
 
     $scope.groupNameEnterKeyHit = function() {
         if ($scope.notFound) {
@@ -125,19 +126,22 @@ angular
 
 /////////////// Perform Validation ////////////////
     $scope.trialValidation = function() {
-        handleTrialValidation("duh");  //TODO remove fake
-//        var uri = "http://localhost:8080/api/restrictions/group/" + $scope.groupName;
-//        console.log("Deleting group " + uri);
-//        $http.post(uri)
-//            .then(handleTrialValidation, handleTrialValidationError);
+//      debugger;
+        var uri = "http://localhost:8080/api/validation/trialValidation/";
+        console.log("Trial validating " + uri);
+        $scope.trialDeps = $scope.trialDeps.replace(/\s/g, ',');
+        var dependencyCoordinates = $scope.trialDeps.split(',');
+        var request = {groupRestrictions: $scope.groupData,
+                       consumerGroup: $scope.trialGroup,
+                       dependencyCoordinates: dependencyCoordinates
+                      };
+        $http.post(uri, request)
+            .then(handleTrialValidation, handleTrialValidationError);
     };
 
     var handleTrialValidation = function(response) {
-        $scope.validationResponse = {failBuild: true,
-            validationResponseElements: [
-                {dependency: "com.trp.amp.app", type: "P", message: "blah blah"},
-                {dependency: "com.trp.amp.util", type: "D", message: "ugga woo"}
-            ]};
+        $scope.validationResponse = response.data;
+//      debugger;
     };
 
     var handleTrialValidationError = function(reason) {
@@ -162,7 +166,6 @@ angular
     $scope.newGroupData = function() {
         $scope.notFound = false;
         $scope.groupData = {groupName: $scope.groupName, restrictions: []};
-        $scope.addElement();
     };
 
     $scope.addElement = function(type) {
