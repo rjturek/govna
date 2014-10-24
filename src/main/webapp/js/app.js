@@ -146,7 +146,7 @@ angular
 
     var handleTrialValidationError = function(reason) {
         $scope.message = "HTTP " + reason.status + " - " + reason.data;
-    };
+};
 
 ////////////////////////////////////////////
     $scope.clearGroup = function () {

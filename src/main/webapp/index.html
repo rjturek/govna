@@ -127,18 +127,20 @@
                 <div class="col-sm-8"  ng-show="validationResponse">
                     <div>
                         Validation Results...&nbsp;&nbsp;
-                        <span ng-show="validationResponse && !validationResponse.failBuild">
-                            <span class="glyphicon glyphicon-thumbs-up" style="color:#08c009"></span>
+                        <span ng-show="validationResponse && !validationResponse.failBuild" style="color:#08c009">
+                             &nbsp; Passed
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
                         </span>
-                        <span ng-show="validationResponse && validationResponse.failBuild">
-                            <span class="glyphicon glyphicon-thumbs-down" style="color:#B32554"></span>
+                        <span ng-show="validationResponse && validationResponse.failBuild" style="color:#B32554">
+                             &nbsp; Failed
+                            <span class="glyphicon glyphicon-thumbs-down"></span>
                         </span>
                     </div>
-                    <div>
-                        <label style="border: 3px; border-style: solid"
-                               ng-style="{'border-color': validationResponse.failBuild ? '#B32554' : '#08c009' }">
-                            <textarea rows="9" cols="100" ng-value="validationResponse"></textarea>
-                        </label>
+                    <div ng-style="{'border': '3px', 'border-style': 'solid', 'border-color': validationResponse.failBuild ? '#B32554' : '#08c009' }">
+                        <div>  &nbsp; </div>
+                        <div ng-repeat="elem in validationResponse.validationResponseElements">
+                            dependency: {{elem.dependency}} &nbsp; type: {{elem.type}} &nbsp; message: {{elem.message}}
+                        </div>
                     </div>
                 </div>
             </div>
