@@ -43,125 +43,126 @@ class ValidationUtility {
     }
 
 
-    def ValidationResponseElement buildValidationResponseElement( String consumerGroupName, String dependencyArtifactId, String dependencyVersion, GroupRestrictions groupRestrictions) {
+    // Return null if no group restriction applies to the dependency.
+    def ValidationResponseElement validateDependency( String consumerGroupName, String dependencyArtifactId,
+                                                      String dependencyVersion, GroupRestrictions groupRestrictions) {
         logger.fine( "ValidationUtility.buildValidationResponseElement()" )
         logger.info( "consumer group name: ${consumerGroupName}" )
 
-        ValidationResponseElement validationResponseElement = new ValidationResponseElement()
+        int restrictionCount = 0
 
-        groupRestrictions.each{ gr ->
-            logger.info( "Group Restriction Group Name: ${gr.groupName}" )
+        ValidationResponseElement validationResponseElement = null
 
-            int restrictionCount = 0
+        // Group "Restrictions" come in 3 flavors:
+        //      Deprecation - will not fail a build
+        //      Prohibition - trumps a Deprecation.  Will fail the build
+        //      Prohibition Exemption - trumps Deprecations and Prohibitions - (a.k.a. get out of jail free :-)
+        // Loop over all Group Restrictions.
+        // If we get to the end of the list without finding anything which applies,
+        //    this method will return null.
+        // If we find a Prohibition Exemption, we immediately return null.
+        // Otherwise we'll return a Deprecation or Restriction validationResponseElement.
+        for (r in groupRestrictions.restrictions) {
+            restrictionCount++
+            logger.info("=============================================================")
+            logger.info("Restriction:     ${restrictionCount} of ${groupRestrictions.restrictions.size()}")
+            logger.info("type:            ${r.type}")
+            logger.info("artifactId:      ${r.artifactId}")
+            logger.info("versionLow:      ${r.versionLow}")
+            logger.info("versionHist:     ${r.versionHigh}")
+            logger.info("message:         ${r.message}")
+            logger.info("exemptConsumers: ${r.exemptConsumers}")
+            logger.info("=============================================================")
 
-            gr.restrictions.each { r ->
-                restrictionCount++
-                logger.info("=============================================================")
-                logger.info("Restriction:     ${restrictionCount} of ${gr.restrictions.size()}")
-                logger.info("type:            ${r.type}")
-                logger.info("artifactId:      ${r.artifactId}")
-                logger.info("versionLow:      ${r.versionLow}")
-                logger.info("versionHist:     ${r.versionHigh}")
-                logger.info("message:         ${r.message}")
-                logger.info("exemptConsumers: ${r.exemptConsumers}")
-                logger.info("=============================================================")
+            if (r.artifactId != null) {
+                if (r.artifactId != dependencyArtifactId) {
+                    continue  // move on to the next restriction, this one does not apply
+                }
+            }
 
-                /* it has been said, if the low version is null, it is 0, and if the high version is null, it is java MAX_VALUE CONSTANT - RJT 10/22/14 */
-                if (r.versionLow == null){
-                    logger.fine ( "low version is null. setting it to 0.0.0")
+            if (r.versionLow != null || r.versionHigh != null) {
+                // If the low version is null set it to 0.
+                // If the high version is null set it to java MAX_VALUE CONSTANT - RJT 10/22/14
+                if (r.versionLow == null) {
+                    logger.fine("low version is null. setting it to 0.0.0")
                     r.versionLow = "0.0.0"
                 }
-
-                if (r.versionHigh == null){
+                if (r.versionHigh == null) {
                     logger.fine("high version is null. setting it to Integer.MAX_VALUE")
                     r.versionHigh = Integer.MAX_VALUE + "." + Integer.MAX_VALUE + "." + Integer.MAX_VALUE
                 }
+                if (!checkVersionBoundaries(dependencyVersion, r.versionLow, r.versionHigh)) {
 
-                /*
-                 *  built the validationResponseElement
-                 */
-                if (r.artifactId != null && dependencyArtifactId == r.artifactId){
-                    logger.info("The consumer dependency artifactId matches the artifactId within the restriction........")
-
-                    /* are we an exempt Consumer? */
-                    if ( (r.exemptConsumers != null) && (consumerGroupName in r.exemptConsumers) ) {
-                        logger.info("The consumer is found to be exempt......")
-
-                        /* are we exempt for this version? */
-                        if ( r.versionLow != null && r.versionHigh != null ){
-
-                            boolean inBoundary = checkVersionBoundaries(dependencyVersion, r.versionLow, r.versionHigh )
-                            if (inBoundary) {
-                                logger.info("Dependency Version found within boundary.")
-
-                            } else {
-                                logger.info("Dependency Version found outside of boundary.")
-                                validationResponseElement.type = r.type
-                                validationResponseElement.dependency = "${gr.groupName}:${r.artifactId}:${dependencyVersion}"
-                                validationResponseElement.message = r.message
-
-                                return validationResponseElement
-                            }
-                        }
-                    }else {
-                        logger.info("The consumer is NOT found to be exempt......")
-                    }
-                }else{
-                    logger.info("The consumer dependency artifactId DID NOT match the artifactId within the restriction........")
-
+                    continue // move on the the next restriction, this one does not apply
                 }
             }
-        }
 
-        return validationResponseElement
+            // Still here?   This restriction element applies to the given dependency.
+
+            // If this is a Prohibition Exemption, the dependency is allowed.  Hallelujah!  Leave the method.
+            if ((r.exemptConsumers != null) && (consumerGroupName in r.exemptConsumers)) {
+                assert r.type == Restriction.TYPE_PROHIBITED
+                return null;
+            }
+
+            // If no prior validationResponseElement existed OR
+            // if this restriction is a Prohibition and the prior restriction was a Deprecation
+            // the validationResponseElement will be based on this one.
+            if (validationResponseElement == null
+                    ||
+                (r.type == Restriction.TYPE_PROHIBITED &&
+                 validationResponseElement.type == Restriction.TYPE_DEPRECATED))
+            {
+                validationResponseElement = new ValidationResponseElement()
+                validationResponseElement.dependency = "$consumerGroupName:$dependencyArtifactId:$dependencyVersion"
+                validationResponseElement.type = r.type
+                validationResponseElement.message = r.message
+            }
+        } // end loop over GroupRestrictions restriction elements
+
+        return validationResponseElement  // will be null if no restrictions apply
     }
 
-    /**
-     *
-     */
-    def List<ValidationResponseElement> analyzeDependenciesForRestrictions( ValidationRequest request ) {
-        logger.fine("ValidationUtility.analyzeDependenciesForRestrictions(request)")
-
-        /* a poor mans cache of all the restrictions */
-
-        return analyzeDependenciesForRestrictions(request, groupRestrictionsMap)
-    }
-
-    def List<ValidationResponseElement> analyzeDependenciesForRestrictions (
+    def ValidationResponse analyzeDependenciesForRestrictions (
                                     ValidationRequest request, Map<String, GroupRestrictions> groupRestrictionsMap)
     {
         logger.fine("ValidationUtility.analyzeDependenciesForRestrictions(request, groupRestrictionsMap)")
-       /* generate a List holder for what we will return. */
-        List<ValidationResponseElement> validationResponseElementList = Lists.newArrayList()
 
-        /* loop through the consumers dependencies and see if any of them have a top level group name restriction
-         * TODO: move to separate method.
-         */
+        ValidationResponse validationResponse = new ValidationResponse()
+        validationResponse.failBuild = false
+
+        List<ValidationResponseElement> validationResponseElementList = Lists.newArrayList()  //Cool use of guava, bro.
+        validationResponse.validationResponseElements = validationResponseElementList
+
+        // Loop through the consumer's dependencies. If matching group restrictions exist, pass this to the validate algorithm.
         request.dependencyCoordinates.each{ gav->
             logger.info( "Inspecting dependency Group Artifact and Version: ${gav}" )
 
             def ( dependencyGroupName, dependencyArtifactId, dependencyVersion ) = gav.split( ":" )[0..2]
 
-            /* check the cache Map to see if the dependency group name is a key: meaning there are restrictions applied to the group name.
-             * TODO: Look to implement the Groovy Truth here? meaning groupRestrictionsMap.getKey(dependencyGroupName) instead of contains key.
-             * */
-            if( groupRestrictionsMap.containsKey( dependencyGroupName ) ){
+            // check the cache Map to see if the dependency group name is a key: meaning there are restrictions applied to the group name.
+            if( groupRestrictionsMap.containsKey( dependencyGroupName ) ) {
                 logger.info( "Found a consumer dependency that contains restrictions: ${dependencyGroupName}" )
                 logger.info( "Inspecting restriction.................." )
 
                 GroupRestrictions groupRestrictions = groupRestrictionsMap[dependencyGroupName]
 
-                ValidationResponseElement validationResponseElement = buildValidationResponseElement(request.consumerGroup, dependencyArtifactId, dependencyVersion ,groupRestrictions )
+                ValidationResponseElement validationResponseElement =
+                            validateDependency(request.consumerGroup, dependencyArtifactId, dependencyVersion ,groupRestrictions )
 
-                validationResponseElementList.add(validationResponseElement)
+                if (validationResponseElement != null) {
+                    validationResponseElementList.add(validationResponseElement)
+                    if (validationResponseElement.type == Restriction.TYPE_PROHIBITED) {
+                        validationResponse.failBuild = true
+                    }
+                }
 
             }else{
                 logger.info( "No Group Restrictions found for: ${dependencyGroupName} ")
-                /* I am thinking there isn't a need to add an empty ValidationResponseElement to the list */
             }
         }
 
-        return validationResponseElementList
+        return validationResponse
     }
 
     /**
@@ -181,22 +182,6 @@ class ValidationUtility {
             groupRestrictionsMap = dao.getAllGroupRestrictionsMap()
         }
 
-        /* looking for a list of ValidationResponseElement(s).  One foreach consumer dependency GAV */
-        List<ValidationResponseElement> validationResponseElementsList =
-                    analyzeDependenciesForRestrictions(validationRequest, groupRestrictionsMap )
-
-        /* loop over the list and see if we have anything interesting to return to the caller */
-        ValidationResponse validationResponse = new ValidationResponse()
-        validationResponseElementsList.each{ vre ->
-            if (vre.type != null && vre.type == Restriction.TYPE_PROHIBITED){
-                logger.info("Found a Prohibited type validation response element..  Setting Build to fail. ")
-                validationResponse.failBuild = true
-            }
-        }
-
-        validationResponse.validationResponseElements = validationResponseElementsList
-
-        return validationResponse
-
+        return analyzeDependenciesForRestrictions(validationRequest, groupRestrictionsMap )
     }
 }
