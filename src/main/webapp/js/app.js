@@ -5,6 +5,8 @@ angular
 .controller('MainCtrl', function ($scope, $http, $timeout) {
     'use strict';
 
+    var origin = window.location.origin;
+
     $scope.groupName = null;
     $scope.groupData = null;
 
@@ -45,7 +47,7 @@ angular
             $scope.clearGroup();
         }
         $scope.groupData = null;
-        var uri = "http://localhost:8080/api/restrictions/group/" + $scope.groupName;
+        var uri = origin + "/api/restrictions/group/" + $scope.groupName;
         console.log("Getting group " + uri);
         $http.get(uri)
             .then(handleGetGroup, handleGetGroupError);
@@ -86,7 +88,7 @@ angular
     };
 
     $scope.saveGroupData = function() {
-        var uri = "http://localhost:8080/api/restrictions/group/" + $scope.groupName;
+        var uri = origin + "/api/restrictions/group/" + $scope.groupName;
         console.log("Putting group " + uri);
         $http.put(uri, $scope.groupData)
             .then(handlePutGroup, handlePutGroupError);
@@ -104,7 +106,7 @@ angular
 
 /////////////// Delete group ////////////////
     $scope.deleteGroupData = function() {
-        var uri = "http://localhost:8080/api/restrictions/group/" + $scope.groupName;
+        var uri = origin + "api/restrictions/group/" + $scope.groupName;
         console.log("Deleting group " + uri);
         $http.delete(uri)
             .then(handleDeleteGroup, handleDeleteGroupError);    };
@@ -127,7 +129,7 @@ angular
 /////////////// Perform Validation ////////////////
     $scope.trialValidation = function() {
 //      debugger;
-        var uri = "http://localhost:8080/api/validation/trialValidation/";
+        var uri = origin + "/api/validation/trialValidation/";
         console.log("Trial validating " + uri);
         $scope.trialDeps = $scope.trialDeps.replace(/\s/g, ',');
         var dependencyCoordinates = $scope.trialDeps.split(',');
