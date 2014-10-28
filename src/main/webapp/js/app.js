@@ -180,6 +180,7 @@ angular
     $scope.clearValidation = function () {
         $scope.validationResponse = null;
         $scope.validationInputError = null;
+        $scope.message = null;
     };
 
     $scope.newGroupData = function() {
