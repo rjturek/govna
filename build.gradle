@@ -44,6 +44,7 @@ dependencies {
     compile group: 'org.eclipse.jetty', name: 'jetty-plus', version: v.jetty
     runtime group: 'org.eclipse.jetty', name: 'jetty-jsp', version: v.jetty
     compile group: 'org.eclipse.jetty', name: 'jetty-annotations', version: v.jetty
+    runtime group: 'org.eclipse.jetty', name: 'jetty-jmx', version: v.jetty
 
     testCompile group: 'org.spockframework', name: 'spock-core', version: v.spock
 }
