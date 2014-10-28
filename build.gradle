@@ -53,3 +53,7 @@ groovydoc {
     groovyClasspath = configurations.groovyDoc
 }
 
+war{
+    // sets the main class to run when the generate war be executed using 'java -jar'
+    manifest { attributes 'Main-Class': 'com.rjturek.amp.govna.httpserver.EmbeddedJettyServer' }
+}
