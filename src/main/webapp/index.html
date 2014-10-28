@@ -118,7 +118,7 @@
                 <div class="col-sm-4">
                     <span>
                         <div>Build this releasable unit...</div>
-                        <input type="text" placeholder="Group name" size="30" ng-model="$parent.trialGroup"
+                        <input type="text" placeholder="Group name" size="28" ng-model="$parent.trialGroup"
                                ng-change="clearValidation()"> </input>
                         <button class="btn btn-default" ng-click="trialValidation()">Validate</button>
                     </span>
@@ -142,10 +142,15 @@
                                 <span class="glyphicon glyphicon-thumbs-down"></span>
                             </span>
                         </div>
-                        <div ng-style="{'padding': '10px', 'border': '3px', 'border-style': 'solid', 'border-color': validationResponse.failBuild ? '#B32554' : '#08c009' }">
+                    </div>
+                    <div class="row" ng-show="validationResponse != null">
+                        <div class="col-sm-12"
+                             ng-style="{'padding': '10px', 'border': '3px', 'border-style': 'solid', 'border-color': validationResponse.failBuild ? '#B32554' : '#08c009' }">
                             <div>  &nbsp; </div>
                             <div ng-repeat="elem in validationResponse.validationResponseElements">
-                                dependency: {{elem.dependency}} &nbsp; type: {{elem.type}} &nbsp; message: {{elem.message}}
+                                Dependency: {{elem.dependency}}<br>
+                                Type: {{elem.type === 'P' ? 'Prohibition' : 'Deprecation'}}<br>
+                                Message: {{elem.message}}<br><br>
                             </div>
                         </div>
                     </div>
