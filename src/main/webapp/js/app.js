@@ -18,6 +18,7 @@ angular
     $scope.trialGroup = null;
     $scope.trialDeps  = null;
     $scope.validationResponse = null;
+    $scope.validationInputError = null;
 
     $scope.groupNameEnterKeyHit = function() {
         if ($scope.notFound) {
@@ -128,7 +129,21 @@ angular
 
 /////////////// Perform Validation ////////////////
     $scope.trialValidation = function() {
-//      debugger;
+        if (!$scope.trialGroup || !$scope.trialDeps) {
+            $scope.validationInputError = "You must enter Group name and at least one Dependency.";
+            return;
+        }
+        debugger;
+        var depsString = $scope.trialDeps.replace(/\s/g, '');
+        var depArray = depsString.split(',');
+
+        for(var i=0, l = depArray.length; i < l; i++){
+            if (depArray[i].split(':').length !== 3) {
+                $scope.validationInputError = "Dependencies must be in the form group:artifactID:version.";
+                return;
+            }
+        }
+
         var uri = origin + "/api/validation/trialValidation/";
         console.log("Trial validating " + uri);
         $scope.trialDeps = $scope.trialDeps.replace(/\s/g, ',');
@@ -154,15 +169,17 @@ angular
     $scope.clearGroup = function () {
         $scope.groupName = null;
         $scope.clearStuff();
-//        $scope.groupData = null;
-//        $scope.message = null;
-//        $scope.notFound = false;
     };
 
     $scope.clearStuff = function () {
         $scope.groupData = null;
         $scope.message = null;
         $scope.notFound = false;
+    };
+
+    $scope.clearValidation = function () {
+        $scope.validationResponse = null;
+        $scope.validationInputError = null;
     };
 
     $scope.newGroupData = function() {

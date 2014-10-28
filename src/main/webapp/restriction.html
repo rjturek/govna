@@ -1,7 +1,7 @@
 <form role="form">
     <div class="row firstRow"  ng-class-even=" 'evenRow' "  ng-class-odd=" 'oddRow' ">
         <div class="col-sm-1">
-            <div ng-show="theRestriction.type==='P'" style="color: #B32554">Prohibited</div>
+            <div ng-show="theRestriction.type==='P'" style="color: #B32554">PROHIBITED</div>
             <div ng-show="theRestriction.type==='D'" style="color: #b17700">Deprecated</div>
         </div>
         <div class="col-sm-2 text-right">
@@ -17,14 +17,14 @@
         <div class="col-sm-2">
             <input type="text" placeholder="High" style="width: 85px; padding-left: 0px" ng-model="theRestriction.versionHigh"/>
         </div>
-    </div>
-    <div class="row secondRow"  ng-class-even=" 'evenRow' "  ng-class-odd=" 'oddRow' ">
-        <div class="col-sm-1 text-left">
+        <div class="col-sm-2 text-right">
             <button class="btn btn-default" ng-click="removeElement($index)"
-                    style="position:absolute; top: -6px; right:18px; padding: 2px 2px 2px 2px ">
+                    style="padding: 2px 2px 2px 2px ">
                 Remove
             </button>
         </div>
+    </div>
+    <div class="row secondRow"  ng-class-even=" 'evenRow' "  ng-class-odd=" 'oddRow' ">
         <div ng-show="theRestriction.type==='P'">
             <div class="col-sm-2 text-right">
                 Exempt Consumers

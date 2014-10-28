@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="expires" content="0">
+
 <html ng-app="govna">
 
 <head>
@@ -114,32 +117,42 @@
                 <!--Validation Inputs-->
                 <div class="col-sm-4">
                     <span>
-                        <div>Building this releasable unit...</div>
-                        <input type="text" placeholder="Group name" size="30" ng-model="$parent.trialGroup"> </input>
+                        <div>Build this releasable unit...</div>
+                        <input type="text" placeholder="Group name" size="30" ng-model="$parent.trialGroup"
+                               ng-change="clearValidation()"> </input>
                         <button class="btn btn-default" ng-click="trialValidation()">Validate</button>
                     </span>
                     <div>
-                        Requiring these dependencies...
-                        <textarea rows="6" style="width:100%" placeholder="G:A:V G:A:V G:A:V" ng-model="$parent.trialDeps"> </textarea>
+                        Require these dependencies...
+                        <textarea rows="6" style="width:100%" placeholder="G:A:V, G:A:V, ..."
+                                  ng-model="$parent.trialDeps" ng-change="clearValidation()"> </textarea>
                     </div>
                 </div>
                 <!--Validation Outputs-->
-                <div class="col-sm-8"  ng-show="validationResponse">
-                    <div>
-                        Validation Results...&nbsp;&nbsp;
-                        <span ng-show="validationResponse && !validationResponse.failBuild" style="color:#08c009">
-                             &nbsp; Passed
-                            <span class="glyphicon glyphicon-thumbs-up"></span>
-                        </span>
-                        <span ng-show="validationResponse && validationResponse.failBuild" style="color:#B32554">
-                             &nbsp; Failed
-                            <span class="glyphicon glyphicon-thumbs-down"></span>
-                        </span>
+                <div class="col-sm-8">
+                    <div class="row" ng-show="validationResponse != null">
+                        <div class="col-sm-12">
+                            Validation Results...&nbsp;&nbsp;
+                            <span ng-show="validationResponse && !validationResponse.failBuild" style="color:#08c009">
+                                 &nbsp; Passed
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                            </span>
+                            <span ng-show="validationResponse && validationResponse.failBuild" style="color:#B32554">
+                                 &nbsp; Failed
+                                <span class="glyphicon glyphicon-thumbs-down"></span>
+                            </span>
+                        </div>
+                        <div ng-style="{'padding': '10px', 'border': '3px', 'border-style': 'solid', 'border-color': validationResponse.failBuild ? '#B32554' : '#08c009' }">
+                            <div>  &nbsp; </div>
+                            <div ng-repeat="elem in validationResponse.validationResponseElements">
+                                dependency: {{elem.dependency}} &nbsp; type: {{elem.type}} &nbsp; message: {{elem.message}}
+                            </div>
+                        </div>
                     </div>
-                    <div ng-style="{'border': '3px', 'border-style': 'solid', 'border-color': validationResponse.failBuild ? '#B32554' : '#08c009' }">
-                        <div>  &nbsp; </div>
-                        <div ng-repeat="elem in validationResponse.validationResponseElements">
-                            dependency: {{elem.dependency}} &nbsp; type: {{elem.type}} &nbsp; message: {{elem.message}}
+                    <div class="row" ng-show="validationInputError != null">
+                        <div class="col-sm-12" style="padding: 10px; border: 3px; border-style: solid; border-color: #e19135 ">
+                            Input Error:<br>
+                            {{validationInputError}}
                         </div>
                     </div>
                 </div>
