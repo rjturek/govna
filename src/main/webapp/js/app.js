@@ -2,10 +2,11 @@
 
 angular
 .module('govna', ['ui.bootstrap'])
-.controller('MainCtrl', function ($scope, $http, $timeout) {
+.controller('MainCtrl', function ($scope, $http, $location, $timeout) {
     'use strict';
 
-    var origin = window.location.origin;
+    var origin = $location.protocol() + "://" + $location.host() + ":" + $location.port();
+    console.log("Origin is: " + origin);
 
     $scope.groupName = null;
     $scope.groupData = null;
@@ -107,7 +108,7 @@ angular
 
 /////////////// Delete group ////////////////
     $scope.deleteGroupData = function() {
-        var uri = origin + "api/restrictions/group/" + $scope.groupName;
+        var uri = origin + "/api/restrictions/group/" + $scope.groupName;
         console.log("Deleting group " + uri);
         $http.delete(uri)
             .then(handleDeleteGroup, handleDeleteGroupError);    };
