@@ -99,8 +99,12 @@ angular
 
     var fixRestrictions = function() {
         $scope.groupData.restrictions.forEach(function (oneRestriction) {
+            // If the form string is empty, empty out the array in the object
+            if (oneRestriction.exemptConsumersString.trim() === "") {
+                oneRestriction.exemptConsumers = [];
+            }
             // Replace all whitespace with an empty string
-            if (oneRestriction.exemptConsumersString) {
+            else if (oneRestriction.exemptConsumersString) {
                 oneRestriction.exemptConsumersString = oneRestriction.exemptConsumersString.replace(/\s/g, '');
                 oneRestriction.exemptConsumers = oneRestriction.exemptConsumersString.split(',');
             }
