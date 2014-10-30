@@ -31,6 +31,12 @@ angular
         }
     };
 
+    $scope.selectedGroupFromList = [];
+    $scope.$watch('selectedGroupFromList[0]', function (value) {
+        $scope.groupName = value.groupName;
+        $scope.fetchGroup();
+    });
+
     var createExemptConsumersString = function() {
         if ($scope.groupData.restrictions === null) {
             $scope.groupData.restrictions = [];

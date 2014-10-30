@@ -108,23 +108,25 @@
    </div>
 
     <!-- Group List -->
-    <div class="panel panel-info" ng-if="groupList !== null">
+    <div class="panel panel-info" ng-if="groupList !== null" style="width: 50%">
         <div class="panel-heading" style="font-size: 1.2em; padding: 10px 0px 10px 12px">
             {{groupList.length}} groups with restrictions found.
         </div>
         <div>
-            <table tr-ng-grid="tr-ng-grid" class="table table-condensed" items='groupList' enable-filtering="false" selection-mode="SingleRow">
+            <table tr-ng-grid="" class="table table-condensed" items='groupList'
+                   selection-mode="SingleRow" selected-items="selectedGroupFromList"
+                   enable-sorting="true" order-by="groupName" enable-filtering="false" >
                 <thead>
-                    <tr>
-                        <th field-name="groupName" style="width: 20%"/>
-                        <!--<th field-name="restrictions.length" style="width: 80%"/>-->
+                    <tr >
+                        <th field-name="groupName"/>
+                        <th field-name="restrictions.length;" display-name="Restriction Count" display-align="left" />
                     </tr>
                 </thead>
             </table>
         </div>
     </div>
 
-                <!-- Validation -->
+    <!-- Validation -->
     <div class="panel panel-warning" ng-if="groupData !== null">
         <div class="panel-heading text-center" style="font-size: 1.2em; padding: 6px 0px 6px 0px">
             <span class="glyphicon glyphicon-arrow-down"></span>&nbsp;
