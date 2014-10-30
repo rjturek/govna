@@ -12,21 +12,23 @@
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/bootstrap-glyphicons.css" />
     <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/trNgGrid.min.css" />
 
     <script type="text/javascript" src="js/angular-1.2.9.js" ></script>
     <script type="text/javascript" src="js/ui-bootstrap-tpls-0.11.2.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/trNgGrid.min.js"></script>
+
+
+
 </head>
 
 <body ng-controller="MainCtrl" >
 
 <!--Invisible rectangle to show/hide debug panel-->
-<div ng-style="{'position':'absolute',
-                'top':'11px', 'right':'21px',
-                'width':'40px', 'height':'40px'}" ng-click="debugIsCollapsed = !debugIsCollapsed"></div>
-
 <div class="container-fluid" style="padding: 15px 35px 0px 35px">
 
+    <!--Finder-->
     <div class="panel panel-success text-right" ng-style="{'width': '70%'}">
         <div class="panel-heading">
             <div class="panel-title text-center">Build Dependency Governance</div>
@@ -34,22 +36,25 @@
         <div class="panel-body">
             <ng-form >
                 <div class="row">
-                    <div class="col-sm-3 text-right">
-                        Fetch Group Restrictions:
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="search" autofocus="autofocus" placeholder="Group name:" size="37" ng-model="groupName"
-                            ng-keyup="$event.keyCode == 13 && groupNameEnterKeyHit()"
-                            ng-change="clearStuff()"/>
+                    <div class="col-sm-4">
+                        <input type="search" autofocus="autofocus" placeholder="Group name:" ng-model="groupName"
+                               style="width: 100%"
+                               ng-keyup="$event.keyCode == 13 && groupNameEnterKeyHit()"
+                               ng-change="clearStuff()"/>
                     </div>
                     <div class="col-sm-2">
                         <button class="btn btn-default" ng-click="fetchGroup()">
                             <span class="glyphicon glyphicon-search"></span> Find
                         </button>
                     </div>
-                    <div class="col-sm-2">
-                        <button class="btn btn-default" ng-click="clearGroup()">
+                    <div class="col-sm-2 text-left" style="padding-left: 0px">
+                        <button class="btn btn-default" ng-click="clearAll()" >
                             <span class="glyphicon glyphicon-remove-circle"></span> Clear
+                        </button>
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <button class="btn btn-default" ng-click="listGroups()" >
+                            <span class="glyphicon glyphicon-th-list"></span> List All
                         </button>
                     </div>
                 </div>
@@ -57,7 +62,6 @@
         </div>
     </div>
 
-    <!--Finder-->
 
     <!--Not Found Message-->
     <div ng-if="notFound">
@@ -73,13 +77,13 @@
                 <div class="col-md-4">
                     {{groupName}}
                 </div>
-                <div class="col-md-2 ">
+                <div class="col-md-2 text-right">
                     <button class="btn btn-default" ng-click="addElement('P')" style="color: #B32554">
                         <span class="glyphicon glyphicon-plus-sign"></span>
                         Prohibition
                     </button>
                 </div>
-                <div class="col-md-2 ">
+                <div class="col-md-2 text-left" style="padding-left: 0px">
                     <button class="btn btn-default" ng-click="addElement('D')" style="color: #b17700">
                         <span class="glyphicon glyphicon-plus-sign"></span>
                         Deprecation
@@ -89,23 +93,38 @@
                     <button class="btn btn-default" ng-click="saveGroup()">
                         <span class="glyphicon glyphicon-ok"></span> Save Group</button>
                 </div>
-                <div class="col-md-2 text-left">
+                <div class="col-md-2 text-left" style="padding-left: 0px">
                     <button class="btn btn-default" ng-click="deleteGroupData()">
                         <span class="glyphicon glyphicon-remove"></span> Delete Group</button>
-                 </div>
+                </div>
             </div>
         </div>
-        <!-- Group Restrictions -->
+        <!-- Group Restrictions - repeat -->
         <div class="panel-body" style="padding: 0px 15px 0px 15px">
             <div ng-repeat="restriction in groupData.restrictions">
                 <div ng-include=" ' restriction.html ' " onload="theRestriction = restriction; showMessage=false"> </div>
             </div>
         </div>
+   </div>
 
-
+    <!-- Group List -->
+    <div class="panel panel-info" ng-if="groupList !== null">
+        <div class="panel-heading" style="font-size: 1.2em; padding: 10px 0px 10px 12px">
+            {{groupList.length}} groups with restrictions found.
+        </div>
+        <div>
+            <table tr-ng-grid="tr-ng-grid" class="table table-condensed" items='groupList' enable-filtering="false" selection-mode="SingleRow">
+                <thead>
+                    <tr>
+                        <th field-name="groupName" style="width: 20%"/>
+                        <!--<th field-name="restrictions.length" style="width: 80%"/>-->
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 
-    <!-- Validation -->
+                <!-- Validation -->
     <div class="panel panel-warning" ng-if="groupData !== null">
         <div class="panel-heading text-center" style="font-size: 1.2em; padding: 6px 0px 6px 0px">
             <span class="glyphicon glyphicon-arrow-down"></span>&nbsp;
@@ -176,6 +195,10 @@
     </div>
 
 </div>
+
+<div ng-style="{'position':'absolute',
+                'top':'11px', 'right':'21px',
+                'width':'40px', 'height':'40px'}" ng-click="debugIsCollapsed = !debugIsCollapsed"></div>
 
 </body>
 

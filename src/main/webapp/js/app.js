@@ -1,7 +1,7 @@
 /*global angular*/    // Stop jsLint from complaining about globally defined variables.
 
 angular
-.module('govna', ['ui.bootstrap'])
+.module('govna', ['ui.bootstrap', 'trNgGrid'])
 .controller('MainCtrl', function ($scope, $http, $location, $timeout) {
     'use strict';
 
@@ -10,6 +10,7 @@ angular
 
     $scope.groupName = null;
     $scope.groupData = null;
+    $scope.groupList = null;
 
     $scope.debugIsCollapsed = true;
 
@@ -40,6 +41,23 @@ angular
             }
             oneRestriction.exemptConsumersString = oneRestriction.exemptConsumers.join(', ');
         });
+    };
+
+///////////// List groups /////////////////
+    $scope.listGroups = function () {
+        $scope.clearAll();
+        var uri = origin + "/api/restrictions/groups/";
+        console.log("Getting groups " + uri);
+        $http.get(uri)
+            .then(handleListGroups, handleListGroupsError);
+    };
+
+    var handleListGroups = function(response) {
+        $scope.groupList = response.data;
+    };
+
+    var handleListGroupsError = function(reason) {
+        $scope.message = "HTTP " + reason.status + " - " + reason.data;
     };
 
 ///////////// Fetch group /////////////////
@@ -167,15 +185,17 @@ angular
 };
 
 ////////////////////////////////////////////
-    $scope.clearGroup = function () {
+    $scope.clearAll = function () {
         $scope.groupName = null;
         $scope.clearStuff();
     };
 
     $scope.clearStuff = function () {
         $scope.groupData = null;
+        $scope.groupList = null;
         $scope.message = null;
         $scope.notFound = false;
+        $scope.clearValidation();
     };
 
     $scope.clearValidation = function () {
