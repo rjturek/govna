@@ -50,11 +50,11 @@ class ValidationService {
      * @return ValidationResponse
      */
     @POST
-    @Path( "consumerGroup" )
+    @Path( "buildValidation" )
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response validateConsumerGroupDependencies( ValidationRequest request ) {
-        logger.info("Received POST request to validate the consumer group dependencies for : ${request.consumerGroup}")
+    public Response buildValidation( ValidationRequest request ) {
+        logger.info("Received POST request to validate the consumer group dependencies for the build of: ${request.consumerGroup}")
 
         try {
             return Response.ok(vu.checkConsumerGroupRestrictions(request, null)).build()
@@ -82,19 +82,6 @@ class ValidationService {
         } catch (Exception e) {
             log("Exception in validateConsumerGroupDependencies()", e.printStackTrace())
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.message).build()
-        }
-    }
-
-    @GET
-    @Path("test")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Object sayHello() {
-        log("GET hello")
-        try {
-            return "{hello : world}"
-        }
-        catch (Exception e) {
-            log("Exception in hello world", e)
         }
     }
 }
