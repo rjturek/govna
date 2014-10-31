@@ -1,12 +1,12 @@
 apply plugin: 'groovy'
 apply plugin: 'idea'
+apply plugin: 'java'
 
 configurations {
     groovyDoc
 }
 
 dependencies {
-
     compile 'org.codehaus.groovy:groovy-all:2.3.6'
     groovyDoc 'org.codehaus.groovy:groovy-groovydoc:2.3.6'
     groovyDoc 'org.codehaus.groovy:groovy-ant:2.3.6'    // yes you need the groovy-ant for groovyDoc
