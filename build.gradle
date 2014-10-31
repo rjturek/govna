@@ -2,8 +2,10 @@ apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'war'
 
-repositories {
-    mavenCentral()
+allprojects{
+    repositories {
+        mavenCentral()
+    }
 }
 
 configurations {
