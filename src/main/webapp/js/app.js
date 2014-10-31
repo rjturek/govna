@@ -30,12 +30,9 @@ angular
                     { name: 'numDeprecations', field: 'numDeprecations'}
                 ],
                 enableSorting:true,
-                enableRowSelection: true,
-                enableRowHeaderSelection: false,
                 multiSelect: false,
-                modifierKeysToMultiSelect:false,
-                noUnselect: true,
-                minRowsToShow: 5
+                noUnselect: true
+               // minRowsToShow: 5
             };
 
     var fillInRestrictions = function() {
