@@ -1,39 +1,41 @@
 /*global angular*/    // Stop jsLint from complaining about globally defined variables.
 
 angular
-.module('govna', ['ui.bootstrap', 'ui.grid'])
+.module('govna', ['ui.bootstrap', 'ui.grid', 'ui.grid.selection' ])
 .controller('MainCtrl', function ($scope, $http, $location, $timeout) {
-        'use strict';
+    'use strict';
 
-        var origin = $location.protocol() + "://" + $location.host() + ":" + $location.port();
-        console.log("Origin is: " + origin);
+    var origin = $location.protocol() + "://" + $location.host() + ":" + $location.port();
+    console.log("Origin is: " + origin);
 
-        $scope.groupName = null;
-        $scope.groupData = null;
-        $scope.groupList = null;
+    $scope.groupName = null;
+    $scope.groupData = null;
+    $scope.groupList = null;
 
-        $scope.debugIsCollapsed = true;
+    $scope.debugIsCollapsed = true;
 
-        $scope.message = null;
-        $scope.notFound = false;
+    $scope.message = null;
+    $scope.notFound = false;
 
-        $scope.trialGroup = null;
-        $scope.trialDeps = null;
-        $scope.validationResponse = null;
-        $scope.validationInputError = null;
+    $scope.trialGroup = null;
+    $scope.trialDeps = null;
+    $scope.validationResponse = null;
+    $scope.validationInputError = null;
 
-        $scope.groupGridOptions =
-            {
-                columnDefs: [
-                    { name: 'group', field: 'groupName'},
-                    { name: 'numProhibitions', field: 'numProhibitions'},
-                    { name: 'numDeprecations', field: 'numDeprecations'}
-                ],
-                enableSorting:true,
-                multiSelect: false,
-                noUnselect: true
-               // minRowsToShow: 5
-            };
+    $scope.groupGridOptions =
+        {
+            columnDefs: [
+                { name: 'group', field: 'groupName'},
+                { name: 'numProhibitions', field: 'numProhibitions'},
+                { name: 'numDeprecations', field: 'numDeprecations'}
+            ],
+            enableSorting:true,
+            multiSelect: false,
+            noUnselect: true,
+            enableRowHeaderSelection: false,
+            enableRowSelection: true
+           // minRowsToShow: 5
+        };
 
     var fillInRestrictions = function() {
         for (var i = 0, l = $scope.groupList.length; i < l; i++) {
@@ -41,6 +43,7 @@ angular
             $scope.groupList[i].numDeprecations = countRestrictions('D', $scope.groupList[i].restrictions);
         }
     };
+
 
     var countRestrictions = function(type, restrictionsList) {
         var count = 0;
@@ -51,13 +54,6 @@ angular
         }
         return count;
     };
-
-//    $scope.groupGridOptions.enableSorting = true;
-//    $scope.groupGridOptions.enableRowSelection = true;
-//    $scope.groupGridOptions.enableRowHeaderSelection = false;
-//    $scope.groupGridOptions.multiSelect = false;
-//    $scope.groupGridOptions.modifierKeysToMultiSelect = false;
-//    $scope.groupGridOptions.noUnselect = true;
 
     $scope.groupNameEnterKeyHit = function() {
         if ($scope.notFound) {
@@ -77,6 +73,14 @@ angular
                 oneRestriction.exemptConsumers = [];
             }
             oneRestriction.exemptConsumersString = oneRestriction.exemptConsumers.join(', ');
+        });
+    };
+
+    $scope.groupGridOptions.onRegisterApi = function(gridApi) {
+        $scope.gridApi = gridApi;
+        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+            $scope.groupName = row.entity.groupName;
+            $scope.fetchGroup();
         });
     };
 
