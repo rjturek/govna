@@ -60,8 +60,8 @@ class GovnaClient {
                     log.severe("Failed response from: ${server}")
                 }
             }
-        } catch (java.net.ConnectException e){
-            log.severe(${e.message})
+        } catch (ConnectException e){
+            log.severe(e.message)
         }
     }
 }
