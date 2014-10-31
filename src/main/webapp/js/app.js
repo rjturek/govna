@@ -28,7 +28,13 @@ angular
                     { name: 'group', field: 'groupName'},
                     { name: 'numProhibitions', field: 'numProhibitions'},
                     { name: 'numDeprecations', field: 'numDeprecations'}
-                ]
+                ],
+                enableSorting:true,
+                enableRowSelection: true,
+                enableRowHeaderSelection: false,
+                multiSelect: false,
+                modifierKeysToMultiSelect:false,
+                noUnselect: true
             };
 
     var fillInRestrictions = function() {
@@ -48,8 +54,12 @@ angular
         return count;
     };
 
-    $scope.groupGridOptions.enableSorting = true;
-    $scope.groupGridOptions.enableRowSelection = true;
+//    $scope.groupGridOptions.enableSorting = true;
+//    $scope.groupGridOptions.enableRowSelection = true;
+//    $scope.groupGridOptions.enableRowHeaderSelection = false;
+//    $scope.groupGridOptions.multiSelect = false;
+//    $scope.groupGridOptions.modifierKeysToMultiSelect = false;
+//    $scope.groupGridOptions.noUnselect = true;
 
     $scope.groupNameEnterKeyHit = function() {
         if ($scope.notFound) {
@@ -83,7 +93,6 @@ angular
 
     var handleListGroups = function(response) {
         $scope.groupList = response.data;
-        fillInRestrictions();
         $scope.groupGridOptions.data = $scope.groupList.sort(function(a,b){
             if (a.groupName > b.groupName) {
                 return 1;
@@ -93,6 +102,7 @@ angular
             }
             return 0;
         });
+        fillInRestrictions();
     };
 
     var handleListGroupsError = function(reason) {
@@ -195,9 +205,9 @@ angular
             $scope.validationInputError = "You must enter Group name and at least one Dependency.";
             return;
         }
-        debugger;
-        var depsString = $scope.trialDeps.replace(/\s/g, '');
-        var depArray = depsString.split(',');
+//        debugger;
+        var depsString = $scope.trialDeps.replace(/\s/g, '\n');
+        var depArray = depsString.split('\n');
 
         for(var i=0, l = depArray.length; i < l; i++){
             if (depArray[i].split(':').length !== 3) {
@@ -208,8 +218,8 @@ angular
 
         var uri = origin + "/api/validation/trialValidation/";
         console.log("Trial validating " + uri);
-        $scope.trialDeps = $scope.trialDeps.replace(/\s/g, ',');
-        var dependencyCoordinates = $scope.trialDeps.split(',');
+        $scope.trialDeps = $scope.trialDeps.replace(/\s/g, '\n');
+        var dependencyCoordinates = $scope.trialDeps.split('\n');
         var request = {groupRestrictions: $scope.groupData,
                        consumerGroup: $scope.trialGroup,
                        dependencyCoordinates: dependencyCoordinates

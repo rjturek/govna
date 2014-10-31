@@ -106,7 +106,8 @@
 
     <!-- Group List -->
     <div ng-show="groupList">
-        <div id="grid1"  ui-grid="groupGridOptions" class="groupsGrid"></div>
+        <div style="padding-bottom: 8px">{{groupList.length}} groups with restrictions found:</div>
+        <div id="grid1" ui-grid="groupGridOptions" class="groupsGrid" ui-grid-selection></div>
     </div>
 
     <!-- Validation -->
@@ -128,7 +129,8 @@
                     </span>
                     <div>
                         Require these dependencies...
-                        <textarea rows="6" style="width:100%" placeholder="G:A:V, G:A:V, ..."
+                        <textarea rows="6" style="width:100%"
+                                  placeholder="G:A:V                                                                                              G:A:V"
                                   ng-model="$parent.trialDeps" ng-change="clearValidation()"> </textarea>
                     </div>
                 </div>
