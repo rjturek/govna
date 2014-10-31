@@ -118,7 +118,7 @@ class ValidationUtility {
                  validationResponseElement.type == Restriction.TYPE_DEPRECATED))
             {
                 validationResponseElement = new ValidationResponseElement()
-                validationResponseElement.dependency = "$consumerGroupName:$dependencyArtifactId:$dependencyVersion"
+                validationResponseElement.dependency = "$groupRestrictions.groupName:$dependencyArtifactId:$dependencyVersion"
                 validationResponseElement.type = r.type
                 validationResponseElement.message = r.message
             }

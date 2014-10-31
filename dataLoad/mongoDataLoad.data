@@ -21,4 +21,4 @@ org.jboss          | resteasy-jaxrs-all | 3.0.0        | 0.0.1        | D       
 org.jboss          | resteasy-jaxrs-all | 5.0.0        | 4.0.0        | D           | com.trp.amp.app                      | Earlier versions of Rest Easy have been deprecated for use at T Rowe.  Please use a more recent version.
 com.jcraft         | jsch               | 0.1.42       | 0.1.23       | D           | null                                 | The version related to this Group Name and Artifact Name have been deprecated.  Please use a more recent version.
 com.trp.cov.cov1p  | null               | null         | null         | P           | com.trp.ias.ias1p, com.trp.rem.rem1p | This Group Name is restricted to PurePoc Apps only.
-com.trp.amp.aftil  | AMPafutilUTIL      | null         | null         | P           | com.trp.amp.app                      | This Artifact Name is for use by AMP only.
+com.trp.amp.afutil | AMPafutilUTIL      | null         | null         | P           | com.trp.amp.app                      | This Artifact Name is for use by AMP only.
