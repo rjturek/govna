@@ -34,7 +34,8 @@ angular
                 enableRowHeaderSelection: false,
                 multiSelect: false,
                 modifierKeysToMultiSelect:false,
-                noUnselect: true
+                noUnselect: true,
+                minRowsToShow: 5
             };
 
     var fillInRestrictions = function() {
@@ -143,7 +144,9 @@ angular
     var fixRestrictions = function() {
         $scope.groupData.restrictions.forEach(function (oneRestriction) {
             // If the form string is empty, empty out the array in the object
-            if (oneRestriction.exemptConsumersString.trim() === "") {
+            if (oneRestriction.exemptConsumers !== undefined &&
+                oneRestriction.exemptConsumers !== null &&
+                oneRestriction.exemptConsumersString.trim() === "") {
                 oneRestriction.exemptConsumers = [];
             }
             // Replace all whitespace with an empty string
