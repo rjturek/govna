@@ -12,15 +12,12 @@
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/bootstrap-glyphicons.css" />
     <link rel="stylesheet" href="css/app.css" />
-    <link rel="stylesheet" href="css/trNgGrid.min.css" />
+    <link rel="stylesheet" href="css/ui-grid-3.0.0-rc.12.css" />
 
-    <script type="text/javascript" src="js/angular-1.2.9.js" ></script>
+    <script type="text/javascript" src="js/angular-1.2.20.js" ></script>
     <script type="text/javascript" src="js/ui-bootstrap-tpls-0.11.2.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/trNgGrid.min.js"></script>
-
-
-
+    <script type="text/javascript" src="js/ui-grid-3.0.0-rc.12.js"></script>
 </head>
 
 <body ng-controller="MainCtrl" >
@@ -108,22 +105,8 @@
    </div>
 
     <!-- Group List -->
-    <div class="panel panel-info" ng-if="groupList !== null" style="width: 50%">
-        <div class="panel-heading" style="font-size: 1.2em; padding: 10px 0px 10px 12px">
-            {{groupList.length}} groups with restrictions found.
-        </div>
-        <div>
-            <table tr-ng-grid="" class="table table-condensed" items='groupList'
-                   selection-mode="SingleRow" selected-items="selectedGroupFromList"
-                   enable-sorting="true" order-by="groupName" enable-filtering="false" >
-                <thead>
-                    <tr >
-                        <th field-name="groupName"/>
-                        <th field-name="restrictions.length;" display-name="Restriction Count" display-align="left" />
-                    </tr>
-                </thead>
-            </table>
-        </div>
+    <div ng-show="groupList">
+        <div id="grid1"  ui-grid="groupGridOptions" class="groupsGrid"></div>
     </div>
 
     <!-- Validation -->

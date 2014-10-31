@@ -33,3 +33,8 @@ textarea {
 .thirdRow {
   padding: 0px 0px 12px 0px;
 }
+
+.groupsGrid {
+  width: 40%;
+  height: 268px;
+}

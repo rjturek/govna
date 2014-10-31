@@ -1,26 +1,55 @@
 /*global angular*/    // Stop jsLint from complaining about globally defined variables.
 
 angular
-.module('govna', ['ui.bootstrap', 'trNgGrid'])
+.module('govna', ['ui.bootstrap', 'ui.grid'])
 .controller('MainCtrl', function ($scope, $http, $location, $timeout) {
-    'use strict';
+        'use strict';
 
-    var origin = $location.protocol() + "://" + $location.host() + ":" + $location.port();
-    console.log("Origin is: " + origin);
+        var origin = $location.protocol() + "://" + $location.host() + ":" + $location.port();
+        console.log("Origin is: " + origin);
 
-    $scope.groupName = null;
-    $scope.groupData = null;
-    $scope.groupList = null;
+        $scope.groupName = null;
+        $scope.groupData = null;
+        $scope.groupList = null;
 
-    $scope.debugIsCollapsed = true;
+        $scope.debugIsCollapsed = true;
 
-    $scope.message = null;
-    $scope.notFound = false;
+        $scope.message = null;
+        $scope.notFound = false;
 
-    $scope.trialGroup = null;
-    $scope.trialDeps  = null;
-    $scope.validationResponse = null;
-    $scope.validationInputError = null;
+        $scope.trialGroup = null;
+        $scope.trialDeps = null;
+        $scope.validationResponse = null;
+        $scope.validationInputError = null;
+
+        $scope.groupGridOptions =
+            {
+                columnDefs: [
+                    { name: 'group', field: 'groupName'},
+                    { name: 'numProhibitions', field: 'numProhibitions'},
+                    { name: 'numDeprecations', field: 'numDeprecations'}
+                ]
+            };
+
+    var fillInRestrictions = function() {
+        for (var i = 0, l = $scope.groupList.length; i < l; i++) {
+            $scope.groupList[i].numProhibitions = countRestrictions('P', $scope.groupList[i].restrictions);
+            $scope.groupList[i].numDeprecations = countRestrictions('D', $scope.groupList[i].restrictions);
+        }
+    };
+
+    var countRestrictions = function(type, restrictionsList) {
+        var count = 0;
+        for(var i=0, l = restrictionsList.length; i < l; i++) {
+            if (restrictionsList[i].type === type) {
+               count++;
+            }
+        }
+        return count;
+    };
+
+    $scope.groupGridOptions.enableSorting = true;
+    $scope.groupGridOptions.enableRowSelection = true;
 
     $scope.groupNameEnterKeyHit = function() {
         if ($scope.notFound) {
@@ -30,12 +59,6 @@ angular
             $scope.fetchGroup();
         }
     };
-
-    $scope.selectedGroupFromList = [];
-    $scope.$watch('selectedGroupFromList[0]', function (value) {
-        $scope.groupName = value.groupName;
-        $scope.fetchGroup();
-    });
 
     var createExemptConsumersString = function() {
         if ($scope.groupData.restrictions === null) {
@@ -60,6 +83,16 @@ angular
 
     var handleListGroups = function(response) {
         $scope.groupList = response.data;
+        fillInRestrictions();
+        $scope.groupGridOptions.data = $scope.groupList.sort(function(a,b){
+            if (a.groupName > b.groupName) {
+                return 1;
+            }
+            if (a.groupName < b.groupName) {
+                return -1;
+            }
+            return 0;
+        });
     };
 
     var handleListGroupsError = function(reason) {
