@@ -13,13 +13,13 @@ import org.apache.maven.artifact.versioning.DefaultArtifactVersion
 
 /**
  * Created by ckell on 10/6/14.
+ * TODO: return all ValidationResponseElements and not just bail on the first prohibit one we see..
  */
 class ValidationUtility {
 
     static Logger logger = Logger.getLogger("sharedLogger")
     DependencyDao dao = new DependencyDao()
 
-    //TODO: convert any version to semantic version scheme. in other words, get rid of the weird text in versions.
     def boolean checkVersionBoundaries(String dependencyVersion, String versionLow, String versionHigh){
         logger.fine( "ValidationUtility.checkVersionBoundaries()" )
         logger.info( "determining if ${dependencyVersion} falls between ${versionLow} and ${versionHigh}")
@@ -106,7 +106,7 @@ class ValidationUtility {
             if ((r.exemptConsumers != null) && (consumerGroupName in r.exemptConsumers)) {
                 assert r.type == Restriction.TYPE_PROHIBITED
                 logger.fine("Prohibition Exemption found - this dependency is OK")
-                return null;
+                //return null;
             }
 
             // If no prior validationResponseElement existed OR
