@@ -62,7 +62,7 @@ class GovnaClient {
                         "dependencyCoordinates": [
                                 "log4j:log4j:1.2.17",
                                 "com.trp.amp.afutil:AMPafutilUTIL:1.5.10",
-                                "org.ow2.util.scan:wifiutil:3.0.2.",
+                                "org.ow2.util.scan:wifiutil:2.0.2.",
                                 "org.jdom:jdom:1.1.1"
                         ]
                 ]
