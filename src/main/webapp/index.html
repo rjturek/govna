@@ -125,22 +125,22 @@
         <div class="panel-body" ng-show="!validationCollapse">
             <div class="row">
                 <!--Validation Inputs-->
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <span>
                         <div>Build this releasable unit...</div>
-                        <input type="text" placeholder="Group name" size="28" ng-model="$parent.trialGroup"
+                        <input type="text" placeholder="com.trp.mne.ru-name" size="28" ng-model="$parent.trialGroup"
                                ng-change="clearValidation()"> </input>
                         <button class="btn btn-default" ng-click="trialValidation()">Validate</button>
                     </span>
                     <div>
                         Require these dependencies...
                         <textarea rows="6" style="width:100%"
-                                  placeholder="G:A:V                                                                                              G:A:V"
+                                  placeholder="group:artifactID:version (one per line)"
                                   ng-model="$parent.trialDeps" ng-change="clearValidation()"> </textarea>
                     </div>
                 </div>
                 <!--Validation Outputs-->
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                     <div class="row" ng-show="validationResponse != null">
                         <div class="col-sm-12">
                             Validation Results...&nbsp;&nbsp;

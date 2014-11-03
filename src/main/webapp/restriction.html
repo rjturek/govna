@@ -37,7 +37,7 @@
                 <input type="text" style="width: 100%" ng-model="theRestriction.exemptConsumersString"/>
             </div>
             <div class="col-sm-2 text-right" style="font-size: .7em">
-                <div ng-show="!showMessage" ng-click="showMessage = !showMessage">Show Msg</div>
+                <div ng-show="!showMessage" ng-click="showMessage = !showMessage">Show Msg<span ng-show="theRestriction.message">*</span></div>
                 <div ng-show="showMessage"  ng-click="showMessage = !showMessage">Hide Msg</div>
             </div>
         </div>
