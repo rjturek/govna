@@ -17,6 +17,7 @@ angular
     $scope.message = null;
     $scope.notFound = false;
 
+    $scope.validationCollapse = true;
     $scope.trialGroup = null;
     $scope.trialDeps = null;
     $scope.validationResponse = null;

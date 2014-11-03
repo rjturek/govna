@@ -114,12 +114,15 @@
 
     <!-- Validation -->
     <div class="panel panel-warning" ng-if="groupData !== null">
-        <div class="panel-heading text-center" style="font-size: 1.2em; padding: 6px 0px 6px 0px">
-            <span class="glyphicon glyphicon-arrow-down"></span>&nbsp;
-            Run the Build Validation Logic Using the Above Group Restrictions
-            &nbsp;<span class="glyphicon glyphicon-arrow-up"></span>
+        <div class="panel-heading text-left" ng-show="validationCollapse" ng-click="validationCollapse = !validationCollapse">
+            <span class="glyphicon glyphicon-chevron-right"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Validation
         </div>
-        <div class="panel-body">
+        <div class="panel-heading"
+                    ng-show="!validationCollapse" ng-click="validationCollapse = !validationCollapse">
+            <span class="glyphicon glyphicon-chevron-down"></span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Run the Build Validation Logic Using the Above Group Restrictions
+        </div>
+        <div class="panel-body" ng-show="!validationCollapse">
             <div class="row">
                 <!--Validation Inputs-->
                 <div class="col-sm-4">
