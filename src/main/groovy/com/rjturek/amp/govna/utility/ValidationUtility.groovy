@@ -107,6 +107,7 @@ class ValidationUtility {
                 assert r.type == Restriction.TYPE_PROHIBITED
                 logger.fine("Prohibition Exemption found - this dependency is OK")
                 //return null;
+                continue
             }
 
             // If no prior validationResponseElement existed OR
