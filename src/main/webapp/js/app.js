@@ -115,7 +115,7 @@ angular
 ///////////// Fetch group /////////////////
     $scope.fetchGroup = function () {
         $scope.clearStuff();
-        if ($scope.groupName.length === 0) {
+        if (!$scope.groupName) {
             $scope.clearGroup();
         }
         $scope.groupData = null;
