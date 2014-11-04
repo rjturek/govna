@@ -77,13 +77,13 @@
                 </div>
                 <div class="col-md-2 text-right">
                     <button class="btn btn-default" ng-click="addElement('P')" style="color: #B32554">
-                        <span class="glyphicon glyphicon-plus-sign"></span>
+                        <span class="glyphicon glyphicon-plus"></span>
                         Prohibition
                     </button>
                 </div>
                 <div class="col-md-2 text-left" style="padding-left: 0px">
                     <button class="btn btn-default" ng-click="addElement('D')" style="color: #b17700">
-                        <span class="glyphicon glyphicon-plus-sign"></span>
+                        <span class="glyphicon glyphicon-plus"></span>
                         Deprecation
                     </button>
                 </div>
@@ -141,7 +141,7 @@
                 </div>
                 <!--Validation Outputs-->
                 <div class="col-sm-6">
-                    <div class="row" ng-show="validationResponse != null">
+                    <div class="row" ng-show="validationResponse != null" style="padding-bottom: 20px">
                         <div class="col-sm-12">
                             Validation Results...&nbsp;&nbsp;
                             <span ng-show="validationResponse && !validationResponse.failBuild" style="color:#08c009">
@@ -156,8 +156,7 @@
                     </div>
                     <div class="row" ng-show="validationResponse != null">
                         <div class="col-sm-12"
-                             ng-style="{'padding': '10px', 'border': '3px', 'border-style': 'solid', 'border-color': validationResponse.failBuild ? '#B32554' : '#08c009' }">
-                            <div>  &nbsp; </div>
+                             ng-style="{'padding': '8px', 'border': '3px', 'border-style': 'solid', 'border-color': validationResponse.failBuild ? '#B32554' : '#08c009' }">
                             <div ng-repeat="elem in validationResponse.validationResponseElements">
                                 Dependency: {{elem.dependency}}<br>
                                 Type: {{elem.type === 'P' ? 'Prohibition' : 'Deprecation'}}<br>
@@ -184,10 +183,16 @@
     <div collapse="debugIsCollapsed" style="background-color: #F4F4F4; padding: 12px">
         <div>{{groupData}}</div><br><br>
         <div ng-repeat="r in groupData.restrictions">{{r}}<br><br></div>
+        <div>
+            Validation Response ..... <br>
+            {{validationResponse}}
+        </div>
     </div>
 
 </div>
 
+
+<!--Click the monocle to reveal the debug info-->
 <div ng-style="{'position':'absolute',
                 'top':'11px', 'right':'21px',
                 'width':'40px', 'height':'40px'}" ng-click="debugIsCollapsed = !debugIsCollapsed"></div>

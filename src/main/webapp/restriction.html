@@ -1,4 +1,4 @@
-<form role="form">
+<div>
     <div class="row firstRow"  ng-class-even=" 'evenRow' "  ng-class-odd=" 'oddRow' ">
         <div class="col-sm-1">
             <div ng-show="theRestriction.type==='P'" style="color: #B32554">PROHIBITED</div>
@@ -34,7 +34,9 @@
                 Exempt Consumers
             </div>
             <div class="col-sm-7" style="padding-left: 0px">
-                <input type="text" style="width: 100%" ng-model="theRestriction.exemptConsumersString"/>
+                <input type="text" style="width: 100%"
+                       placeholder="comma separated list of allowed groups"
+                       ng-model="theRestriction.exemptConsumersString"/>
             </div>
             <div class="col-sm-2 text-right" style="font-size: .7em">
                 <div ng-show="!showMessage" ng-click="showMessage = !showMessage">Show Msg<span ng-show="theRestriction.message">*</span></div>
@@ -59,4 +61,4 @@
             <input type="text" style="width: 100%" ng-model="theRestriction.message"/>
         </div>
     </div>
-</form>
+</div>
