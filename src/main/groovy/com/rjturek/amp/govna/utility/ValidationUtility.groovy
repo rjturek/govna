@@ -106,7 +106,7 @@ class ValidationUtility {
             if ((r.exemptConsumers != null) && (consumerGroupName in r.exemptConsumers)) {
                 assert r.type == Restriction.TYPE_PROHIBITED
                 logger.fine("Prohibition Exemption found - this dependency is OK")
-                //return null;
+                return null;
             }
 
             // If no prior validationResponseElement existed OR
