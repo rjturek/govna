@@ -34,7 +34,7 @@ class ValidationService {
     }
     @Context Request request
 
-    ValidationUtility vu = new ValidationUtility()
+    ValidationUtility validationUtility = new ValidationUtility()
 
     /**
      * REST api url to POST json structure to tell the story of which dependencies have restrictions
@@ -56,7 +56,7 @@ class ValidationService {
         logger.info("Received POST request to validate the consumer group dependencies for the build of: ${request.consumerGroup}")
 
         try {
-            return Response.ok(vu.checkConsumerGroupRestrictions(request, null)).build()
+            return Response.ok(validationUtility.checkConsumerGroupRestrictions(request, null)).build()
 
         } catch (Exception e) {
             log("Exception in validateConsumerGroupDependencies()", e.printStackTrace())
@@ -76,7 +76,7 @@ class ValidationService {
             Map<String, GroupRestrictions> groupRestrictionsMap = new HashMap<String, GroupRestrictions>()
             groupRestrictionsMap.put(request.groupRestrictions.groupName, request.groupRestrictions)
 
-            return Response.ok(vu.checkConsumerGroupRestrictions(request, groupRestrictionsMap)).build()
+            return Response.ok(validationUtility.checkConsumerGroupRestrictions(request, groupRestrictionsMap)).build()
 
         } catch (Exception e) {
             log("Exception in validateConsumerGroupDependencies()", e.printStackTrace())
