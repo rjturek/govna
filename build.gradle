@@ -13,6 +13,9 @@ allprojects{
     repositories {
         mavenCentral()
     }
+
+    group = "us.kellerman.govna"
+    version = " 1.0.1"
 }
 
 configurations {
