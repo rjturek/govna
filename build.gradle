@@ -1,6 +1,13 @@
+
+plugins {
+    id "org.sonarqube" version "1.0"
+}
+
+
 apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'war'
+apply plugin: 'maven'
 
 allprojects{
     repositories {

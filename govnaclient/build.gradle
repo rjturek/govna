@@ -1,6 +1,7 @@
 apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'java'
+apply plugin: 'maven'
 
 configurations {
     groovyDoc
