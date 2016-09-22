@@ -36,3 +36,5 @@
 *.sublime-*
 .nb-gradle
 *.class
+*.jar
+
