@@ -37,4 +37,5 @@
 .nb-gradle
 *.class
 *.jar
+govnaclient/build/
 
